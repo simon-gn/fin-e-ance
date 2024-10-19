@@ -1,3 +1,11 @@
-node_modules
-
+# Global Node.js ignores
+node_modules/
 .env
+*.log
+
+# MacOS specific files
+.DS_Store
+
+# Build directories
+dist/
+build/
