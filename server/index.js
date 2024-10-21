@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 // Add the static middleware here to serve the "public" folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
