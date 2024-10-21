@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://personal-finance-dashboard-x1fy.onrender.com';
 
 export const registerUser = async (userData) => {
   const response = await axios.post(`${API_URL}/auth/register`, userData);
