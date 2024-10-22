@@ -6,7 +6,7 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false); // To toggle the transaction form
-  const [activeTransactionId, setActiveTransactionId] = useState(null); // Track the active transaction
+  const [selectedTransactionId, setSelectedTransactionId] = useState(null); // Track the selected transaction
 
   // States for adding new transactions
   const [type, setType] = useState('Expense');
@@ -47,7 +47,7 @@ const Dashboard = () => {
   };
 
   const handleTransactionClick = (transactionId) => {
-    setActiveTransactionId(transactionId === activeTransactionId ? null : transactionId); // Toggle active transaction
+    setSelectedTransactionId(transactionId === selectedTransactionId ? null : transactionId); // Toggle active transaction
   };
 
   const handleRemoveTransaction = async (transactionId) => {
@@ -177,7 +177,7 @@ const Dashboard = () => {
               <td>${transaction.amount}</td>
               <td>{transaction.category}</td>
               <td>{transaction.description}</td>
-              {activeTransactionId === transaction._id && (
+              {selectedTransactionId === transaction._id && (
                 <td className='action-cell'>
                   <button onClick={(e) => {
                       e.stopPropagation(); // Prevent triggering the parent click event
