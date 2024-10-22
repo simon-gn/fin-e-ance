@@ -14,9 +14,14 @@ const RegisterPage = () => {
     e.preventDefault();
 
     try {
-      const data = await registerUser({ name, email, password });
-      localStorage.setItem('token', data.token);
-      navigate('/dashboard');
+      const response = await registerUser({ name, email, password });
+
+      if (response.status === 400) {
+        setError(response.data.msg);
+      } else {
+        localStorage.setItem('token', response.data.token);
+        navigate('/dashboard');
+      }
     } catch (err) {
       setError('Registration failed');
     }

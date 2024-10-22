@@ -12,11 +12,16 @@ const HomePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await loginUser({ email, password });
-      localStorage.setItem('token', data.token);
-      navigate('/dashboard');
+      const response = await loginUser({ email, password });
+
+      if (response.status === 400) {
+        setError(response.data.msg);
+      } else {
+        localStorage.setItem('token', response.data.token);
+        navigate('/dashboard');
+      }
     } catch (err) {
-      setError('Invalid email or password');
+      setError('Login failed');
     }
   };
 
@@ -50,7 +55,7 @@ const HomePage = () => {
               required
               placeholder="Enter your password" />
           </div>
-          {error && <p>{error}</p>}
+          {error && <p className="error-message">{error}</p>}
           <button type="submit" className="btn-login">Login</button>
         </form>
         <p className="signup-text">

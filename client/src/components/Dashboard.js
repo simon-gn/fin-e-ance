@@ -22,8 +22,8 @@ const Dashboard = () => {
     const fetchTransactions = async () => {
       try {
         const token = localStorage.getItem('token');
-        const data = await getTransactions(token);
-        setTransactions(data);
+        const response = await getTransactions(token);
+        setTransactions(response.data);
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -38,8 +38,8 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem('token');
       const newTransaction = { type, amount, category, description };
-      const savedTransaction = await addTransaction(newTransaction, token);
-      setTransactions((prevTransactions) => [...prevTransactions, savedTransaction]);
+      const response = await addTransaction(newTransaction, token);
+      setTransactions((prevTransactions) => [...prevTransactions, response.data]);
       setShowForm(false);
     } catch (err) {
       console.error('Error adding transaction:', err);

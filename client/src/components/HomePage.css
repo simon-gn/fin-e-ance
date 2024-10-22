@@ -5,6 +5,7 @@
     --input_bg_color: #fff;
     --input_border_color: #ccc;
     --input_focus_color: var(--main_color);
+    --error_color: #e74c3c;
   }
   
   body {
@@ -116,3 +117,8 @@
     color: var(--main_color_hover);
   }
   
+  .error-message {
+    color: var(--error_color);
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
