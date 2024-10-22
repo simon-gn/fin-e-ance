@@ -1,7 +1,7 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
-const TransactionBarChart = ({ transactions }) => {
+const BarChart = ({ transactions }) => {
   // Group and sum transactions by category
   const data = transactions.reduce((acc, transaction) => {
     const existingCategory = acc.find(item => item.category === transaction.category);
@@ -47,4 +47,4 @@ const TransactionBarChart = ({ transactions }) => {
   );
 };
 
-export default TransactionBarChart;
+export default BarChart;

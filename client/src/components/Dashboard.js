@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getTransactions, addTransaction, deleteTransaction } from '../services/api';
-import TransactionBarChart from './TransactionBarChart';
+import BarChart from './BarChart';
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
@@ -9,13 +9,13 @@ const Dashboard = () => {
   const [activeTransactionId, setActiveTransactionId] = useState(null); // Track the active transaction
 
   // States for adding new transactions
-  const [type, setType] = useState('expense');
+  const [type, setType] = useState('Expense');
   const [category, setCategory] = useState('Food');
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
 
   // States for filtering
-  const [filterType, setFilterType] = useState(''); // All, income, expense
+  const [filterType, setFilterType] = useState(''); // All, Income, Expense
   const [filterCategory, setFilterCategory] = useState(''); // Filter by category
 
   useEffect(() => {
@@ -73,13 +73,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="dashboard" style={{ padding: '20px', maxWidth: '1000px', margin: '0 auto' }}>
+    <div className="dashboard">
       <h2>Dashboard</h2>
-
-      {/* Charts */}
-      <div style={{ height: '400px', marginBottom: '50px' }}>
-        <TransactionBarChart transactions={filteredTransactions} />
-      </div>
 
       {/* Button Add Transaction */}
       <button onClick={() => setShowForm(!showForm)}>
@@ -88,12 +83,12 @@ const Dashboard = () => {
 
       {/* Transaction Form */}
       {showForm && (
-        <form onSubmit={handleAddTransaction} style={{ marginTop: '20px' }}>
+        <form onSubmit={handleAddTransaction}>
           <div>
             <label htmlFor="type">Type:</label>
             <select id="type" name="type" value={type} onChange={(e) => setType(e.target.value)}>
-              <option value="income">Income</option>
-              <option value="expense">Expense</option>
+              <option value="Income">Income</option>
+              <option value="Expense">Expense</option>
             </select>
           </div>
           <div>
@@ -132,7 +127,7 @@ const Dashboard = () => {
       )}
 
       {/* Filter Taskbar */}
-      <div style={{ marginTop: '20px' }}>
+      <div>
         <h3>Filter Transactions</h3>
         <div>
           <label htmlFor="filter-type">Filter by Type: </label>
@@ -143,8 +138,8 @@ const Dashboard = () => {
             onChange={(e) => setFilterType(e.target.value)}
           >
             <option value="">All</option>
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
+            <option value="Income">Income</option>
+            <option value="Expense">Expense</option>
           </select>
         </div>
         <div>
@@ -166,24 +161,42 @@ const Dashboard = () => {
       </div>
 
       {/* Transaction List */}
-      <ul>
-        {filteredTransactions.map((transaction) => (
-          <li key={transaction._id} onClick={() => handleTransactionClick(transaction._id)} style={{ cursor: 'pointer' }}>
-            {transaction.type} - ${transaction.amount} - {transaction.category} - {transaction.description}
-            {activeTransactionId === transaction._id && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation(); // Prevent triggering the parent click event
-                  handleRemoveTransaction(transaction._id);
-                }}
-                style={{ marginLeft: '10px', color: 'red', cursor: 'pointer' }}
-              >
-                Remove
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredTransactions.map((transaction) => (
+            <tr key={transaction._id} onClick={() => handleTransactionClick(transaction._id)}>
+              <td>{transaction.type}</td>
+              <td>${transaction.amount}</td>
+              <td>{transaction.category}</td>
+              <td>{transaction.description}</td>
+              {activeTransactionId === transaction._id && (
+                <td className='action-cell'>
+                  <button onClick={(e) => {
+                      e.stopPropagation(); // Prevent triggering the parent click event
+                      handleRemoveTransaction(transaction._id);
+                    }}>
+                    Remove
+                  </button>
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      
+      {/* Charts */}
+      <div className="chart">
+        <BarChart transactions={filteredTransactions} />
+      </div>
+
     </div>
   );
 };
