@@ -13,6 +13,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Prevent horizontal scrolling on mobile */
 }
 
 code {
@@ -25,11 +26,13 @@ h1, h2, h3 {
 }
 
 .dashboard {
+  max-width: 100%;
   background-color: white;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  overflow-x: auto; /* Add scrolling if necessary */
 }
 
 .dashboard h2 {
@@ -41,6 +44,9 @@ button {
   background-color: var(--main_color);
   color: white;
   border: none;
+  max-width: 100%;
+  width: auto;
+  box-sizing: border-box;
   border-radius: 5px;
   padding: 10px 20px;
   margin-left: 10px;
@@ -86,7 +92,6 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  border-radius: 5px;
 }
 
 th, td {
@@ -115,12 +120,41 @@ tr:hover {
 }
 
 .chart {
-  width: 120%;
+  width: 100%;
+  max-width: 100%;
   height: 400px;
-  max-width: 1200px;
   margin: 20px auto;
   background-color: white;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+/* Media Queries for smaller screens */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 10px;
+  }
+
+  input[type="text"], input[type="number"], select {
+    width: 100%;
+  }
+
+  button {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+
+  .chart {
+    height: 300px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
 }

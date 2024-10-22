@@ -16,7 +16,7 @@ const BarChart = ({ transactions }) => {
       data={data}
       keys={['amount']}
       indexBy='category'
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+      margin={{ top: 50, right: 20, bottom: 50, left: 30 }}
       padding={0.3}
       valueScale={{ type: 'linear' }}
       indexScale={{ type: 'band', round: true }}
