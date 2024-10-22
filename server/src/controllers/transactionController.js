@@ -10,9 +10,9 @@ exports.getTransactions = async (req, res) => {
 };
 
 exports.addTransaction = async (req, res) => {
-  const { type, amount, category, description } = req.body;
+  const { type, category, amount, description } = req.body;
   try {
-    const newTransaction = new Transaction({ user: req.user.id, type, amount, category, description });
+    const newTransaction = new Transaction({ user: req.user.id, type, category, amount, description });
     const savedTransaction = await newTransaction.save();
     res.json(savedTransaction);
   } catch (err) {
