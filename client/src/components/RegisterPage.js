@@ -28,7 +28,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="register-page">
+    <div className="registerpage">
       <div className="register-box">
         <h1>Create Your Account</h1>
         <form className='register-form' onSubmit={handleSubmit}>
@@ -66,7 +66,7 @@ const RegisterPage = () => {
             />
           </div>
           {error && <p className="error-message">{error}</p>}
-          <button type="submit">Register</button>
+          <button type="submit">Sign up</button>
         </form>
       </div>
     </div>

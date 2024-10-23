@@ -32,7 +32,7 @@ const HomePage = () => {
         <p>Track your financial transactions with ease.</p>
       </div>
 
-      <div className="login-section">
+      <div className="login-box">
         <h1>Login to Your Account</h1>
         <form className="login-form" onSubmit={handleSubmit}>
           <div>

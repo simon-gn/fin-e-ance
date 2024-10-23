@@ -1,4 +1,4 @@
-.register-page {
+.registerpage {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,16 +16,16 @@
   width: 100%;
 }
 
-.register-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
 .register-box h1 {
   font-size: 24px;
   color: var(--main_color);
   margin-bottom: 20px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .error-message {
