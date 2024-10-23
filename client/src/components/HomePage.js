@@ -28,14 +28,14 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <div className="hero-section">
-        <h1>Welcome to the Personal Finance Dashboard</h1>
+        <h1>fin(e)ance.</h1>
         <p>Track your financial transactions with ease.</p>
       </div>
 
       <div className="login-section">
-        <h2>Login to Your Account</h2>
+        <h1>Login to Your Account</h1>
         <form className="login-form" onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div>
             <label htmlFor="email">Email</label>
             <input 
               type="email"
@@ -45,7 +45,7 @@ const HomePage = () => {
               required
               placeholder="Enter your email" />
           </div>
-          <div className="form-group">
+          <div>
             <label htmlFor="password">Password</label>
             <input 
               type="password"
@@ -56,7 +56,7 @@ const HomePage = () => {
               placeholder="Enter your password" />
           </div>
           {error && <p className="error-message">{error}</p>}
-          <button type="submit" className="btn-login">Login</button>
+          <button type="submit">Login</button>
         </form>
         <p className="signup-text">
           Don't have an account? <Link to="/register" className="signup-link">Sign Up</Link>
