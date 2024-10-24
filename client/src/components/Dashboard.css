@@ -26,7 +26,7 @@
   width: 98%;
 }
 
-.new-transaction-section {
+.new-transaction-container {
   margin-bottom: 50px;
 }
 .new-transaction-form {
@@ -36,6 +36,23 @@
 }
 .new-transaction-form div {
   width: calc(50% - 10px);
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.filter-form div {
+  width: calc(25% - 10px);
+}
+.date-inputs-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.date-inputs-container div {
+  flex: 1;
 }
 
 /* Transaction Table */
