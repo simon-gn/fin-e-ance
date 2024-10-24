@@ -1,7 +1,80 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getTransactions, addTransaction, deleteTransaction } from '../services/api';
 import BarChart from './BarChart';
 import './Dashboard.css';
+
+// --- helper functions ---
+const getDateRange = (range, customStartDate, customEndDate) => {
+  let startDate = new Date();
+  let endDate = new Date();
+  startDate.setHours(0, 0, 0, 0);
+
+  switch (range) {
+    case 'Today':
+      break;
+    case 'Yesterday':
+      startDate.setDate(startDate.getDate() - 1);
+      endDate.setDate(endDate.getDate() - 1);
+      endDate.setHours(23, 59, 59, 999);
+      break;
+    case 'Last 7 Days':
+      startDate.setDate(startDate.getDate() - 7);
+      break;
+    case 'Last Month':
+      startDate.setMonth(startDate.getMonth() - 1);
+      break;
+    case 'Last 3 Month':
+      startDate.setMonth(startDate.getMonth() - 3);
+      break;
+    case 'Last 6 Month':
+      startDate.setMonth(startDate.getMonth() - 6);
+      break;
+    case 'Last Year':
+      startDate.setFullYear(startDate.getFullYear() - 1);
+      break;
+    case 'Custom Range':
+      if (customStartDate && customEndDate) {
+        startDate = new Date(customStartDate);
+        startDate.setHours(0, 0, 0, 0);
+        endDate = new Date(customEndDate);
+        endDate.setHours(23, 59, 59, 999);
+      } else {
+        startDate = null;
+        endDate = null;
+      }
+      break;
+    default:
+      startDate = null;
+      endDate = null;
+  }
+  
+  return { startDate, endDate };
+};
+
+const formatDate = (date) => {
+  const transactionDate = new Date(date);
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+  let day;
+  
+  if (transactionDate.toDateString() === today.toDateString())
+    day = 'Today';
+  else if (transactionDate.toDateString() === yesterday.toDateString())
+    day = 'Yesterday';
+  else
+    day = transactionDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+
+    return `${day}, ${transactionDate.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+    })}`;
+}
+// ------
 
 const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
@@ -19,31 +92,36 @@ const Dashboard = () => {
   const [description, setDescription] = useState('');
 
   // States for filtering
-  const [filterType, setFilterType] = useState(''); // All, Income, Expense
-  const [filterCategory, setFilterCategory] = useState(''); // Filter by category
+  const [filterDateRange, setFilterDateRange] = useState('');
+  const [filterCustomStartDate, setFilterCustomStartDate] = useState('');
+  const [filterCustomEndDate, setFilterCustomEndDate] = useState('');
+  const [filterType, setFilterType] = useState('');
+  const [filterCategory, setFilterCategory] = useState('');
+
+  const fetchTransactions = useCallback(async () => {
+    try {
+      const { startDate, endDate } = getDateRange(filterDateRange, filterCustomStartDate, filterCustomEndDate);
+      const token = localStorage.getItem('token');
+      const response = await getTransactions(filterType, filterCategory, startDate, endDate, token);
+      setTransactions(response.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [filterType, filterCategory, filterDateRange, filterCustomStartDate, filterCustomEndDate]);
 
   useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await getTransactions(token);
-        setTransactions(response.data);
-        setLoading(false);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
     fetchTransactions();
-  }, []);
+  }, [fetchTransactions]);
 
   const handleAddTransaction = async (e) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
       const newTransaction = { type, amount, category, description };
-      const response = await addTransaction(newTransaction, token);
-      setTransactions((prevTransactions) => [...prevTransactions, response.data]);
+      await addTransaction(newTransaction, token);
+      fetchTransactions();
       setShowNewTransactionForm(false);
     } catch (err) {
       console.error('Error adding transaction:', err);
@@ -64,14 +142,6 @@ const Dashboard = () => {
     }
   };
 
-  // Filter transactions based on selected type and category
-  const filteredTransactions = transactions.filter(transaction => {
-    return (
-      (filterType === '' || transaction.type === filterType) && 
-      (filterCategory === '' || transaction.category === filterCategory)
-    );
-  });
-
   if (loading) {
     return <p>Loading transactions...</p>;
   }
@@ -86,7 +156,7 @@ const Dashboard = () => {
       <div className="dashboard-box">
 
         {/* New Transaction Section */}
-        <div className='new-transaction-section'>
+        <div className='new-transaction-container'>
           {!showNewTransactionForm && (
             <button onClick={() => setShowNewTransactionForm(true)}>
               New Transaction
@@ -133,7 +203,7 @@ const Dashboard = () => {
                 />
               </div>
               <button type="submit">Add Transaction</button>
-              <button type="cancel" onClick={() => setShowNewTransactionForm(false)}>
+              <button type="button" onClick={() => setShowNewTransactionForm(false)}>
                 Cancel
               </button>
             </form>
@@ -145,18 +215,23 @@ const Dashboard = () => {
           {showFilterForm ? 'Cancel' : 'Filter'}
         </button>
         {showFilterForm && (
-          <form className="transaction-form">
+          <form className="filter-form">
             <div>
-              <label htmlFor="filter-type">Filter by Type</label>
+              <label htmlFor="filter-date-range">Filter by Date</label>
               <select
-                id="filter-type"
-                name="filterType"
-                value={filterType}
-                onChange={(e) => setFilterType(e.target.value)}
+                id="filter-date-range"
+                value={filterDateRange}
+                onChange={(e) => setFilterDateRange(e.target.value)}
               >
                 <option value="">All</option>
-                <option value="Income">Income</option>
-                <option value="Expense">Expense</option>
+                <option value="Today">Today</option>
+                <option value="Yesterday">Yesterday</option>
+                <option value="Last 7 Days">Last 7 Days</option>
+                <option value="Last Month">Last Month</option>
+                <option value="Last 3 Month">Last 3 Month</option>
+                <option value="Last 6 Month">Last 6 Month</option>
+                <option value="Last Year">Last Year</option>
+                <option value="Custom Range">Custom Range</option>
               </select>
             </div>
             <div>
@@ -175,6 +250,42 @@ const Dashboard = () => {
                 <option value="Groceries">Groceries</option>
               </select>
             </div>
+            <div>
+              <label htmlFor="filter-type">Filter by Type</label>
+              <select
+                id="filter-type"
+                name="filterType"
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+              >
+                <option value="">All</option>
+                <option value="Income">Income</option>
+                <option value="Expense">Expense</option>
+              </select>
+            </div>
+            {/* If 'Custom Range' is selected, show date inputs */}
+            {filterDateRange === 'Custom Range' && (
+              <div className='date-inputs-container'>
+                <div>
+                  <label htmlFor="custom-start-date">Start Date</label>
+                  <input
+                    type="date"
+                    id="custom-start-date"
+                    value={filterCustomStartDate}
+                    onChange={(e) => setFilterCustomStartDate(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="custom-end-date">End Date</label>
+                  <input
+                    type="date"
+                    id="custom-end-date"
+                    value={filterCustomEndDate}
+                    onChange={(e) => setFilterCustomEndDate(e.target.value)}
+                  />
+                </div>
+              </div>
+            )}
           </form>
         )}
 
@@ -182,6 +293,7 @@ const Dashboard = () => {
         <table>
           <thead>
             <tr>
+              <th>Date</th>
               <th>Type</th>
               <th>Amount</th>
               <th>Category</th>
@@ -189,8 +301,9 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredTransactions.map((transaction) => (
+            {transactions.map((transaction) => (
               <tr key={transaction._id} onClick={() => handleTransactionClick(transaction._id)}>
+              <td>{formatDate(transaction.date)}</td>
                 <td>{transaction.type}</td>
                 <td>${transaction.amount}</td>
                 <td>{transaction.category}</td>
@@ -214,7 +327,7 @@ const Dashboard = () => {
 
       {/* Charts */}
       <div className="chart-box">
-        <BarChart transactions={filteredTransactions} />
+        <BarChart transactions={transactions} />
       </div>
     </div>
   );

@@ -2,10 +2,31 @@ const Transaction = require('../models/Transaction');
 
 exports.getTransactions = async (req, res) => {
   try {
-    const transactions = await Transaction.find({ user: req.user.id });
-    res.json(transactions);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const { type, category, startDate, endDate } = req.query;
+
+    // Build the filter object dynamically
+    let filter = { user: req.user.id };
+    
+    if (type) {
+      filter.type = type;
+    }
+    
+    if (category) {
+      filter.category = category;
+    }
+    
+    if (startDate && endDate) {
+      filter.date = { $gte: new Date(startDate), $lte: new Date(endDate) };
+    }
+    
+    console.log("Filter: ", filter);
+
+    // Fetch filtered transactions from the database
+    const transactions = await Transaction.find(filter).sort({ date: -1 }); // Sort by date in descending order
+
+    res.status(200).json(transactions);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching transactions', error });
   }
 };
 
