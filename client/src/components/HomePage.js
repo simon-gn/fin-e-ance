@@ -17,7 +17,8 @@ const HomePage = () => {
       if (response.status === 400) {
         setError(response.data.msg);
       } else {
-        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
         navigate('/dashboard');
       }
     } catch (err) {

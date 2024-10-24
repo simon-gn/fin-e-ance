@@ -3,9 +3,13 @@ const { getTransactions, addTransaction, deleteTransaction } = require('../contr
 const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
 
-
+// Fetch transactions
 router.get('/', authMiddleware, getTransactions);
+
+// Add transaction
 router.post('/add', authMiddleware, addTransaction);
+
+// Delete transaction
 router.post('/delete', authMiddleware, deleteTransaction);
 
 module.exports = router;

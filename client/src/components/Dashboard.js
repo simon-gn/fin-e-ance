@@ -81,7 +81,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [selectedTransactionId, setSelectedTransactionId] = useState(null); // Track the current selected transaction
 
-  // States for toggling form
+  // States for toggling forms
   const [showNewTransactionForm, setShowNewTransactionForm] = useState(false);
   const [showFilterForm, setShowFilterForm] = useState(false);
 
@@ -101,7 +101,7 @@ const Dashboard = () => {
   const fetchTransactions = useCallback(async () => {
     try {
       const { startDate, endDate } = getDateRange(filterDateRange, filterCustomStartDate, filterCustomEndDate);
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('accessToken');
       const response = await getTransactions(filterType, filterCategory, startDate, endDate, token);
       setTransactions(response.data);
     } catch (err) {
@@ -118,7 +118,7 @@ const Dashboard = () => {
   const handleAddTransaction = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('accessToken');
       const newTransaction = { type, amount, category, description };
       await addTransaction(newTransaction, token);
       fetchTransactions();
@@ -129,12 +129,12 @@ const Dashboard = () => {
   };
 
   const handleTransactionClick = (transactionId) => {
-    setSelectedTransactionId(transactionId === selectedTransactionId ? null : transactionId); // Toggle active transaction
+    setSelectedTransactionId(transactionId === selectedTransactionId ? null : transactionId); // Toggle selected transaction
   };
 
   const handleRemoveTransaction = async (transactionId) => {
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem('accessToken');
       await deleteTransaction(transactionId, token);
       setTransactions(transactions.filter(transaction => transaction._id !== transactionId)); // Remove from state
     } catch (err) {
