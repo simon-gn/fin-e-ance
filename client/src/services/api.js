@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { handleLogout } from '../utils/authUtils';
 
 // const API_URL = 'http://192.168.43.79:5000';
 const API_URL = 'http://localhost:5000';
@@ -22,15 +23,22 @@ apiClient.interceptors.response.use(
     if (error.response.status === 401 && error.response.data.msg === 'Token expired or invalid' && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      const { newAccessToken, newRefreshToken } = await refreshAccessToken();
-      if (newRefreshToken) localStorage.setItem('refreshToken', newRefreshToken);
-      if (newAccessToken) {
-        // Set the Authorization header on the original request with the new token
-        originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-        localStorage.setItem('accessToken', newAccessToken);
-        
-        // Retry the original request with the new token
-        return apiClient(originalRequest);
+      try {
+        const { newAccessToken, newRefreshToken } = await refreshAccessToken();
+        if (newRefreshToken) localStorage.setItem('refreshToken', newRefreshToken);
+        if (newAccessToken) {
+          // Set the Authorization header on the original request with the new token
+          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+          localStorage.setItem('accessToken', newAccessToken);
+          
+          // Retry the original request with the new token
+          return apiClient(originalRequest);
+        }
+      } catch (err) {
+        // If refresh token has also expired or failed
+        if (err.response && (err.response.status === 401 || err.response.status === 403) ) {
+          handleLogout();
+        }
       }
     }
 
@@ -61,6 +69,13 @@ export const loginUser = async (userData) => {
     throw err;
   }
 };
+
+export const validateTokenAPI = async (token) => {
+  const response = await apiClient.get('/api/auth/validate-token', {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  return response;
+}
 
 export const getTransactions = async (type, category, startDate, endDate, token) => {
   const response = await apiClient.get(`/api/transactions`, {

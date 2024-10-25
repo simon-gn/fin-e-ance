@@ -21,7 +21,7 @@ exports.registerUser = async (req, res) => {
     await user.save();
 
     const payload = { id: user.id };
-    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 10 })
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 })
     
     const refreshToken = uuidv4();
     await RefreshToken.create({ 
@@ -52,7 +52,7 @@ exports.loginUser = async (req, res) => {
     }
 
     const payload = { id: user.id };
-    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 10 });
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
     
     const refreshToken = uuidv4();
     await RefreshToken.create({ 
@@ -75,7 +75,12 @@ exports.refreshToken = async (req, res) => {
     // Find the refreshToken in the database
     const tokenDoc = await RefreshToken.findOne({ token: refreshToken });
     if (!tokenDoc || tokenDoc.revoked) {
-      return res.status(403).json({ msg: 'Refresh token is not valid' });
+      return res.status(403).json({ msg: 'Invalid refresh token' });
+    }
+
+    // Check if the refresh token has expired
+    if (tokenDoc.expiresAt < Date.now()) {
+      return res.status(401).json({ msg: 'Refresh token expired' });
     }
 
     // Verify the user associated with the refresh token
@@ -85,7 +90,7 @@ exports.refreshToken = async (req, res) => {
     }
 
     const payload = { id: user.id };
-    const newAccessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 20 });
+    const newAccessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
 
     const newRefreshToken = uuidv4();
     await RefreshToken.create({ 
@@ -102,4 +107,8 @@ exports.refreshToken = async (req, res) => {
     console.error(err.message);
     res.status(500).send('Server error');
   }
+};
+
+exports.validateToken = async(req, res) => {
+  return res.status(200).json({ valid: true });
 };
