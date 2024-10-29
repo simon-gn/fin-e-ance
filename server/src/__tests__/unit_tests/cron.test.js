@@ -1,10 +1,10 @@
 const cron = require('node-cron');
-const RefreshToken = require('../../src/models/RefreshToken');
-const { startCronJob } = require('../../src/cron');
+const RefreshToken = require('../../models/RefreshToken');
+const { startCronJob } = require('../../cron');
 const moment = require('moment');
 
 jest.mock('node-cron');
-jest.mock('../../src/models/RefreshToken');
+jest.mock('../../models/RefreshToken');
 jest.mock('moment')
 
 describe('startCronJob', () => {

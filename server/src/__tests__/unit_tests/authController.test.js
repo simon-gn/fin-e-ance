@@ -1,14 +1,14 @@
-const { registerUser, loginUser, refreshToken, validateToken } = require('../../src/controllers/authController');
-const User = require('../../src/models/User');
-const RefreshToken = require('../../src/models/RefreshToken');
+const { registerUser, loginUser, refreshToken, validateToken } = require('../../controllers/authController');
+const User = require('../../models/User');
+const RefreshToken = require('../../models/RefreshToken');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 
 require('dotenv').config();
 
-jest.mock('../../src/models/User');
-jest.mock('../../src/models/RefreshToken');
+jest.mock('../../models/User');
+jest.mock('../../models/RefreshToken');
 jest.mock('bcryptjs');
 jest.mock('jsonwebtoken');
 jest.mock('uuid');

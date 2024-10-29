@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Transaction = require('../../src/models/Transaction');
-const { getTransactions, addTransaction, deleteTransaction } = require('../../src/controllers/transactionController');
+const Transaction = require('../../models/Transaction');
+const { getTransactions, addTransaction, deleteTransaction } = require('../../controllers/transactionController');
 
 
 describe('getTransactions', () => {

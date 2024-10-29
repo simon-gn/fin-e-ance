@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const { getTransactions, addTransaction, deleteTransaction } = require('../../src/controllers/transactionController');
-const Transaction = require('../../src/models/Transaction');
+const { getTransactions, addTransaction, deleteTransaction } = require('../../controllers/transactionController');
+const Transaction = require('../../models/Transaction');
 
-jest.mock('../../src/models/Transaction');
+jest.mock('../../models/Transaction');
 let req, res;
 
 beforeEach(() => {

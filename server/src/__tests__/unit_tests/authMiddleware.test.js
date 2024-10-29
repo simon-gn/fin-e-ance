@@ -1,7 +1,7 @@
 const request = require('supertest');
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const authMiddleware = require('../../src/middleware/authMiddleware');
+const authMiddleware = require('../../middleware/authMiddleware');
 require('dotenv').config();
 
 const app = express();
