@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const app = require('./index');
-const { startCronJob } = require('./src/cron');
+const { startCronJob } = require('./cron');
 require('dotenv').config();
 
 // MongoDB connection
