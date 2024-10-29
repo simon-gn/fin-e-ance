@@ -4,7 +4,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Fetch transactions
-router.get('/', authMiddleware, getTransactions);
+router.get('/get', authMiddleware, getTransactions);
 
 // Add transaction
 router.post('/add', authMiddleware, addTransaction);

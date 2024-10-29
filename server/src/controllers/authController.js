@@ -1,22 +1,22 @@
 const User = require('../models/User');
 const RefreshToken = require('../models/RefreshToken');
-const bcrypt = require('bcryptjs');
+const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
 
 exports.registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
-
   try {
+    const { name, email, password } = req.body;
+
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ msg: 'User already exists' });
+      return res.status(400).json({ message: 'User already exists' });
     }
 
     user = new User({ name, email, password });
 
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
+    const salt = await bcryptjs.genSalt(10);
+    user.password = await bcryptjs.hash(password, salt);
 
     await user.save();
 
@@ -30,25 +30,24 @@ exports.registerUser = async (req, res) => {
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) 
     });
 
-    return res.json({ accessToken, refreshToken });
+    return res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
-    console.error(err.message);
     res.status(500).send('Server error');
   }
 };
 
 exports.loginUser = async (req, res) => {
-  const { email, password } = req.body;
-
   try {
+    const { email, password } = req.body;
+
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ msg: 'Invalid email or password' });
+      return res.status(400).json({ message: 'Invalid email or password' });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: 'Invalid email or password' });
+      return res.status(400).json({ message: 'Invalid email or password' });
     }
 
     const payload = { id: user.id };
@@ -61,33 +60,31 @@ exports.loginUser = async (req, res) => {
       expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) 
     });
 
-    return res.json({ accessToken, refreshToken });
+    return res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
-    console.error(err.message);
     res.status(500).send('Server error');
   }
 };
 
 exports.refreshToken = async (req, res) => {
-  const { refreshToken } = req.body;
-
   try {
-    // Find the refreshToken in the database
+    const { refreshToken } = req.body;
+
     const tokenDoc = await RefreshToken.findOne({ token: refreshToken });
     if (!tokenDoc || tokenDoc.revoked) {
-      return res.status(403).json({ msg: 'Invalid refresh token' });
+      return res.status(403).json({ message: 'Invalid refresh token' });
     }
 
-    // Check if the refresh token has expired
     if (tokenDoc.expiresAt < Date.now()) {
-      return res.status(401).json({ msg: 'Refresh token expired' });
+      return res.status(401).json({ message: 'Refresh token expired' });
     }
 
-    // Verify the user associated with the refresh token
     const user = await User.findById(tokenDoc.userId);
     if (!user) {
-      return res.status(403).json({ msg: 'User not found' });
+      return res.status(403).json({ message: 'User not found' });
     }
+
+    // TODO: check if tokenDoc.userId matches the Id of the user that requests the new token
 
     const payload = { id: user.id };
     const newAccessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
@@ -102,9 +99,8 @@ exports.refreshToken = async (req, res) => {
     // Invalidate the old refresh token
     await RefreshToken.updateOne({ token: refreshToken }, { revoked: true });
 
-    return res.json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
+    return res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
   } catch (err) {
-    console.error(err.message);
     res.status(500).send('Server error');
   }
 };
