@@ -20,16 +20,18 @@ apiClient.interceptors.response.use(
     const originalRequest = error.config;
     
     // Check if the error is due to token expiration
-    if (error.response.status === 401 && error.response.data.msg === 'Token expired or invalid' && !originalRequest._retry) {
+    if (error.response.status === 401 && error.response.data.message === 'Token expired or invalid' && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
         const { newAccessToken, newRefreshToken } = await refreshAccessToken();
-        if (newRefreshToken) localStorage.setItem('refreshToken', newRefreshToken);
-        if (newAccessToken) {
+        
+        if (newAccessToken && newRefreshToken) {
+          localStorage.setItem('accessToken', newAccessToken);
+          localStorage.setItem('refreshToken', newRefreshToken);
+
           // Set the Authorization header on the original request with the new token
           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-          localStorage.setItem('accessToken', newAccessToken);
           
           // Retry the original request with the new token
           return apiClient(originalRequest);
@@ -78,7 +80,7 @@ export const validateTokenAPI = async (token) => {
 }
 
 export const getTransactions = async (type, category, startDate, endDate, token) => {
-  const response = await apiClient.get(`/api/transactions`, {
+  const response = await apiClient.get(`/api/transactions/get`, {
     params: { type, category, startDate, endDate },
     headers: { Authorization: `Bearer ${token}` }
   });

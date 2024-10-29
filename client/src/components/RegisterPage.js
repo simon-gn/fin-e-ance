@@ -17,7 +17,7 @@ const RegisterPage = () => {
       const response = await registerUser({ name, email, password });
 
       if (response.status === 400) {
-        setError(response.data.msg);
+        setError(response.data.message);
       } else {
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
