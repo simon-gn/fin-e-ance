@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from '../services/api';
-import './HomePage.css';
+import './LoginPage.css';
 
-const HomePage = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -67,4 +67,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default LoginPage;
