@@ -8,10 +8,22 @@ const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 
 jest.mock('../../models/User');
-jest.mock('../../models/RefreshToken');
-jest.mock('bcryptjs');
-jest.mock('jsonwebtoken');
-jest.mock('uuid');
+jest.mock('../../models/RefreshToken', () => ({
+    findOne: jest.fn(),
+    create: jest.fn(),
+    updateOne: jest.fn()
+}));
+jest.mock('bcryptjs', () => ({
+    genSalt: jest.fn(),
+    hash: jest.fn(),
+    compare: jest.fn()
+}));
+jest.mock('jsonwebtoken', () => ({
+    sign: jest.fn()
+}));
+jest.mock('uuid', () => ({
+    v4: jest.fn()
+}));
 
 describe('registerUser', () => {
     let req, res;

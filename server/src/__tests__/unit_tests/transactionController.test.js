@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const { getTransactions, addTransaction, deleteTransaction } = require('../../controllers/transactionController');
 const Transaction = require('../../models/Transaction');
 
-jest.mock('../../models/Transaction');
+jest.mock('../../models/Transaction', () => ({
+    find: jest.fn(),
+    create: jest.fn(),
+    findById: jest.fn()
+}));
 let req, res;
 
 beforeEach(() => {
