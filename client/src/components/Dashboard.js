@@ -4,7 +4,7 @@ import BarChart from './BarChart';
 import './Dashboard.css';
 
 // --- helper functions ---
-const getDateRange = (range, customStartDate, customEndDate) => {
+export const getDateRange = (range, customStartDate, customEndDate) => {
   let startDate = new Date();
   let endDate = new Date();
   startDate.setHours(0, 0, 0, 0);

@@ -1,12 +1,12 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import RegisterPage from '../../components/RegisterPage';
-import { registerUser } from '../../services/api';
+import LoginPage from '../../components/LoginPage';
+import { loginUser } from '../../services/api';
 
 jest.mock('../../services/api', () => ({
-  registerUser: jest.fn()
+  loginUser: jest.fn()
 }));
-
+  
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -15,34 +15,36 @@ jest.mock('react-router-dom', () => ({
 
 // Helper functions
 const fillAndSubmitForm = () => {
-  fireEvent.change(screen.getByLabelText(/name/i), { target: { value: 'Test User' } });
   fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'testUser@example.com' } });
   fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
-  fireEvent.click(screen.getByRole('button', { name: /sign up/i }));
+  fireEvent.click(screen.getByRole('button', { name: /login/i }));
 }
 const renderPage = () => {
-  render(<MemoryRouter> <RegisterPage /> </MemoryRouter>);
+  render(<MemoryRouter> <LoginPage /> </MemoryRouter>);
 }
 
 
-describe('RegisterPage', () => {
+describe('LoginPage', () => {
   beforeEach(() => {
     Object.defineProperty(window, 'localStorage', { value: { setItem: jest.fn() }, writable: true });
     jest.clearAllMocks();
   });
 
-  it('renders the registration form', () => {
+  it('renders the login form', () => {
     renderPage();
 
-    expect(screen.getByText(/create your account/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
+    expect(screen.getByText(/fin\(e\)ance/i)).toBeInTheDocument();
+    expect(screen.getByText(/track your financial transactions with ease./i)).toBeInTheDocument();
+    expect(screen.getByText(/login to your account/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
+    expect(screen.getByText(/don't have an account?/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /sign up/i })).toBeInTheDocument();
   });
 
-  it('saves tokens to localStorage and redirects to dashboard on successful registration', async () => {
-    registerUser.mockResolvedValueOnce({
+  it('saves tokens to localStorage and redirects to dashboard on successful login', async () => {
+    loginUser.mockResolvedValueOnce({
       status: 200,
       data: { accessToken: 'mockAccessToken', refreshToken: 'mockRefreshToken' }
     });
@@ -57,28 +59,28 @@ describe('RegisterPage', () => {
     });
   });
 
-  it('shows error message when user already exists', async () => {
-    registerUser.mockResolvedValueOnce({
+  it('shows error message when email or password is incorrect', async () => {
+    loginUser.mockResolvedValueOnce({
       status: 400,
-      data: { message: 'User already exists' }
+      data: { message: 'Invalid email or password' }
     });
 
     renderPage();
     fillAndSubmitForm();
 
     await waitFor(() => {
-      expect(screen.getByText(/user already exists/i)).toBeInTheDocument();
+      expect(screen.getByText(/invalid email or password/i)).toBeInTheDocument();
     });
   });
 
   it('displays a generic error message on unexpected errors', async () => {
-    registerUser.mockRejectedValueOnce(new Error('Network Error'));
+    loginUser.mockRejectedValueOnce(new Error('Network Error'));
 
     renderPage();
     fillAndSubmitForm();
 
     await waitFor(() => {
-      expect(screen.getByText(/registration failed/i)).toBeInTheDocument();
+      expect(screen.getByText(/login failed/i)).toBeInTheDocument();
     });
   });
 });
