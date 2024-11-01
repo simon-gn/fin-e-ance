@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ResponsiveBar } from '@nivo/bar';
 
 const BarChart = ({ transactions }) => {
@@ -45,6 +46,15 @@ const BarChart = ({ transactions }) => {
       motionDamping={15}
     />
   );
+};
+
+BarChart.propTypes = {
+  transactions: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired
+    })
+  ).isRequired,
 };
 
 export default BarChart;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { validateTokenAPI } from '../services/api';
+import PropTypes from 'prop-types';
 
 const ProtectedRoute = ({ children }) => {
   const [isValid, setIsValid] = useState(null);
@@ -29,6 +30,10 @@ const ProtectedRoute = ({ children }) => {
   }
 
   return isValid ? children : <Navigate to="/" replace />;
+};
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ProtectedRoute;
