@@ -1,1 +1,1 @@
-# personal-finance-dashboard
+# fin-e-ance
