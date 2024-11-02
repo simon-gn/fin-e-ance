@@ -1,53 +1,91 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import Dashboard, { getDateRange } from '../../components/Dashboard';
-import { getTransactions, addTransaction, deleteTransaction } from '../../services/api';
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import Dashboard, { getDateRange } from "../../components/Dashboard";
+import {
+  getTransactions,
+  addTransaction,
+  deleteTransaction,
+} from "../../services/api";
 
-jest.mock('../../services/api', () => ({
+jest.mock("../../services/api", () => ({
   getTransactions: jest.fn(),
   addTransaction: jest.fn(),
-  deleteTransaction: jest.fn()
+  deleteTransaction: jest.fn(),
 }));
 
 // Helper functions
 const renderPageSuccessfully = async () => {
-  render(<MemoryRouter> <Dashboard /> </MemoryRouter>);
+  render(
+    <MemoryRouter>
+      {" "}
+      <Dashboard />{" "}
+    </MemoryRouter>,
+  );
 
-  await waitFor(() => expect(screen.queryByText(/loading transactions/i)).not.toBeInTheDocument());
-}
+  await waitFor(() =>
+    expect(screen.queryByText(/loading transactions/i)).not.toBeInTheDocument(),
+  );
+};
 
-
-describe('Dashboard', () => {
+describe("Dashboard", () => {
   let mockTransactionsInDb;
   const mockTransactionToAdd = {
-    _id: '3', date: new Date().toISOString(), type: 'Income', amount: 150, category: 'Clothing', description: 'Shoes'
-  }
+    _id: "3",
+    date: new Date().toISOString(),
+    type: "Income",
+    amount: 150,
+    category: "Clothing",
+    description: "Shoes",
+  };
 
   beforeEach(() => {
     mockTransactionsInDb = [
-      { _id: '1', date: new Date().toISOString(), type: 'Expense', amount: 100, category: 'Food', description: 'Pizza' },
-      { _id: '2', date: new Date().toISOString(), type: 'Income', amount: 200, category: 'Car', description: 'Fuel' },
+      {
+        _id: "1",
+        date: new Date().toISOString(),
+        type: "Expense",
+        amount: 100,
+        category: "Food",
+        description: "Pizza",
+      },
+      {
+        _id: "2",
+        date: new Date().toISOString(),
+        type: "Income",
+        amount: 200,
+        category: "Car",
+        description: "Fuel",
+      },
     ];
     jest.clearAllMocks();
   });
 
-  it('renders loading state initially', async () => {
+  it("renders loading state initially", async () => {
     getTransactions.mockResolvedValueOnce({ data: [] });
 
-    render(<MemoryRouter> <Dashboard /> </MemoryRouter>);
+    render(
+      <MemoryRouter>
+        {" "}
+        <Dashboard />{" "}
+      </MemoryRouter>,
+    );
 
-    await waitFor(() => expect(screen.getByText(/loading transactions/i)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText(/loading transactions/i)).toBeInTheDocument(),
+    );
   });
 
-  it('renders transactions after loading', async () => {
+  it("renders transactions after loading", async () => {
     getTransactions.mockResolvedValueOnce({ data: mockTransactionsInDb });
 
     await renderPageSuccessfully();
 
     // title, buttons, table headings
     expect(screen.getByText(/your dashboard/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /new transaction/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /filter/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /new transaction/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /filter/i })).toBeInTheDocument();
     expect(screen.getByText(/date/i)).toBeInTheDocument();
     expect(screen.getByText(/category/i)).toBeInTheDocument();
 
@@ -61,7 +99,7 @@ describe('Dashboard', () => {
     expect(screen.getByText(/mocked bar chart/i)).toBeInTheDocument();
   });
 
-  it('adds a new transaction successfully', async () => {
+  it("adds a new transaction successfully", async () => {
     getTransactions.mockResolvedValue({ data: mockTransactionsInDb });
     addTransaction.mockResolvedValueOnce({}); // Mock successful addition of transaction
 
@@ -69,21 +107,32 @@ describe('Dashboard', () => {
 
     // Open and fill in the new transaction form
     fireEvent.click(screen.getByText(/new transaction/i));
-    fireEvent.change(screen.getByLabelText(/type/i), { target: { value: mockTransactionToAdd.type } });
-    fireEvent.change(screen.getByLabelText(/category/i), { target: { value: mockTransactionToAdd.category } });
-    fireEvent.change(screen.getByLabelText(/amount/i), { target: { value: mockTransactionToAdd.amount } });
-    fireEvent.change(screen.getByLabelText(/description/i), { target: { value: mockTransactionToAdd.description } });
-    
+    fireEvent.change(screen.getByLabelText(/type/i), {
+      target: { value: mockTransactionToAdd.type },
+    });
+    fireEvent.change(screen.getByLabelText(/category/i), {
+      target: { value: mockTransactionToAdd.category },
+    });
+    fireEvent.change(screen.getByLabelText(/amount/i), {
+      target: { value: mockTransactionToAdd.amount },
+    });
+    fireEvent.change(screen.getByLabelText(/description/i), {
+      target: { value: mockTransactionToAdd.description },
+    });
+
     // Add mockTransaction to mockTransactionDb and submit form
     mockTransactionsInDb.push(mockTransactionToAdd);
-    fireEvent.click(screen.getByRole('button', { name: /add transaction/i }));
-    
-    expect(addTransaction).toHaveBeenCalledWith({
-      type: mockTransactionToAdd.type.toString(), 
-      category: mockTransactionToAdd.category.toString(), 
-      amount: mockTransactionToAdd.amount.toString(), 
-      description: mockTransactionToAdd.description.toString()
-    }, null);
+    fireEvent.click(screen.getByRole("button", { name: /add transaction/i }));
+
+    expect(addTransaction).toHaveBeenCalledWith(
+      {
+        type: mockTransactionToAdd.type.toString(),
+        category: mockTransactionToAdd.category.toString(),
+        amount: mockTransactionToAdd.amount.toString(),
+        description: mockTransactionToAdd.description.toString(),
+      },
+      null,
+    );
 
     // Wait for the transactions to refresh
     await waitFor(() => expect(getTransactions).toHaveBeenCalledTimes(2)); // Check if fetchTransactions is called again
@@ -92,7 +141,7 @@ describe('Dashboard', () => {
     expect(screen.getByText(/shoes/i)).toBeInTheDocument();
   });
 
-  it('removes a transaction successfully', async () => {
+  it("removes a transaction successfully", async () => {
     getTransactions.mockResolvedValueOnce({ data: mockTransactionsInDb });
     deleteTransaction.mockResolvedValueOnce({}); // Mock successful deletion of transaction
 
@@ -102,34 +151,39 @@ describe('Dashboard', () => {
     fireEvent.click(screen.getByText(/pizza/i));
 
     // Click the remove button for the selected transaction
-    fireEvent.click(screen.getByRole('button', { name: /remove/i }));
+    fireEvent.click(screen.getByRole("button", { name: /remove/i }));
 
     // Check if the deleteTransaction function was called
-    await waitFor(() => expect(deleteTransaction).toHaveBeenCalledWith('1', null));
+    await waitFor(() =>
+      expect(deleteTransaction).toHaveBeenCalledWith("1", null),
+    );
 
     // Check if the transaction is removed from the DOM
-    await waitFor(() => expect(screen.queryByText(/pizza/i)).not.toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.queryByText(/pizza/i)).not.toBeInTheDocument(),
+    );
   });
 
-  it('filters transactions', async () => {
+  it("filters transactions", async () => {
     getTransactions.mockResolvedValue({ data: mockTransactionsInDb });
 
     await renderPageSuccessfully();
 
     // Open the filter form and set filter
-    fireEvent.click(screen.getByRole('button', { name: /filter/i }));
-    fireEvent.change(screen.getByLabelText(/filter by category/i), { target: { value: 'Food' } });
+    fireEvent.click(screen.getByRole("button", { name: /filter/i }));
+    fireEvent.change(screen.getByLabelText(/filter by category/i), {
+      target: { value: "Food" },
+    });
 
     // Check if the second call to fetchTransactions is called with second parameter set to 'Food'
-    await waitFor(() => expect(getTransactions.mock.calls[1][1]).toBe('Food') );
+    await waitFor(() => expect(getTransactions.mock.calls[1][1]).toBe("Food"));
   });
 });
 
-
 // Testing helper functions of dashboard.js
-describe('getDateRange', () => {
+describe("getDateRange", () => {
   it('should return today\'s date range for "Today"', () => {
-    const { startDate, endDate } = getDateRange('Today');
+    const { startDate, endDate } = getDateRange("Today");
     const mockStartDate = new Date();
     mockStartDate.setHours(0, 0, 0, 0);
     const mockEndDate = new Date();
@@ -139,7 +193,7 @@ describe('getDateRange', () => {
   });
 
   it('should return yesterday\'s date range for "Yesterday"', () => {
-    const { startDate, endDate } = getDateRange('Yesterday');
+    const { startDate, endDate } = getDateRange("Yesterday");
     const mockStartDate = new Date();
     mockStartDate.setDate(mockStartDate.getDate() - 1);
     mockStartDate.setHours(0, 0, 0, 0);
@@ -151,26 +205,30 @@ describe('getDateRange', () => {
   });
 
   it('should return custom range for "Custom Range" with valid dates', () => {
-    const customStartDate = '2024-01-01';
-    const customEndDate = '2024-01-31';
-    const { startDate, endDate } = getDateRange('Custom Range', customStartDate, customEndDate);
+    const customStartDate = "2024-01-01";
+    const customEndDate = "2024-01-31";
+    const { startDate, endDate } = getDateRange(
+      "Custom Range",
+      customStartDate,
+      customEndDate,
+    );
     const mockStartDate = new Date(customStartDate);
     mockStartDate.setHours(0, 0, 0, 0);
-    const mockEndDate = new Date(customEndDate)
-    mockEndDate.setHours(23, 59, 59, 999)
+    const mockEndDate = new Date(customEndDate);
+    mockEndDate.setHours(23, 59, 59, 999);
 
     expect(startDate).toEqual(mockStartDate);
     expect(endDate).toEqual(mockEndDate);
   });
 
   it('should return null for start and end date for "Custom Range" with invalid dates', () => {
-    const { startDate, endDate } = getDateRange('Custom Range', null, null);
+    const { startDate, endDate } = getDateRange("Custom Range", null, null);
     expect(startDate).toBeNull();
     expect(endDate).toBeNull();
   });
 
-  it('should return null for start and end date for an unknown range', () => {
-    const { startDate, endDate } = getDateRange('Unknown Range');
+  it("should return null for start and end date for an unknown range", () => {
+    const { startDate, endDate } = getDateRange("Unknown Range");
     expect(startDate).toBeNull();
     expect(endDate).toBeNull();
   });

@@ -1,7 +1,11 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { getTransactions, addTransaction, deleteTransaction } from '../services/api';
-import BarChart from './BarChart';
-import './Dashboard.css';
+import React, { useEffect, useState, useCallback } from "react";
+import {
+  getTransactions,
+  addTransaction,
+  deleteTransaction,
+} from "../services/api";
+import BarChart from "./BarChart";
+import "./Dashboard.css";
 
 // --- helper functions ---
 export const getDateRange = (range, customStartDate, customEndDate) => {
@@ -10,29 +14,29 @@ export const getDateRange = (range, customStartDate, customEndDate) => {
   startDate.setHours(0, 0, 0, 0);
 
   switch (range) {
-    case 'Today':
+    case "Today":
       break;
-    case 'Yesterday':
+    case "Yesterday":
       startDate.setDate(startDate.getDate() - 1);
       endDate.setDate(endDate.getDate() - 1);
       endDate.setHours(23, 59, 59, 999);
       break;
-    case 'Last 7 Days':
+    case "Last 7 Days":
       startDate.setDate(startDate.getDate() - 7);
       break;
-    case 'Last Month':
+    case "Last Month":
       startDate.setMonth(startDate.getMonth() - 1);
       break;
-    case 'Last 3 Month':
+    case "Last 3 Month":
       startDate.setMonth(startDate.getMonth() - 3);
       break;
-    case 'Last 6 Month':
+    case "Last 6 Month":
       startDate.setMonth(startDate.getMonth() - 6);
       break;
-    case 'Last Year':
+    case "Last Year":
       startDate.setFullYear(startDate.getFullYear() - 1);
       break;
-    case 'Custom Range':
+    case "Custom Range":
       if (customStartDate && customEndDate) {
         startDate = new Date(customStartDate);
         startDate.setHours(0, 0, 0, 0);
@@ -47,7 +51,7 @@ export const getDateRange = (range, customStartDate, customEndDate) => {
       startDate = null;
       endDate = null;
   }
-  
+
   return { startDate, endDate };
 };
 
@@ -57,23 +61,22 @@ const formatDate = (date) => {
   const yesterday = new Date();
   yesterday.setDate(today.getDate() - 1);
   let day;
-  
-  if (transactionDate.toDateString() === today.toDateString())
-    day = 'Today';
+
+  if (transactionDate.toDateString() === today.toDateString()) day = "Today";
   else if (transactionDate.toDateString() === yesterday.toDateString())
-    day = 'Yesterday';
+    day = "Yesterday";
   else
-    day = transactionDate.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+    day = transactionDate.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
 
-    return `${day}, ${transactionDate.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-    })}`;
-}
+  return `${day}, ${transactionDate.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  })}`;
+};
 // ------
 
 const Dashboard = () => {
@@ -86,30 +89,46 @@ const Dashboard = () => {
   const [showFilterForm, setShowFilterForm] = useState(false);
 
   // States for adding new transactions
-  const [type, setType] = useState('Expense');
-  const [category, setCategory] = useState('Food');
-  const [amount, setAmount] = useState('');
-  const [description, setDescription] = useState('');
+  const [type, setType] = useState("Expense");
+  const [category, setCategory] = useState("Food");
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
 
   // States for filtering
-  const [filterDateRange, setFilterDateRange] = useState('');
-  const [filterCustomStartDate, setFilterCustomStartDate] = useState('');
-  const [filterCustomEndDate, setFilterCustomEndDate] = useState('');
-  const [filterType, setFilterType] = useState('');
-  const [filterCategory, setFilterCategory] = useState('');
+  const [filterDateRange, setFilterDateRange] = useState("");
+  const [filterCustomStartDate, setFilterCustomStartDate] = useState("");
+  const [filterCustomEndDate, setFilterCustomEndDate] = useState("");
+  const [filterType, setFilterType] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
 
   const fetchTransactions = useCallback(async () => {
     try {
-      const { startDate, endDate } = getDateRange(filterDateRange, filterCustomStartDate, filterCustomEndDate);
-      const token = localStorage.getItem('accessToken');
-      const response = await getTransactions(filterType, filterCategory, startDate, endDate, token);
+      const { startDate, endDate } = getDateRange(
+        filterDateRange,
+        filterCustomStartDate,
+        filterCustomEndDate,
+      );
+      const token = localStorage.getItem("accessToken");
+      const response = await getTransactions(
+        filterType,
+        filterCategory,
+        startDate,
+        endDate,
+        token,
+      );
       setTransactions(response.data);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
-  }, [filterType, filterCategory, filterDateRange, filterCustomStartDate, filterCustomEndDate]);
+  }, [
+    filterType,
+    filterCategory,
+    filterDateRange,
+    filterCustomStartDate,
+    filterCustomEndDate,
+  ]);
 
   useEffect(() => {
     fetchTransactions();
@@ -118,27 +137,31 @@ const Dashboard = () => {
   const handleAddTransaction = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('accessToken');
+      const token = localStorage.getItem("accessToken");
       const newTransaction = { type, amount, category, description };
       await addTransaction(newTransaction, token);
       fetchTransactions();
       setShowNewTransactionForm(false);
     } catch (err) {
-      console.error('Error adding transaction:', err);
+      console.error("Error adding transaction:", err);
     }
   };
 
   const handleTransactionClick = (transactionId) => {
-    setSelectedTransactionId(transactionId === selectedTransactionId ? null : transactionId); // Toggle selected transaction
+    setSelectedTransactionId(
+      transactionId === selectedTransactionId ? null : transactionId,
+    ); // Toggle selected transaction
   };
 
   const handleRemoveTransaction = async (transactionId) => {
     try {
-      const token = localStorage.getItem('accessToken');
+      const token = localStorage.getItem("accessToken");
       await deleteTransaction(transactionId, token);
-      setTransactions(transactions.filter(transaction => transaction._id !== transactionId)); // Remove from state
+      setTransactions(
+        transactions.filter((transaction) => transaction._id !== transactionId),
+      ); // Remove from state
     } catch (err) {
-      console.error('Error removing transaction:', err);
+      console.error("Error removing transaction:", err);
     }
   };
 
@@ -148,32 +171,43 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-
-      <div className='hero_section'>
+      <div className="hero_section">
         <h1>Your dashboard</h1>
       </div>
 
       <div className="dashboard-box">
-
         {/* New Transaction Section */}
-        <div className='new-transaction-container'>
+        <div className="new-transaction-container">
           {!showNewTransactionForm && (
             <button onClick={() => setShowNewTransactionForm(true)}>
               New Transaction
             </button>
           )}
           {showNewTransactionForm && (
-            <form className="new-transaction-form" onSubmit={handleAddTransaction}>
+            <form
+              className="new-transaction-form"
+              onSubmit={handleAddTransaction}
+            >
               <div>
                 <label htmlFor="type">Type:</label>
-                <select id="type" name="type" value={type} onChange={(e) => setType(e.target.value)}>
+                <select
+                  id="type"
+                  name="type"
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
+                >
                   <option value="Income">Income</option>
                   <option value="Expense">Expense</option>
                 </select>
               </div>
               <div>
                 <label htmlFor="category">Category:</label>
-                <select id="category" name="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+                <select
+                  id="category"
+                  name="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
                   <option value="Food">Food</option>
                   <option value="Drinks">Drinks</option>
                   <option value="Clothing">Clothing</option>
@@ -203,16 +237,19 @@ const Dashboard = () => {
                 />
               </div>
               <button type="submit">Add Transaction</button>
-              <button type="button" onClick={() => setShowNewTransactionForm(false)}>
+              <button
+                type="button"
+                onClick={() => setShowNewTransactionForm(false)}
+              >
                 Cancel
               </button>
             </form>
           )}
         </div>
-        
+
         {/* Filter Section */}
         <button onClick={() => setShowFilterForm(!showFilterForm)}>
-          {showFilterForm ? 'Cancel' : 'Filter'}
+          {showFilterForm ? "Cancel" : "Filter"}
         </button>
         {showFilterForm && (
           <form className="filter-form">
@@ -264,8 +301,8 @@ const Dashboard = () => {
               </select>
             </div>
             {/* If 'Custom Range' is selected, show date inputs */}
-            {filterDateRange === 'Custom Range' && (
-              <div className='date-inputs-container'>
+            {filterDateRange === "Custom Range" && (
+              <div className="date-inputs-container">
                 <div>
                   <label htmlFor="custom-start-date">Start Date</label>
                   <input
@@ -302,18 +339,24 @@ const Dashboard = () => {
           </thead>
           <tbody>
             {transactions.map((transaction) => (
-              <tr key={transaction._id} onClick={() => handleTransactionClick(transaction._id)}>
-              <td>{formatDate(transaction.date)}</td>
+              <tr
+                key={transaction._id}
+                onClick={() => handleTransactionClick(transaction._id)}
+              >
+                <td>{formatDate(transaction.date)}</td>
                 <td>{transaction.type}</td>
                 <td>${transaction.amount}</td>
                 <td>{transaction.category}</td>
                 <td>{transaction.description}</td>
                 {selectedTransactionId === transaction._id && (
-                  <td className='action-cell'>
-                    <button className="remove-btn" onClick={(e) => {
-                      e.stopPropagation(); // Prevent triggering the parent click event
-                      handleRemoveTransaction(transaction._id);
-                    }}>
+                  <td className="action-cell">
+                    <button
+                      className="remove-btn"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering the parent click event
+                        handleRemoveTransaction(transaction._id);
+                      }}
+                    >
                       Remove
                     </button>
                   </td>
@@ -322,7 +365,6 @@ const Dashboard = () => {
             ))}
           </tbody>
         </table>
-
       </div>
 
       {/* Charts */}

@@ -1,8 +1,8 @@
-const User = require('../models/User');
-const RefreshToken = require('../models/RefreshToken');
-const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid');
+const User = require("../models/User");
+const RefreshToken = require("../models/RefreshToken");
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 
 exports.registerUser = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ exports.registerUser = async (req, res) => {
 
     let user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: "User already exists" });
     }
 
     user = new User({ name, email, password });
@@ -21,18 +21,20 @@ exports.registerUser = async (req, res) => {
     await user.save();
 
     const payload = { id: user.id };
-    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 })
-    
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: 3600,
+    });
+
     const refreshToken = uuidv4();
-    await RefreshToken.create({ 
-      token: refreshToken, 
-      userId: user.id, 
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) 
+    await RefreshToken.create({
+      token: refreshToken,
+      userId: user.id,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     });
 
     return res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 };
 
@@ -42,27 +44,29 @@ exports.loginUser = async (req, res) => {
 
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const payload = { id: user.id };
-    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
-    
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: 3600,
+    });
+
     const refreshToken = uuidv4();
-    await RefreshToken.create({ 
-      token: refreshToken, 
-      userId: user.id, 
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) 
+    await RefreshToken.create({
+      token: refreshToken,
+      userId: user.id,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     });
 
     return res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 };
 
@@ -72,39 +76,43 @@ exports.refreshToken = async (req, res) => {
 
     const tokenDoc = await RefreshToken.findOne({ token: refreshToken });
     if (!tokenDoc || tokenDoc.revoked) {
-      return res.status(403).json({ message: 'Invalid refresh token' });
+      return res.status(403).json({ message: "Invalid refresh token" });
     }
 
     if (tokenDoc.expiresAt < Date.now()) {
-      return res.status(401).json({ message: 'Refresh token expired' });
+      return res.status(401).json({ message: "Refresh token expired" });
     }
 
     const user = await User.findById(tokenDoc.userId);
     if (!user) {
-      return res.status(403).json({ message: 'User not found' });
+      return res.status(403).json({ message: "User not found" });
     }
 
     // TODO: check if tokenDoc.userId matches the Id of the user that requests the new token
 
     const payload = { id: user.id };
-    const newAccessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
+    const newAccessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: 3600,
+    });
 
     const newRefreshToken = uuidv4();
-    await RefreshToken.create({ 
-      token: newRefreshToken, 
-      userId: user.id, 
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) 
+    await RefreshToken.create({
+      token: newRefreshToken,
+      userId: user.id,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
     });
 
     // Invalidate the old refresh token
     await RefreshToken.updateOne({ token: refreshToken }, { revoked: true });
 
-    return res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
+    return res
+      .status(200)
+      .json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
   } catch (err) {
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 };
 
-exports.validateToken = async(req, res) => {
+exports.validateToken = async (req, res) => {
   return res.status(200).json({ valid: true });
 };

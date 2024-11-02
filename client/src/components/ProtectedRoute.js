@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
-import { validateTokenAPI } from '../services/api';
-import PropTypes from 'prop-types';
+import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { validateTokenAPI } from "../services/api";
+import PropTypes from "prop-types";
 
 const ProtectedRoute = ({ children }) => {
   const [isValid, setIsValid] = useState(null);
-  const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     const validateToken = async () => {
@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
         setIsValid(false);
         return;
       }
-        
+
       try {
         const response = await validateTokenAPI(token);
         setIsValid(response.data.valid);

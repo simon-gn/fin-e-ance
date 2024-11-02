@@ -1,4 +1,4 @@
-const Transaction = require('../models/Transaction');
+const Transaction = require("../models/Transaction");
 
 exports.getTransactions = async (req, res) => {
   try {
@@ -18,16 +18,22 @@ exports.getTransactions = async (req, res) => {
     const transactions = await Transaction.find(filter).sort({ date: -1 });
     res.status(200).json(transactions);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching transactions', error });
+    res.status(500).json({ message: "Error fetching transactions", error });
   }
 };
 
 exports.addTransaction = async (req, res) => {
   try {
     const { type, category, amount, description } = req.body;
-    await Transaction.create({ user: req.user.id, type, category, amount, description });
+    await Transaction.create({
+      user: req.user.id,
+      type,
+      category,
+      amount,
+      description,
+    });
 
-    res.status(200).json({ message: 'Transaction added' });
+    res.status(200).json({ message: "Transaction added" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -35,19 +41,19 @@ exports.addTransaction = async (req, res) => {
 
 exports.deleteTransaction = async (req, res) => {
   try {
-    const { transactionId } = req.body
+    const { transactionId } = req.body;
     const transaction = await Transaction.findById(transactionId);
 
     if (!transaction) {
-      return res.status(404).json({ message: 'Transaction not found' });
+      return res.status(404).json({ message: "Transaction not found" });
     }
 
     if (transaction.user.toString() !== req.user.id) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      return res.status(401).json({ message: "Unauthorized" });
     }
 
     await transaction.deleteOne();
-    res.status(200).json({ message: 'Transaction removed' });
+    res.status(200).json({ message: "Transaction removed" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../services/api';
-import './RegisterPage.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../services/api";
+import "./RegisterPage.css";
 
 const RegisterPage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -19,12 +19,12 @@ const RegisterPage = () => {
       if (response.status === 400) {
         setError(response.data.message);
       } else {
-        localStorage.setItem('accessToken', response.data.accessToken);
-        localStorage.setItem('refreshToken', response.data.refreshToken);
-        navigate('/dashboard');
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+        navigate("/dashboard");
       }
     } catch (err) {
-      setError('Registration failed');
+      setError("Registration failed");
     }
   };
 
@@ -32,7 +32,7 @@ const RegisterPage = () => {
     <div className="registerpage">
       <div className="register-box">
         <h1>Create Your Account</h1>
-        <form className='register-form' onSubmit={handleSubmit}>
+        <form className="register-form" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name">Name</label>
             <input

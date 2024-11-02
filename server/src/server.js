@@ -1,17 +1,18 @@
-const mongoose = require('mongoose');
-const app = require('./index');
-const { startCronJob } = require('./cron');
-require('dotenv').config();
+const mongoose = require("mongoose");
+const app = require("./index");
+const { startCronJob } = require("./cron");
+require("dotenv").config();
 
 // MongoDB connection
-if (process.env.NODE_ENV !== 'test') {
-  mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
+if (process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log("MongoDB connected"))
+    .catch((err) => console.log(err));
 }
 
 // Start cron job to delete old tokens
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== "test") {
   startCronJob();
 }
 
