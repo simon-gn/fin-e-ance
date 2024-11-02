@@ -1,4 +1,4 @@
-name: CI for Full-Stack Application
+name: CI for fin(e)ance
 
 on:
   push:
