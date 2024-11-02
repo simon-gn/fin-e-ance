@@ -1,1 +1,1 @@
-# fin-e-ance
+# fin(e)ance
