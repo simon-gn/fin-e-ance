@@ -34,8 +34,7 @@ exports.registerUser = async (req, res) => {
 
     return res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Server error");
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -67,8 +66,7 @@ exports.loginUser = async (req, res) => {
 
     return res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Server error");
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -111,8 +109,7 @@ exports.refreshToken = async (req, res) => {
       .status(200)
       .json({ accessToken: newAccessToken, refreshToken: newRefreshToken });
   } catch (err) {
-    console.log(err);
-    res.status(500).send("Server error");
+    res.status(500).json({ message: err.message });
   }
 };
 
