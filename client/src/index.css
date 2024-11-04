@@ -1,8 +1,7 @@
 :root {
   --main_color: #4c89af;
   --main_color_hover: #337197;
-  --background_color: #dee2e6;
-  /* --background_color: #f4f6f8; */
+  --background_color: #f6f9fa;
   --text_color: #333;
   --text_color_light: #666;
   --box_shadow_color: 0 4px 12px rgba(0, 0, 0, 0.1);
