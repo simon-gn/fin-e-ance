@@ -1,9 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import {
   getTransactions,
   addTransaction,
   deleteTransaction,
 } from "../services/api";
+import { fetchCategoriesAction } from '../redux/actions/categoryActions';
+import CategoryModal from './CategoryModal';
 import BarChart from "./BarChart";
 import "./Dashboard.css";
 
@@ -80,9 +83,28 @@ const formatDate = (date) => {
 // ------
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedTransactionId, setSelectedTransactionId] = useState(null); // Track the current selected transaction
+
+  // Adding new categories
+  const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
+  const { categories } = useSelector((state) => state.categories);
+  
+  const handleOpenCategoryModal = () => {
+    setIsCategoryModalOpen(true);
+  };
+
+  const handleCloseCategoryModal = () => {
+    setIsCategoryModalOpen(false);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    dispatch(fetchCategoriesAction(token));
+  }, [dispatch]);
 
   // States for toggling forms
   const [showNewTransactionForm, setShowNewTransactionForm] = useState(false);
@@ -90,7 +112,7 @@ const Dashboard = () => {
 
   // States for adding new transactions
   const [type, setType] = useState("Expense");
-  const [category, setCategory] = useState("Food");
+  const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
 
@@ -136,6 +158,10 @@ const Dashboard = () => {
 
   const handleAddTransaction = async (e) => {
     e.preventDefault();
+    if (!category) {
+      alert("Please select a category before submitting.");
+      return;
+    }
     try {
       const token = localStorage.getItem("accessToken");
       const newTransaction = { type, amount, category, description };
@@ -176,6 +202,25 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-box">
+        {/* Button to open CategoryModal */}
+        <button onClick={handleOpenCategoryModal}>Add New Category</button>
+        {/* Render CategoryModal */}
+        <CategoryModal
+          isOpen={isCategoryModalOpen}
+          onClose={handleCloseCategoryModal}
+        />
+        {/* Display Categories */}
+        <div>
+          <h2>Categories</h2>
+          <ul>
+            {categories.map((category) => (
+              <li key={category.name} style={{ color: category.color }}>
+                {category.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+
         {/* New Transaction Section */}
         <div className="new-transaction-container">
           {!showNewTransactionForm && (
@@ -208,11 +253,12 @@ const Dashboard = () => {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
-                  <option value="Food">Food</option>
-                  <option value="Drinks">Drinks</option>
-                  <option value="Clothing">Clothing</option>
-                  <option value="Car">Car</option>
-                  <option value="Groceries">Groceries</option>
+                  <option value="" disabled>Select a category</option>
+                  {categories.map((cat) => (
+                    <option key={cat._id} value={cat._id}>
+                      {cat.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div>
@@ -280,11 +326,11 @@ const Dashboard = () => {
                 onChange={(e) => setFilterCategory(e.target.value)}
               >
                 <option value="">All</option>
-                <option value="Food">Food</option>
-                <option value="Drinks">Drinks</option>
-                <option value="Clothing">Clothing</option>
-                <option value="Car">Car</option>
-                <option value="Groceries">Groceries</option>
+                {categories.map((cat) => (
+                  <option key={cat._id} value={cat._id}>
+                    {cat.name}
+                  </option>
+                ))}
               </select>
             </div>
             <div>
@@ -346,7 +392,7 @@ const Dashboard = () => {
                 <td>{formatDate(transaction.date)}</td>
                 <td>{transaction.type}</td>
                 <td>${transaction.amount}</td>
-                <td>{transaction.category}</td>
+                <td>{transaction.category.name}</td>
                 <td>{transaction.description}</td>
                 {selectedTransactionId === transaction._id && (
                   <td className="action-cell">
@@ -369,7 +415,7 @@ const Dashboard = () => {
 
       {/* Charts */}
       <div className="chart-box">
-        <BarChart transactions={transactions} />
+        <BarChart transactions={transactions}/>
       </div>
     </div>
   );

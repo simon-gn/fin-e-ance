@@ -15,7 +15,9 @@ exports.getTransactions = async (req, res) => {
       filter.date = { $gte: new Date(startDate), $lte: new Date(endDate) };
     }
 
-    const transactions = await Transaction.find(filter).sort({ date: -1 });
+    const transactions = await Transaction.find(filter)
+      .populate('category', 'name color')
+      .sort({ date: -1 });
     res.status(200).json(transactions);
   } catch (error) {
     res.status(500).json({ message: "Error fetching transactions", error });

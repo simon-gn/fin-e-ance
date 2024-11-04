@@ -124,3 +124,35 @@ export const deleteTransaction = async (transactionId, token) => {
   );
   return response;
 };
+
+export const getCategories = async (token) => {
+  const response = await apiClient.get(
+    `/api/categories/get`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+  return response.data;
+}
+
+export const addCategory = async (category, token) => {
+  const response = await apiClient.post(
+    `/api/categories/add`,
+    category,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+  return response.data;
+}
+
+export const deleteCategory = async (categoryId, token) => {
+  const response = await apiClient.delete(
+    `/api/categories/delete`,
+    { categoryId },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+  return response;
+}

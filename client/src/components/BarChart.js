@@ -6,14 +6,14 @@ const BarChart = ({ transactions }) => {
   // Group and sum transactions by category
   const data = transactions.reduce((acc, transaction) => {
     const existingCategory = acc.find(
-      (item) => item.category === transaction.category,
+      (item) => item.category === transaction.category.name,
     );
     if (existingCategory) {
       existingCategory.amount += transaction.amount;
     }
     // If the category doesn't exist yet, add a new entry
     else {
-      acc.push({ category: transaction.category, amount: transaction.amount });
+      acc.push({ category: transaction.category.name, amount: transaction.amount });
     }
     return acc;
   }, []);
@@ -57,7 +57,6 @@ const BarChart = ({ transactions }) => {
 BarChart.propTypes = {
   transactions: PropTypes.arrayOf(
     PropTypes.shape({
-      category: PropTypes.string.isRequired,
       amount: PropTypes.number.isRequired,
     }),
   ).isRequired,
