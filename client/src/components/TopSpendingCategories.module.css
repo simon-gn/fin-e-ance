@@ -1,0 +1,36 @@
+.topSpendingCategories {
+  padding: 20px;
+  width: 320px;
+}
+
+.categoryList {
+  padding: 0;
+}
+
+.categoryItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.categoryName {
+  width: 80px;
+  font-weight: 500;
+  color: #555;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.categoryBar {
+  height: 12px;
+  background-color: var(--main_color);
+  margin: 0 10px;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.categoryTotal {
+  font-weight: bold;
+}

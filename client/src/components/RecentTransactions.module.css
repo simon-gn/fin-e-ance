@@ -1,0 +1,46 @@
+.recentTransactions {
+  padding: 30px;
+}
+
+.transactionList {
+  padding: 0;
+  margin: 0;
+}
+
+.transactionItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9rem;
+  color: #555;
+}
+.transactionItem:last-child {
+  border-bottom: none;
+}
+.transactionDate {
+  flex: 1;
+}
+.transactionCategory {
+  flex: 1;
+  text-align: center;
+}
+.transactionAmount {
+  flex: 1;
+  text-align: right;
+  font-weight: bold;
+}
+
+.viewAllLink {
+  display: block;
+  margin-top: 15px;
+  text-align: right;
+  color: var(--main_color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.viewAllLink:hover {
+  text-decoration: underline;
+}
