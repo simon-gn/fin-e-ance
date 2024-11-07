@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import styles from './RecentTransactions.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import styles from "./RecentTransactions.module.css";
 
 const RecentTransactions = () => {
   const { transactions } = useSelector((state) => state.transactions);
@@ -16,12 +16,24 @@ const RecentTransactions = () => {
             <span className={styles.transactionDate}>
               {new Date(transaction.date).toLocaleDateString()}
             </span>
-            <span className={styles.transactionCategory}>{transaction.category.name}</span>
-            <span className={styles.transactionAmount} style={{color: transaction.type === 'Income' ? '#76c7c0' : '#ff6b6b' }}>{transaction.type === 'Expense' ? '-' : '+'}${transaction.amount.toFixed(2)}</span>
+            <span className={styles.transactionCategory}>
+              {transaction.category.name}
+            </span>
+            <span
+              className={styles.transactionAmount}
+              style={{
+                color: transaction.type === "Income" ? "#76c7c0" : "#ff6b6b",
+              }}
+            >
+              {transaction.type === "Expense" ? "-" : "+"}$
+              {transaction.amount.toFixed(2)}
+            </span>
           </li>
         ))}
       </ul>
-      <Link to="/transactions" className={styles.viewAllLink}>View All</Link>
+      <Link to="/transactions" className={styles.viewAllLink}>
+        View All
+      </Link>
     </div>
   );
 };

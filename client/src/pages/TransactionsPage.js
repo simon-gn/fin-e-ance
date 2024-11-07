@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTransactionsAction, deleteTransactionAction } from '../redux/actions/transactionActions';
-import { fetchCategoriesAction } from '../redux/actions/categoryActions';
-import AddTransactionModal from '../components/modals/AddTransactionModal';
-import { getDateRange, formatDate } from '../utils/miscUtils';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchTransactionsAction,
+  deleteTransactionAction,
+} from "../redux/actions/transactionActions";
+import { fetchCategoriesAction } from "../redux/actions/categoryActions";
+import AddTransactionModal from "../components/modals/AddTransactionModal";
+import { getDateRange, formatDate } from "../utils/miscUtils";
 import styles from "./TransactionsPage.module.css";
-
 
 const TransactionPage = () => {
   const [dateRange, setDateRange] = useState("");
@@ -13,14 +15,13 @@ const TransactionPage = () => {
   const [customEndDate, setCustomEndDate] = useState("");
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
-  
+
   const [selectedTransactionId, setSelectedTransactionId] = useState(null);
   const [showFilterForm, setShowFilterForm] = useState(false);
 
   const dispatch = useDispatch();
-  const { transactions } = useSelector(state => state.transactions);
-  const { categories } = useSelector(state => state.categories);
-
+  const { transactions } = useSelector((state) => state.transactions);
+  const { categories } = useSelector((state) => state.categories);
 
   useEffect(() => {
     try {
@@ -30,24 +31,12 @@ const TransactionPage = () => {
         customEndDate,
       );
 
-      dispatch(fetchTransactionsAction(
-        type,
-        category,
-        startDate,
-        endDate,
-      ));
+      dispatch(fetchTransactionsAction(type, category, startDate, endDate));
     } catch (err) {
       console.error(err);
     }
-  }, [
-    type,
-    category,
-    dateRange,
-    customStartDate,
-    customEndDate,
-    dispatch,
-  ]);
-  
+  }, [type, category, dateRange, customStartDate, customEndDate, dispatch]);
+
   useEffect(() => {
     dispatch(fetchCategoriesAction());
   }, [dispatch]);
@@ -63,20 +52,23 @@ const TransactionPage = () => {
   };
 
   // Adding new transactions
-  const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
+  const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] =
+    useState(false);
   const handleOpenAddTransactionModal = () => {
     setIsAddTransactionModalOpen(true);
-  }
+  };
   const handleCloseAddTransactionModal = () => {
     setIsAddTransactionModalOpen(false);
-  }
+  };
 
   return (
-    <div className={styles.transactionsPage}>      
+    <div className={styles.transactionsPage}>
       <div className={`${styles.transactionsPageBox} card`}>
         {/* Add Transaction Modal */}
         {!isAddTransactionModalOpen && (
-          <button onClick={handleOpenAddTransactionModal}>New Transaction</button>
+          <button onClick={handleOpenAddTransactionModal}>
+            New Transaction
+          </button>
         )}
         <AddTransactionModal
           isOpen={isAddTransactionModalOpen}
@@ -181,11 +173,15 @@ const TransactionPage = () => {
                 onClick={() => handleTransactionClick(transaction._id)}
               >
                 <td>{formatDate(transaction.date)}</td>
-                <td style={{
-                  color: transaction.type === 'Income' ? '#76c7c0' : '#ff6b6b',
-                  fontWeight: 'bold'
-                   }}>
-                    {transaction.type === 'Expense' ? '-' : '+'}${transaction.amount.toFixed(2)}
+                <td
+                  style={{
+                    color:
+                      transaction.type === "Income" ? "#76c7c0" : "#ff6b6b",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {transaction.type === "Expense" ? "-" : "+"}$
+                  {transaction.amount.toFixed(2)}
                 </td>
                 <td>{transaction.category.name}</td>
                 <td>{transaction.description}</td>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { fetchTransactionsAction } from "../redux/actions/transactionActions";
 import IncomeExpenseSummary from "../components/dashboard_elements/IncomeExpenseSummary";
 import TopSpendingCategories from "../components/dashboard_elements/TopSpendingCategories";
@@ -14,8 +14,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(fetchTransactionsAction());
-  }, [dispatch]
-  );
+  }, [dispatch]);
 
   return (
     <div className={styles.dashboard}>

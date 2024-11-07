@@ -1,11 +1,13 @@
-import React from 'react';
-import { ResponsivePie } from '@nivo/pie';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { ResponsivePie } from "@nivo/pie";
+import { useSelector } from "react-redux";
 
 const CategoryBreakdownChart = () => {
   const { transactions } = useSelector((state) => state.transactions);
 
-  const expenses = transactions.filter(transaction => transaction.type === 'Expense');
+  const expenses = transactions.filter(
+    (transaction) => transaction.type === "Expense",
+  );
 
   // Calculate total per category
   const categoryTotals = expenses.reduce((acc, transaction) => {
@@ -21,20 +23,20 @@ const CategoryBreakdownChart = () => {
   }));
 
   return (
-    <div style={{ height: '500px' }}>
+    <div style={{ height: "500px" }}>
       <ResponsivePie
         data={data}
         margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
         innerRadius={0.5}
         padAngle={1}
         cornerRadius={3}
-        colors={{ scheme: 'pastel1' }}
+        colors={{ scheme: "pastel1" }}
         borderWidth={1}
-        borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+        borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
         radialLabel={(d) => `${d.id} (${d.value})`}
         sliceLabel={(d) => `${d.value}`}
         slicesLabelsSkipAngle={10}
-        radialLabelsLinkColor={{ from: 'color' }}
+        radialLabelsLinkColor={{ from: "color" }}
         radialLabelsTextColor="#333333"
       />
     </div>

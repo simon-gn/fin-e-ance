@@ -1,4 +1,4 @@
-import { format, subMonths, isSameMonth } from 'date-fns';
+import { format, subMonths, isSameMonth } from "date-fns";
 
 export const calculateMonthlyTotals = (transactions) => {
   const currentMonth = new Date();
@@ -10,9 +10,9 @@ export const calculateMonthlyTotals = (transactions) => {
     const transactionDate = new Date(transaction.date);
 
     if (isSameMonth(transactionDate, currentMonth)) {
-      if (transaction.type === 'Income') {
+      if (transaction.type === "Income") {
         totalIncome += transaction.amount;
-      } else if (transaction.type === 'Expense') {
+      } else if (transaction.type === "Expense") {
         totalExpenses += transaction.amount;
       }
     }
@@ -23,8 +23,9 @@ export const calculateMonthlyTotals = (transactions) => {
 
 export const calculateTopSpendingCategories = (transactions, limit = 5) => {
   const categoryTotals = transactions.reduce((acc, transaction) => {
-    if (transaction.type === 'Expense') {
-      acc[transaction.category.name] = (acc[transaction.category.name] || 0) + transaction.amount;
+    if (transaction.type === "Expense") {
+      acc[transaction.category.name] =
+        (acc[transaction.category.name] || 0) + transaction.amount;
     }
     return acc;
   }, {});
@@ -37,11 +38,15 @@ export const calculateTopSpendingCategories = (transactions, limit = 5) => {
 
 export const processMonthlySpendingData = (transactions) => {
   const data = [];
-  
+
   for (let i = 5; i >= 0; i--) {
-    const month = format(subMonths(new Date(), i), 'MMM yyyy');
+    const month = format(subMonths(new Date(), i), "MMM yyyy");
     const monthlyTotal = transactions
-      .filter(txn => txn.type === 'Expense' && format(new Date(txn.date), 'MMM yyyy') === month)
+      .filter(
+        (txn) =>
+          txn.type === "Expense" &&
+          format(new Date(txn.date), "MMM yyyy") === month,
+      )
       .reduce((sum, txn) => sum + txn.amount, 0);
     data.push({ month, spending: monthlyTotal });
   }
@@ -59,12 +64,12 @@ export const processMonthlyIncomeExpense = (transactions) => {
       data[monthKey] = { income: 0, expense: 0 };
     }
 
-    if (transaction.type === 'Income') {
+    if (transaction.type === "Income") {
       data[monthKey].income += transaction.amount;
-    } else if (transaction.type === 'Expense') {
+    } else if (transaction.type === "Expense") {
       data[monthKey].expense += transaction.amount;
     }
-  })
+  });
 
   return data;
-}
+};

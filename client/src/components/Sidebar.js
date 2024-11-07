@@ -1,7 +1,7 @@
 // import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { handleLogout } from '../utils/authUtils';
-import styles from './Sidebar.module.css';
+import { Link } from "react-router-dom";
+import { handleLogout } from "../utils/authUtils";
+import styles from "./Sidebar.module.css";
 
 const Sidebar = () => {
   // const [showTransactionsSubmenu, setShowTransactionsSubmenu] = useState(false);
@@ -30,10 +30,10 @@ const Sidebar = () => {
           </div>
           {showTransactionsSubmenu && (
             <ul className="submenu"> */}
-              <li>
-                <Link to="/transactions">Transactions</Link>
-              </li>
-            {/* </ul>
+        <li>
+          <Link to="/transactions">Transactions</Link>
+        </li>
+        {/* </ul>
           )}
         </li>
         <li>
@@ -42,14 +42,14 @@ const Sidebar = () => {
           </div>
           {showCategoriesSubmenu && (
             <ul className="submenu"> */}
-              <li>
-                <Link to="/categories">Categories</Link>
-              </li>
-            {/* </ul>
+        <li>
+          <Link to="/categories">Categories</Link>
+        </li>
+        {/* </ul>
           )}
         </li> */}
       </ul>
-      
+
       <button className={styles.logoutButton} onClick={handleLogout}>
         Log Out
       </button>

@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategoriesAction, deleteCategoryAction } from '../redux/actions/categoryActions';
-import AddCategoryModal from '../components/modals/AddCategoryModal';
-import styles from './CategoriesPage.module.css';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchCategoriesAction,
+  deleteCategoryAction,
+} from "../redux/actions/categoryActions";
+import AddCategoryModal from "../components/modals/AddCategoryModal";
+import styles from "./CategoriesPage.module.css";
 
 const CategoriesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -38,14 +41,17 @@ const CategoriesPage = () => {
           <button onClick={handleOpenAddCategoryModal}>New Category</button>
         </div>
       )}
-      <AddCategoryModal isOpen={isAddCategoryModalOpen} onClose={handleCloseAddCategoryModal} />
+      <AddCategoryModal
+        isOpen={isAddCategoryModalOpen}
+        onClose={handleCloseAddCategoryModal}
+      />
 
       <div className={styles.categoriesPageBox}>
         <ul className={styles.categoryList}>
           {categories.map((category) => (
             <li
               key={category._id}
-              className={`${styles.categoryCard} ${selectedCategory === category._id ? styles.selected : ''}`}
+              className={`${styles.categoryCard} ${selectedCategory === category._id ? styles.selected : ""}`}
               onClick={() => handleCategoryClick(category._id)}
               style={{ backgroundColor: category.color }}
             >

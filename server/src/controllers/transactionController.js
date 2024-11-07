@@ -16,7 +16,7 @@ exports.getTransactions = async (req, res) => {
     }
 
     const transactions = await Transaction.find(filter)
-      .populate('category', 'name color')
+      .populate("category", "name color")
       .sort({ date: -1 });
     res.status(200).json(transactions);
   } catch (error) {

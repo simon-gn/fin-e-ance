@@ -1,6 +1,6 @@
-import { ResponsiveLine } from '@nivo/line';
-import { useSelector } from 'react-redux';
-import { processMonthlySpendingData } from '../../utils/transactionUtils';
+import { ResponsiveLine } from "@nivo/line";
+import { useSelector } from "react-redux";
+import { processMonthlySpendingData } from "../../utils/transactionUtils";
 
 const SpendingTrendChart = () => {
   const { transactions } = useSelector((state) => state.transactions);
@@ -11,39 +11,39 @@ const SpendingTrendChart = () => {
     {
       id: "Spending",
       color: "hsl(220, 70%, 50%)",
-      data: data.map(d => ({ x: d.month, y: d.spending })),
+      data: data.map((d) => ({ x: d.month, y: d.spending })),
     },
   ];
 
   return (
-    <div style={{ height: '500px' }}>
+    <div style={{ height: "500px" }}>
       <ResponsiveLine
         data={chartData}
         margin={{ top: 20, right: 20, bottom: 70, left: 60 }}
-        xScale={{ type: 'point' }}
-        yScale={{ type: 'linear', min: 0, max: 'auto', stacked: false }}
+        xScale={{ type: "point" }}
+        yScale={{ type: "linear", min: 0, max: "auto", stacked: false }}
         axisBottom={{
-          orient: 'bottom',
+          orient: "bottom",
           tickSize: 5,
           tickPadding: 5,
           tickRotation: -45,
-          legend: 'Month',
+          legend: "Month",
           legendOffset: 60,
-          legendPosition: 'middle'
+          legendPosition: "middle",
         }}
         axisLeft={{
-          orient: 'left',
+          orient: "left",
           tickSize: 5,
           tickPadding: 5,
-          legend: 'Spending ($)',
+          legend: "Spending ($)",
           legendOffset: -50,
-          legendPosition: 'middle'
+          legendPosition: "middle",
         }}
-        colors={{ datum: 'color' }}
+        colors={{ datum: "color" }}
         pointSize={10}
-        pointColor={{ theme: 'background' }}
+        pointColor={{ theme: "background" }}
         pointBorderWidth={2}
-        pointBorderColor={{ from: 'serieColor' }}
+        pointBorderColor={{ from: "serieColor" }}
         pointLabelYOffset={-12}
         useMesh={true}
       />

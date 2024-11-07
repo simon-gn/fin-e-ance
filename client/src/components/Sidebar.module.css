@@ -26,15 +26,19 @@
 .sidebar ul li {
   margin-bottom: 10px;
 }
-.sidebar ul li a, .sidebarItem {
+.sidebar ul li a,
+.sidebarItem {
   color: white;
   text-decoration: none;
-	display: inline-block;
+  display: inline-block;
   padding: 5px;
-  transition: border 0.3s ease, color 0.3s ease;
+  transition:
+    border 0.3s ease,
+    color 0.3s ease;
   cursor: pointer;
 }
-.sidebar ul li a:hover, .sidebarItem:hover {
+.sidebar ul li a:hover,
+.sidebarItem:hover {
   border: 1px solid #fff;
   border-radius: 4px;
   text-decoration: none;

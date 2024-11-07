@@ -28,7 +28,9 @@
   border-radius: 7px;
   cursor: pointer;
   box-shadow: var(--box_shadow_color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .categoryCard:hover {

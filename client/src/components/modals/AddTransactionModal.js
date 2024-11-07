@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addTransactionAction } from '../../redux/actions/transactionActions';
-import styles from './AddTransactionModal.module.css';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addTransactionAction } from "../../redux/actions/transactionActions";
+import styles from "./AddTransactionModal.module.css";
 
 const AddTransactionModal = ({ isOpen, onClose }) => {
-  const [type, setType] = useState('Expense');
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
+  const [type, setType] = useState("Expense");
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
   const dispatch = useDispatch();
-  const { categories } = useSelector(state => state.categories);
+  const { categories } = useSelector((state) => state.categories);
 
   const handleSave = () => {
     dispatch(addTransactionAction({ type, amount, category, description }));
@@ -18,7 +18,13 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
 
   return (
     isOpen && (
-      <form className={styles.addTransactionForm} onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
+      <form
+        className={styles.addTransactionForm}
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSave();
+        }}
+      >
         <div>
           <label htmlFor="type">Type:</label>
           <select
@@ -41,7 +47,9 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
             onChange={(e) => setCategory(e.target.value)}
             required
           >
-            <option value="" disabled>Select a category</option>
+            <option value="" disabled>
+              Select a category
+            </option>
             {categories.map((cat) => (
               <option key={cat._id} value={cat._id}>
                 {cat.name}
@@ -71,10 +79,7 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
           />
         </div>
         <button type="submit">Add Transaction</button>
-        <button
-          type="button"
-          onClick={() => onClose()}
-        >
+        <button type="button" onClick={() => onClose()}>
           Cancel
         </button>
       </form>

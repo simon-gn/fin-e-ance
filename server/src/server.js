@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const app = require("./index");
-const Category = require('./models/Category');
+const Category = require("./models/Category");
 const { startCronJob } = require("./cron");
 require("dotenv").config();
 
@@ -14,9 +14,9 @@ if (process.env.NODE_ENV !== "test") {
 
 // Ensure default Category exists
 const ensureDefaultCategory = async () => {
-  const defaultCategory = await Category.findOne({ name: 'Uncategorized' });
+  const defaultCategory = await Category.findOne({ name: "Uncategorized" });
   if (!defaultCategory) {
-    await Category.create({ name: 'Uncategorized', color: '#cccccc' });
+    await Category.create({ name: "Uncategorized", color: "#cccccc" });
     console.log('Default "Uncategorized" category created.');
   }
 };

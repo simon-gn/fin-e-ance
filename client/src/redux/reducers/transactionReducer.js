@@ -7,13 +7,13 @@ import {
   ADD_TRANSACTION_FAILURE,
   DELETE_TRANSACTION_REQUEST,
   DELETE_TRANSACTION_SUCCESS,
-  DELETE_TRANSACTION_FAILURE
-} from '../actions/transactionActionTypes';
+  DELETE_TRANSACTION_FAILURE,
+} from "../actions/transactionActionTypes";
 
 const initialState = {
   loading: false,
   transactions: [],
-  error: null
+  error: null,
 };
 
 const transactionReducer = (state = initialState, action) => {
@@ -24,25 +24,27 @@ const transactionReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
     case FETCH_TRANSACTIONS_SUCCESS:
       return {
         ...state,
         loading: false,
-        transactions: action.payload
+        transactions: action.payload,
       };
     case ADD_TRANSACTION_SUCCESS:
       return {
         ...state,
         loading: false,
-        transactions: [...state.transactions, action.payload]
+        transactions: [...state.transactions, action.payload],
       };
     case DELETE_TRANSACTION_SUCCESS:
       return {
         ...state,
         loading: false,
-        transactions: state.transactions.filter(transaction => transaction._id !== action.payload)
+        transactions: state.transactions.filter(
+          (transaction) => transaction._id !== action.payload,
+        ),
       };
     case FETCH_TRANSACTIONS_FAILURE:
     case ADD_TRANSACTION_FAILURE:
@@ -50,7 +52,7 @@ const transactionReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload,
       };
     default:
       return state;

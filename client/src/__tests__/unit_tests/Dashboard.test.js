@@ -176,7 +176,9 @@ describe("Dashboard", () => {
     });
 
     // Check if the second call to fetchTransactions is called with second parameter set to 'Food'
-    await waitFor(() => expect(fetchTransactionsAPI.mock.calls[1][1]).toBe("Food"));
+    await waitFor(() =>
+      expect(fetchTransactionsAPI.mock.calls[1][1]).toBe("Food"),
+    );
   });
 });
 

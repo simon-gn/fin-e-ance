@@ -17,9 +17,11 @@
   gap: 10px;
 }
 
-.chartBox, .summaryColumn > div {
+.chartBox,
+.summaryColumn > div {
   transition: transform 0.3s ease;
 }
-.chartBox:hover, .summaryColumn > div:hover {
+.chartBox:hover,
+.summaryColumn > div:hover {
   transform: translateY(-2px);
 }

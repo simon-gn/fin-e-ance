@@ -1,5 +1,5 @@
-const Category = require('../models/Category');
-const Transaction = require('../models/Transaction');
+const Category = require("../models/Category");
+const Transaction = require("../models/Transaction");
 
 exports.getCategories = async (req, res) => {
   try {
@@ -36,13 +36,13 @@ exports.deleteCategory = async (req, res) => {
     }
 
     // Revert all transactions assocciated with deleted category to 'Uncategorized'
-    const defaultCategory = await Category.findOne({ name: 'Uncategorized' });
+    const defaultCategory = await Category.findOne({ name: "Uncategorized" });
     if (!defaultCategory) {
-      throw new Error('Default category not found');
+      throw new Error("Default category not found");
     }
     await Transaction.updateMany(
       { category: categoryId },
-      { category: defaultCategory._id }
+      { category: defaultCategory._id },
     );
 
     await category.deleteOne();

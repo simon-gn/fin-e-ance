@@ -7,13 +7,13 @@ import {
   ADD_CATEGORY_FAILURE,
   DELETE_CATEGORY_REQUEST,
   DELETE_CATEGORY_SUCCESS,
-  DELETE_CATEGORY_FAILURE
-} from '../actions/categoryActionTypes';
+  DELETE_CATEGORY_FAILURE,
+} from "../actions/categoryActionTypes";
 
 const initialState = {
   loading: false,
   categories: [],
-  error: null
+  error: null,
 };
 
 const categoryReducer = (state = initialState, action) => {
@@ -24,7 +24,7 @@ const categoryReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        error: null
+        error: null,
       };
     case FETCH_CATEGORIES_SUCCESS:
       return {
@@ -42,7 +42,9 @@ const categoryReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        categories: state.categories.filter(category => category._id !== action.payload),
+        categories: state.categories.filter(
+          (category) => category._id !== action.payload,
+        ),
       };
     case FETCH_CATEGORIES_FAILURE:
     case ADD_CATEGORY_FAILURE:
@@ -50,7 +52,7 @@ const categoryReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload,
       };
     default:
       return state;

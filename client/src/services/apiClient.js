@@ -49,7 +49,7 @@ apiClient.interceptors.response.use(
           err.response &&
           (err.response.status === 401 || err.response.status === 403)
         ) {
-            handleLogout();
+          handleLogout();
         }
       }
     }
