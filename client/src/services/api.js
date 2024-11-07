@@ -49,7 +49,7 @@ apiClient.interceptors.response.use(
           err.response &&
           (err.response.status === 401 || err.response.status === 403)
         ) {
-          handleLogout();
+            handleLogout();
         }
       }
     }
@@ -89,7 +89,7 @@ export const validateTokenAPI = async (token) => {
   return response;
 };
 
-export const getTransactions = async (
+export const fetchTransactionsAPI = async (
   type,
   category,
   startDate,
@@ -103,7 +103,7 @@ export const getTransactions = async (
   return response;
 };
 
-export const addTransaction = async (transactionData, token) => {
+export const addTransactionAPI = async (transactionData, token) => {
   const response = await apiClient.post(
     `/api/transactions/add`,
     transactionData,
@@ -114,7 +114,7 @@ export const addTransaction = async (transactionData, token) => {
   return response;
 };
 
-export const deleteTransaction = async (transactionId, token) => {
+export const deleteTransactionAPI = async (transactionId, token) => {
   const response = await apiClient.post(
     `/api/transactions/delete`,
     { transactionId },
@@ -125,17 +125,17 @@ export const deleteTransaction = async (transactionId, token) => {
   return response;
 };
 
-export const getCategories = async (token) => {
+export const fetchCategoriesAPI = async (token) => {
   const response = await apiClient.get(
     `/api/categories/get`,
     {
       headers: { Authorization: `Bearer ${token}` },
     },
   );
-  return response.data;
+  return response;
 }
 
-export const addCategory = async (category, token) => {
+export const addCategoryAPI = async (category, token) => {
   const response = await apiClient.post(
     `/api/categories/add`,
     category,
@@ -143,11 +143,11 @@ export const addCategory = async (category, token) => {
       headers: { Authorization: `Bearer ${token}` },
     },
   );
-  return response.data;
+  return response;
 }
 
-export const deleteCategory = async (categoryId, token) => {
-  const response = await apiClient.delete(
+export const deleteCategoryAPI = async (categoryId, token) => {
+  const response = await apiClient.post(
     `/api/categories/delete`,
     { categoryId },
     {
