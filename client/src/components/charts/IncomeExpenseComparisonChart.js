@@ -1,7 +1,7 @@
 import React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 import { useSelector } from 'react-redux';
-import { processMonthlyIncomeExpense } from '../utils/transactionUtils';
+import { processMonthlyIncomeExpense } from '../../utils/transactionUtils';
 
 const IncomeExpenseComparisonChart = () => {
   const { transactions } = useSelector((state) => state.transactions);

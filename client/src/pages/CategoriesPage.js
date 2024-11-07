@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategoriesAction, deleteCategoryAction } from '../redux/actions/categoryActions';
-import AddCategoryModal from '../components/AddCategoryModal';
+import AddCategoryModal from '../components/modals/AddCategoryModal';
 import styles from './CategoriesPage.module.css';
 
 const CategoriesPage = () => {

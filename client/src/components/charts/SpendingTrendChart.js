@@ -1,6 +1,6 @@
 import { ResponsiveLine } from '@nivo/line';
 import { useSelector } from 'react-redux';
-import { processMonthlySpendingData } from '../utils/transactionUtils';
+import { processMonthlySpendingData } from '../../utils/transactionUtils';
 
 const SpendingTrendChart = () => {
   const { transactions } = useSelector((state) => state.transactions);

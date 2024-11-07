@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTransactionsAction, deleteTransactionAction } from '../redux/actions/transactionActions';
 import { fetchCategoriesAction } from '../redux/actions/categoryActions';
-import AddTransactionModal from '../components/AddTransactionModal';
+import AddTransactionModal from '../components/modals/AddTransactionModal';
 import { getDateRange, formatDate } from '../utils/miscUtils';
 import styles from "./TransactionsPage.module.css";
 

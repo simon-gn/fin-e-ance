@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addCategoryAction } from '../redux/actions/categoryActions';
+import { addCategoryAction } from '../../redux/actions/categoryActions';
 import styles from "./AddCategoryModal.module.css";
 
 const AddCategoryModal = ({ isOpen, onClose }) => {

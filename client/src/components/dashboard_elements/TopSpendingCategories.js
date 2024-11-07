@@ -1,7 +1,7 @@
 // components/TopSpendingCategories.js
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { calculateTopSpendingCategories } from '../utils/transactionUtils';
+import { calculateTopSpendingCategories } from '../../utils/transactionUtils';
 import styles from './TopSpendingCategories.module.css';
 
 const TopSpendingCategories = () => {

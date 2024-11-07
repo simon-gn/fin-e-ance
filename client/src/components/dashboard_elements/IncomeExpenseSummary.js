@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { calculateMonthlyTotals } from '../utils/transactionUtils';
+import { calculateMonthlyTotals } from '../../utils/transactionUtils';
 import styles from './IncomeExpenseSummary.module.css';
 
 const IncomeExpenseSummary = () => {

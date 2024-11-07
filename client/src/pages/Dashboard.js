@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { fetchTransactionsAction } from "../redux/actions/transactionActions";
-import IncomeExpenseSummary from "../components/IncomeExpenseSummary";
-import TopSpendingCategories from "../components/TopSpendingCategories";
-import RecentTransactions from "../components/RecentTransactions";
-import CategoryBreakdownChart from "../components/CategoryBreakdownChart";
-import SpendingTrendChart from "../components/SpendingTrendChart";
-import IncomeExpenseComparisonChart from "../components/IncomeExpenseComparisonChart";
+import IncomeExpenseSummary from "../components/dashboard_elements/IncomeExpenseSummary";
+import TopSpendingCategories from "../components/dashboard_elements/TopSpendingCategories";
+import RecentTransactions from "../components/dashboard_elements/RecentTransactions";
+import CategoryBreakdownChart from "../components/charts/CategoryBreakdownChart";
+import SpendingTrendChart from "../components/charts/SpendingTrendChart";
+import IncomeExpenseComparisonChart from "../components/charts/IncomeExpenseComparisonChart";
 import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {

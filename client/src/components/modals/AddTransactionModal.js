@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTransactionAction } from '../redux/actions/transactionActions';
+import { addTransactionAction } from '../../redux/actions/transactionActions';
 import styles from './AddTransactionModal.module.css';
 
 const AddTransactionModal = ({ isOpen, onClose }) => {
