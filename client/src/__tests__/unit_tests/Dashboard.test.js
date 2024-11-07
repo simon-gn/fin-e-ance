@@ -2,15 +2,15 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Dashboard, { getDateRange } from "../../components/Dashboard";
 import {
-  getTransactions,
-  addTransaction,
-  deleteTransaction,
-} from "../../services/api";
+  fetchTransactionsAPI,
+  addTransactionAPI,
+  deleteTransactionAPI,
+} from "../../services/transactionAPI";
 
-jest.mock("../../services/api", () => ({
-  getTransactions: jest.fn(),
-  addTransaction: jest.fn(),
-  deleteTransaction: jest.fn(),
+jest.mock("../../services/transactionAPI", () => ({
+  fetchTransactionsAPI: jest.fn(),
+  addTransactionAPI: jest.fn(),
+  deleteTransactionAPI: jest.fn(),
 }));
 
 // Helper functions
@@ -61,7 +61,7 @@ describe("Dashboard", () => {
   });
 
   it("renders loading state initially", async () => {
-    getTransactions.mockResolvedValueOnce({ data: [] });
+    fetchTransactionsAPI.mockResolvedValueOnce({ data: [] });
 
     render(
       <MemoryRouter>
@@ -76,7 +76,7 @@ describe("Dashboard", () => {
   });
 
   it("renders transactions after loading", async () => {
-    getTransactions.mockResolvedValueOnce({ data: mockTransactionsInDb });
+    fetchTransactionsAPI.mockResolvedValueOnce({ data: mockTransactionsInDb });
 
     await renderPageSuccessfully();
 
@@ -100,8 +100,8 @@ describe("Dashboard", () => {
   });
 
   it("adds a new transaction successfully", async () => {
-    getTransactions.mockResolvedValue({ data: mockTransactionsInDb });
-    addTransaction.mockResolvedValueOnce({}); // Mock successful addition of transaction
+    fetchTransactionsAPI.mockResolvedValue({ data: mockTransactionsInDb });
+    addTransactionAPI.mockResolvedValueOnce({}); // Mock successful addition of transaction
 
     await renderPageSuccessfully();
 
@@ -124,7 +124,7 @@ describe("Dashboard", () => {
     mockTransactionsInDb.push(mockTransactionToAdd);
     fireEvent.click(screen.getByRole("button", { name: /add transaction/i }));
 
-    expect(addTransaction).toHaveBeenCalledWith(
+    expect(addTransactionAPI).toHaveBeenCalledWith(
       {
         type: mockTransactionToAdd.type.toString(),
         category: mockTransactionToAdd.category.toString(),
@@ -135,15 +135,15 @@ describe("Dashboard", () => {
     );
 
     // Wait for the transactions to refresh
-    await waitFor(() => expect(getTransactions).toHaveBeenCalledTimes(2)); // Check if fetchTransactions is called again
+    await waitFor(() => expect(fetchTransactionsAPI).toHaveBeenCalledTimes(2)); // Check if fetchTransactions is called again
 
     // Check if the new transaction is rendered
     expect(screen.getByText(/shoes/i)).toBeInTheDocument();
   });
 
   it("removes a transaction successfully", async () => {
-    getTransactions.mockResolvedValueOnce({ data: mockTransactionsInDb });
-    deleteTransaction.mockResolvedValueOnce({}); // Mock successful deletion of transaction
+    fetchTransactionsAPI.mockResolvedValueOnce({ data: mockTransactionsInDb });
+    deleteTransactionAPI.mockResolvedValueOnce({}); // Mock successful deletion of transaction
 
     await renderPageSuccessfully();
 
@@ -153,9 +153,9 @@ describe("Dashboard", () => {
     // Click the remove button for the selected transaction
     fireEvent.click(screen.getByRole("button", { name: /remove/i }));
 
-    // Check if the deleteTransaction function was called
+    // Check if the deleteTransactionAPI function was called
     await waitFor(() =>
-      expect(deleteTransaction).toHaveBeenCalledWith("1", null),
+      expect(deleteTransactionAPI).toHaveBeenCalledWith("1", null),
     );
 
     // Check if the transaction is removed from the DOM
@@ -165,7 +165,7 @@ describe("Dashboard", () => {
   });
 
   it("filters transactions", async () => {
-    getTransactions.mockResolvedValue({ data: mockTransactionsInDb });
+    fetchTransactionsAPI.mockResolvedValue({ data: mockTransactionsInDb });
 
     await renderPageSuccessfully();
 
@@ -176,7 +176,7 @@ describe("Dashboard", () => {
     });
 
     // Check if the second call to fetchTransactions is called with second parameter set to 'Food'
-    await waitFor(() => expect(getTransactions.mock.calls[1][1]).toBe("Food"));
+    await waitFor(() => expect(fetchTransactionsAPI.mock.calls[1][1]).toBe("Food"));
   });
 });
 

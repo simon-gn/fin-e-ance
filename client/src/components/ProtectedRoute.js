@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { validateTokenAPI } from "../services/api";
+import { validateTokenAPI } from "../services/authAPI";
 import PropTypes from "prop-types";
 
 const ProtectedRoute = ({ children }) => {

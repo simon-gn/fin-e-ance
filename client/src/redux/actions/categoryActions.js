@@ -9,7 +9,7 @@ import {
   DELETE_CATEGORY_SUCCESS,
   DELETE_CATEGORY_FAILURE
 } from './categoryActionTypes';
-import { fetchCategoriesAPI, addCategoryAPI, deleteCategoryAPI } from '../../services/api';
+import { fetchCategoriesAPI, addCategoryAPI, deleteCategoryAPI } from '../../services/categoryAPI';
 
 export const fetchCategoriesAction = () => async (dispatch) => {
   dispatch({ type: FETCH_CATEGORIES_REQUEST });

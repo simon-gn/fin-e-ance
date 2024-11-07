@@ -9,9 +9,9 @@ import {
   DELETE_TRANSACTION_SUCCESS,
   DELETE_TRANSACTION_FAILURE
 } from './transactionActionTypes';
-import { fetchTransactionsAPI, addTransactionAPI, deleteTransactionAPI } from '../../services/api';
+import { fetchTransactionsAPI, addTransactionAPI, deleteTransactionAPI } from '../../services/transactionAPI';
 
-export const fetchTransactionsAction = (type, category, startDate, endDate) => async (dispatch, getState) => {
+export const fetchTransactionsAction = (type, category, startDate, endDate) => async (dispatch) => {
   dispatch({ type: FETCH_TRANSACTIONS_REQUEST });
   try {
     const token = localStorage.getItem("accessToken");
@@ -22,7 +22,7 @@ export const fetchTransactionsAction = (type, category, startDate, endDate) => a
   }
 };
 
-export const addTransactionAction = (transaction) => async (dispatch, getState) => {
+export const addTransactionAction = (transaction) => async (dispatch) => {
   dispatch({ type: ADD_TRANSACTION_REQUEST });
   try {
     const token = localStorage.getItem("accessToken");
@@ -33,7 +33,7 @@ export const addTransactionAction = (transaction) => async (dispatch, getState) 
   }
 };
 
-export const deleteTransactionAction = (transactionId) => async (dispatch, getState) => {
+export const deleteTransactionAction = (transactionId) => async (dispatch) => {
   dispatch({ type: DELETE_TRANSACTION_REQUEST });
   try {
     const token = localStorage.getItem("accessToken");
