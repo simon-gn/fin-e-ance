@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../services/api";
-import "./RegisterPage.css";
+import styles from "./RegisterPage.module.css";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -29,10 +29,10 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="registerpage">
-      <div className="register-box">
-        <h1>Create Your Account</h1>
-        <form className="register-form" onSubmit={handleSubmit}>
+    <div className={styles.registerPage}>
+      <div className={`${styles.registerBox} card`}>
+        <h2>Create Your Account</h2>
+        <form className={styles.registerForm} onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name">Name</label>
             <input
@@ -66,9 +66,14 @@ const RegisterPage = () => {
               required
             />
           </div>
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className={styles.errorMessage}>{error}</p>}
           <button type="submit">Sign up</button>
         </form>
+        <div className={styles.backToLoginPageLinkContainer}>
+          <Link to="/" className={styles.backToLoginPageLink}>
+            Back to Login
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api";
-import "./LoginPage.css";
+import styles from "./LoginPage.module.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -27,15 +27,15 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="homepage">
-      <div className="hero-section">
+    <div className={styles.loginPage}>
+      <div className={styles.heroSection}>
         <h1>fin(e)ance.</h1>
         <p>Track your financial transactions with ease.</p>
       </div>
 
-      <div className="login-box">
-        <h1>Login to Your Account</h1>
-        <form className="login-form" onSubmit={handleSubmit}>
+      <div className={`${styles.loginBox} card`}>
+        <h2>Login to Your Account</h2>
+        <form className={styles.loginForm} onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">Email</label>
             <input
@@ -58,12 +58,12 @@ const LoginPage = () => {
               placeholder="Enter your password"
             />
           </div>
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className={styles.errorMessage}>{error}</p>}
           <button type="submit">Login</button>
         </form>
-        <p className="signup-text">
+        <p className={styles.signupText}>
           Don&apos;t have an account?{" "}
-          <Link to="/register" className="signup-link">
+          <Link to="/register" className={styles.signupLink}>
             Sign Up
           </Link>
         </p>

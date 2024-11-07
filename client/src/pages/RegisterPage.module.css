@@ -1,0 +1,40 @@
+.registerPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.registerBox {
+  max-width: 400px;
+  width: 100%;
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.backToLoginPageLinkContainer {
+  margin-top: 20px;
+}
+.backToLoginPageLink {
+  color: var(--main_color);
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+.backToLoginPageLink:hover {
+  color: var(--main_color_hover);
+  text-decoration: underline;
+}
+
+.errorMessage {
+  color: var(--error_color);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
