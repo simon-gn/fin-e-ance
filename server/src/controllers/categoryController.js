@@ -1,4 +1,5 @@
 const Category = require('../models/Category');
+const Transaction = require('../models/Transaction');
 
 exports.getCategories = async (req, res) => {
   try {
@@ -10,10 +11,10 @@ exports.getCategories = async (req, res) => {
 };
 
 exports.addCategory = async (req, res) => {
-  const { name, color } = req.body;
-  const userId = req.user.id;
-
   try {
+    const { name, color } = req.body;
+    const userId = req.user.id;
+
     const newCategory = await Category.create({ name, color, userId });
     res.status(201).json(newCategory);
   } catch (error) {
@@ -33,6 +34,16 @@ exports.deleteCategory = async (req, res) => {
     if (category.userId.toString() !== req.user.id) {
       return res.status(401).json({ message: "Unauthorized" });
     }
+
+    // Revert all transactions assocciated with deleted category to 'Uncategorized'
+    const defaultCategory = await Category.findOne({ name: 'Uncategorized' });
+    if (!defaultCategory) {
+      throw new Error('Default category not found');
+    }
+    await Transaction.updateMany(
+      { category: categoryId },
+      { category: defaultCategory._id }
+    );
 
     await category.deleteOne();
     res.status(200).json({ message: "Category removed" });

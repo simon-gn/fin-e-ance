@@ -27,7 +27,8 @@ exports.getTransactions = async (req, res) => {
 exports.addTransaction = async (req, res) => {
   try {
     const { type, category, amount, description } = req.body;
-    await Transaction.create({
+
+    const newTransaction = await Transaction.create({
       user: req.user.id,
       type,
       category,
@@ -35,7 +36,7 @@ exports.addTransaction = async (req, res) => {
       description,
     });
 
-    res.status(200).json({ message: "Transaction added" });
+    res.status(201).json(newTransaction);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
