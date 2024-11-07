@@ -1,32 +1,45 @@
-import { getCategories, addCategory, deleteCategory } from '../../services/api';
+import {
+  FETCH_CATEGORIES_REQUEST,
+  FETCH_CATEGORIES_SUCCESS,
+  FETCH_CATEGORIES_FAILURE,
+  ADD_CATEGORY_REQUEST,
+  ADD_CATEGORY_SUCCESS,
+  ADD_CATEGORY_FAILURE,
+  DELETE_CATEGORY_REQUEST,
+  DELETE_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_FAILURE
+} from './categoryActionTypes';
+import { fetchCategoriesAPI, addCategoryAPI, deleteCategoryAPI } from '../../services/api';
 
-export const FETCH_CATEGORIES_SUCCESS = 'FETCH_CATEGORIES_SUCCESS';
-export const ADD_CATEGORY_SUCCESS = 'ADD_CATEGORY_SUCCESS';
-export const DELETE_CATEGORY_SUCCESS = 'DELETE_CATEGORY_SUCCESS';
-
-export const fetchCategoriesAction = (token) => async (dispatch) => {
+export const fetchCategoriesAction = () => async (dispatch) => {
+  dispatch({ type: FETCH_CATEGORIES_REQUEST });
   try {
-    const categories = await getCategories(token);
-    dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: categories });
+    const token = localStorage.getItem("accessToken");
+    const categories = await fetchCategoriesAPI(token);
+    dispatch({ type: FETCH_CATEGORIES_SUCCESS, payload: categories.data });
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    dispatch({ type: FETCH_CATEGORIES_FAILURE, payload: error.message })
   }
 };
 
-export const addCategoryAction = (category, token) => async (dispatch) => {
+export const addCategoryAction = (category) => async (dispatch) => {
+  dispatch({ type: ADD_CATEGORY_REQUEST });
   try {
-    const newCategory = await addCategory(category, token);
-    dispatch({ type: ADD_CATEGORY_SUCCESS, payload: newCategory });
+    const token = localStorage.getItem("accessToken");
+    const newCategory = await addCategoryAPI(category, token);
+    dispatch({ type: ADD_CATEGORY_SUCCESS, payload: newCategory.data });
   } catch (error) {
-    console.error("Error adding category:", error);
+    dispatch({ ADD_CATEGORY_FAILURE, payload: error.message })
   }
 };
 
-export const deleteCategoryAction = (categoryId, token) => async (dispatch) => {
+export const deleteCategoryAction = (categoryId) => async (dispatch) => {
+  dispatch({ type: DELETE_CATEGORY_REQUEST });
   try {
-    await deleteCategory(categoryId, token);
+    const token = localStorage.getItem("accessToken");
+    await deleteCategoryAPI(categoryId, token);
     dispatch({ type: DELETE_CATEGORY_SUCCESS, payload: categoryId });
   } catch (error) {
-    console.error("Error deleting category:", error);
+    dispatch({ type: DELETE_CATEGORY_FAILURE, payload: error.message })
   }
 };
