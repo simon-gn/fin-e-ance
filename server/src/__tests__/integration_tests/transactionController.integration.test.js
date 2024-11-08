@@ -18,9 +18,9 @@ describe("getTransactions", () => {
 
     // Insert mock data into the in-memory database
     const category = await Category.create({
-      name: 'Food',
-      color: 'white',
-    })
+      name: "Food",
+      color: "white",
+    });
 
     await Transaction.create([
       {

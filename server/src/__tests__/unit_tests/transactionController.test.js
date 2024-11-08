@@ -37,7 +37,7 @@ describe("getTransactions", () => {
 
     Transaction.find.mockReturnValue({
       populate: jest.fn().mockReturnValue({
-        sort: jest.fn().mockResolvedValue(mockTransactions)
+        sort: jest.fn().mockResolvedValue(mockTransactions),
       }),
     });
 
@@ -63,7 +63,9 @@ describe("getTransactions", () => {
         date: { $gte: expect.any(Date), $lte: expect.any(Date) },
       }),
     );
-    expect(Transaction.find().populate().sort).toHaveBeenCalledWith({ date: -1 });
+    expect(Transaction.find().populate().sort).toHaveBeenCalledWith({
+      date: -1,
+    });
   });
 
   it("should return all transactions (no filter parameters)", async () => {
@@ -84,7 +86,7 @@ describe("getTransactions", () => {
 
     Transaction.find.mockReturnValue({
       populate: jest.fn().mockReturnValue({
-        sort: jest.fn().mockResolvedValue(mockTransactions)
+        sort: jest.fn().mockResolvedValue(mockTransactions),
       }),
     });
 
@@ -95,14 +97,16 @@ describe("getTransactions", () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(mockTransactions);
     expect(Transaction.find).toHaveBeenCalledWith(expect.objectContaining({}));
-    expect(Transaction.find().populate().sort).toHaveBeenCalledWith({ date: -1 });
+    expect(Transaction.find().populate().sort).toHaveBeenCalledWith({
+      date: -1,
+    });
   });
 
   it("should handle errors and return 500", async () => {
     let err = new Error("Fetch error");
     Transaction.find.mockReturnValue({
       populate: jest.fn().mockReturnValue({
-        sort: jest.fn().mockRejectedValue(err)
+        sort: jest.fn().mockRejectedValue(err),
       }),
     });
 
