@@ -40,7 +40,6 @@ describe("registerUser", () => {
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
-      send: jest.fn(),
     };
     jest.clearAllMocks();
   });
@@ -103,7 +102,7 @@ describe("registerUser", () => {
     await registerUser(req, res);
 
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.send).toHaveBeenCalledWith("Server error");
+    expect(res.json).toHaveBeenCalledWith({ message: "Register error" });
   });
 });
 
@@ -115,7 +114,6 @@ describe("loginUser", () => {
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
-      send: jest.fn(),
     };
     jest.clearAllMocks();
   });
@@ -184,7 +182,7 @@ describe("loginUser", () => {
     await loginUser(req, res);
 
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.send).toHaveBeenCalledWith("Server error");
+    expect(res.json).toHaveBeenCalledWith({ message: "Login error" });
   });
 });
 
@@ -196,7 +194,6 @@ describe("refreshToken", () => {
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
-      send: jest.fn(),
     };
     jest.clearAllMocks();
   });
@@ -292,7 +289,7 @@ describe("refreshToken", () => {
     await refreshToken(req, res);
 
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.send).toHaveBeenCalledWith("Server error");
+    expect(res.json).toHaveBeenCalledWith({ message: "Refresh token error" });
   });
 });
 

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Transaction = require("../../models/Transaction");
+const Category = require("../../models/Category");
 const {
   getTransactions,
   addTransaction,
@@ -16,18 +17,23 @@ describe("getTransactions", () => {
     const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
     // Insert mock data into the in-memory database
+    const category = await Category.create({
+      name: 'Food',
+      color: 'white',
+    })
+
     await Transaction.create([
       {
         user: mockUserId,
         type: "Expense",
-        category: "Food",
+        category: category._id,
         amount: 100,
         date: new Date("2022-01-02"),
       },
       {
         user: mockUserId,
         type: "Expense",
-        category: "Food",
+        category: category._id,
         amount: 200,
         date: new Date("2022-01-01"),
       },

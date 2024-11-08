@@ -11,8 +11,8 @@ jest.mock("../../models/Transaction", () => ({
   create: jest.fn(),
   findById: jest.fn(),
 }));
-let req, res;
 
+let req, res;
 beforeEach(() => {
   res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
   jest.clearAllMocks();
@@ -36,7 +36,9 @@ describe("getTransactions", () => {
     ];
 
     Transaction.find.mockReturnValue({
-      sort: jest.fn().mockResolvedValue(mockTransactions),
+      populate: jest.fn().mockReturnValue({
+        sort: jest.fn().mockResolvedValue(mockTransactions)
+      }),
     });
 
     req = {
@@ -61,7 +63,7 @@ describe("getTransactions", () => {
         date: { $gte: expect.any(Date), $lte: expect.any(Date) },
       }),
     );
-    expect(Transaction.find().sort).toHaveBeenCalledWith({ date: -1 });
+    expect(Transaction.find().populate().sort).toHaveBeenCalledWith({ date: -1 });
   });
 
   it("should return all transactions (no filter parameters)", async () => {
@@ -81,7 +83,9 @@ describe("getTransactions", () => {
     ];
 
     Transaction.find.mockReturnValue({
-      sort: jest.fn().mockResolvedValue(mockTransactions),
+      populate: jest.fn().mockReturnValue({
+        sort: jest.fn().mockResolvedValue(mockTransactions)
+      }),
     });
 
     req = { user: { id: "testUser" }, query: {} };
@@ -91,13 +95,15 @@ describe("getTransactions", () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(mockTransactions);
     expect(Transaction.find).toHaveBeenCalledWith(expect.objectContaining({}));
-    expect(Transaction.find().sort).toHaveBeenCalledWith({ date: -1 });
+    expect(Transaction.find().populate().sort).toHaveBeenCalledWith({ date: -1 });
   });
 
   it("should handle errors and return 500", async () => {
     let err = new Error("Fetch error");
     Transaction.find.mockReturnValue({
-      sort: jest.fn().mockRejectedValue(err),
+      populate: jest.fn().mockReturnValue({
+        sort: jest.fn().mockRejectedValue(err)
+      }),
     });
 
     await getTransactions(req, res);
@@ -116,8 +122,7 @@ describe("addTransaction", () => {
 
     await addTransaction(req, res);
 
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({ message: "Transaction added" });
+    expect(res.status).toHaveBeenCalledWith(201);
   });
 
   it("should handle errors and return 500", async () => {

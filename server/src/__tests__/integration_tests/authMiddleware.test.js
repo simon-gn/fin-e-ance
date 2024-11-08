@@ -14,6 +14,7 @@ app.get("/protected", authMiddleware, (req, res) => {
 describe("Auth Middleware", () => {
   it("should return 403 if no token is provided", async () => {
     const response = await request(app).get("/protected");
+
     expect(response.status).toBe(403);
     expect(response.body).toEqual({ message: "No token provided" });
   });
@@ -23,10 +24,12 @@ describe("Auth Middleware", () => {
     const response = await request(app)
       .get("/protected")
       .set("Authorization", `Bearer ${invalidToken}`);
+
     expect(response.status).toBe(401);
     expect(response.body).toEqual({
       valid: false,
       message: "Token expired or invalid",
+      err: expect.any(Object),
     });
   });
 
@@ -37,6 +40,7 @@ describe("Auth Middleware", () => {
     const response = await request(app)
       .get("/protected")
       .set("Authorization", `Bearer ${validToken}`);
+
     expect(response.status).toBe(200);
     expect(response.body.message).toEqual("Access granted");
     expect(response.body.user.id).toEqual("testuser");
