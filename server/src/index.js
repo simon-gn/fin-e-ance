@@ -6,7 +6,13 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://fin-e-ance-simon-gns-projects.vercel.app",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  }),
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
