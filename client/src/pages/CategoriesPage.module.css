@@ -1,0 +1,55 @@
+.categoriesPage {
+  padding: 20px;
+}
+
+.addCategoryButton {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.categoriesPageBox {
+  display: flex;
+  flex-direction: row;
+}
+
+.categoryList {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.categoryCard {
+  width: 200px;
+  max-width: 200px;
+  padding: 20px;
+  border-radius: 7px;
+  cursor: pointer;
+  box-shadow: var(--box_shadow_color);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.categoryCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.categoryName {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.removeButton {
+  background-color: #e74c3c;
+  margin-top: 10px;
+  margin-left: 125px;
+  padding: 5px;
+}
+
+.removeButton:hover {
+  background-color: #c0392b;
+}

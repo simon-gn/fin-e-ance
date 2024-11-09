@@ -1,0 +1,27 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 20px;
+  gap: 10px;
+}
+
+.summaryColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chartsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chartBox,
+.summaryColumn > div {
+  transition: transform 0.3s ease;
+}
+.chartBox:hover,
+.summaryColumn > div:hover {
+  transform: translateY(-2px);
+}

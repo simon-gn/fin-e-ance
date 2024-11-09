@@ -1,0 +1,48 @@
+.transactionsPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.transactionsPageBox {
+  width: 96%;
+}
+
+.filterButton {
+  display: flex;
+}
+.filterButton button {
+  margin-left: auto;
+}
+.filterForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 75%;
+}
+.filterForm div {
+  width: calc(33% - 10px);
+}
+.dateInputsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.dateInputsContainer div {
+  flex: 1;
+}
+
+.actionCell {
+  border-bottom: none;
+  background-color: transparent;
+  width: 5%;
+  padding: 5px;
+}
+.removeButton {
+  background-color: #e74c3c;
+  padding: 5px 10px;
+}
+.removeButton:hover {
+  background-color: #c0392b;
+}

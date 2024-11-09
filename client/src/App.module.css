@@ -1,0 +1,11 @@
+.app {
+  display: flex;
+}
+
+.withSidebar .content {
+  margin-left: 180px;
+}
+
+.content {
+  flex-grow: 1;
+}

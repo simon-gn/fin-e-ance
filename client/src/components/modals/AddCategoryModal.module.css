@@ -1,0 +1,19 @@
+.addCategoryForm {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 25%;
+}
+
+input[type="color"] {
+  margin-top: 5px;
+  width: 100px;
+  height: 30px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.buttonLayout button {
+  margin-right: 20px;
+}

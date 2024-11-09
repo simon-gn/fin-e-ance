@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background_color);
+  color: var(--text_color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--main_color);
+  margin-bottom: 10px;
+}
+h1 {
+  font-size: 36px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 20px;
+}
+
+button {
+  background-color: var(--main_color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: var(--box_shadow_color);
+}
+button:hover {
+  background-color: var(--main_color_hover);
+  transform: translateY(-2px);
+}
+button:focus {
+  outline: none;
+}
+
+form div {
+  text-align: left;
+  margin-bottom: 15px;
+}
+form label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  min-width: 150px;
+  padding: 8px;
+  background-color: var(--input_bg_color);
+  border: 1px solid var(--input_border_color);
+  border-radius: 5px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+  border-color: var(--main_color);
+  outline: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+th,
+td {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+th {
+  background-color: var(--main_color);
+  color: white;
+  font-weight: bold;
+}
+tr:hover {
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: var(--box_shadow_color);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 15px;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+}

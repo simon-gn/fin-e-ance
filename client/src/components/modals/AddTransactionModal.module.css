@@ -1,0 +1,9 @@
+.addTransactionForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 50%;
+}
+.addTransactionForm div {
+  width: calc(50% - 10px);
+}

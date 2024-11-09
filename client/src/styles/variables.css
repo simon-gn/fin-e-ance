@@ -1,0 +1,11 @@
+:root {
+  --main_color: #4c89af;
+  --main_color_hover: #337197;
+  --background_color: #f6f9fa;
+  --text_color: #333;
+  --text_color_light: #666;
+  --box_shadow_color: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --input_bg_color: #fff;
+  --input_border_color: #ccc;
+  --error_color: #e74c3c;
+}
