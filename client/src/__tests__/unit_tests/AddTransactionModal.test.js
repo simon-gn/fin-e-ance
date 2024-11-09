@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import AddTransactionModal from "../../components/modals/AddTransactionModal";
 import { addTransactionAction } from "../../redux/actions/transactionActions";
 
@@ -8,7 +8,7 @@ jest.mock("../../redux/actions/transactionActions", () => ({
   addTransactionAction: jest.fn(),
 }));
 
-jest.mock('react-redux', () => ({
+jest.mock("react-redux", () => ({
   useSelector: jest.fn(),
   useDispatch: jest.fn(),
 }));
@@ -32,22 +32,19 @@ describe("AddTransactionModal", () => {
             { _id: "categoryId1", name: "Clothing" },
             { _id: "categoryId2", name: "Food" },
           ],
-        }
-      })
+        },
+      }),
     );
 
     mockDispatch = jest.fn();
     useDispatch.mockReturnValue(mockDispatch);
-    
+
     render(
       <MemoryRouter>
         {" "}
-          <AddTransactionModal 
-            isOpen={true}
-            onClose={jest.fn()}
-          />{" "}
+        <AddTransactionModal isOpen={true} onClose={jest.fn()} />{" "}
       </MemoryRouter>,
-    )
+    );
   });
 
   afterEach(() => {
@@ -81,14 +78,13 @@ describe("AddTransactionModal", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /add transaction/i }));
 
-    expect(mockDispatch).toHaveBeenCalledWith(
-      {
-        type: "ADD_TRANSACTION",
-        payload: {
-          type: mockTransactionToAdd.type.toString(),
-          amount:mockTransactionToAdd.amount,
-          category: mockTransactionToAdd.category.name.toString(),
-          description: mockTransactionToAdd.description.toString(),
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "ADD_TRANSACTION",
+      payload: {
+        type: mockTransactionToAdd.type.toString(),
+        amount: mockTransactionToAdd.amount,
+        category: mockTransactionToAdd.category.name.toString(),
+        description: mockTransactionToAdd.description.toString(),
       },
     });
   });

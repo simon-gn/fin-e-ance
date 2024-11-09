@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 import { addCategoryAction } from "../../redux/actions/categoryActions";
 import styles from "./AddCategoryModal.module.css";
 
@@ -52,6 +53,11 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
       </form>
     )
   );
+};
+
+AddCategoryModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default AddCategoryModal;

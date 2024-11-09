@@ -29,7 +29,7 @@ const IncomeExpenseComparisonChart = () => {
         margin={{ top: 20, right: 90, bottom: 70, left: 60 }}
         padding={0.3}
         // colors={{ scheme: 'pastel2' }}
-        colors={({ id, data }) => (id === "Income" ? "#76c7c0" : "#ff6b6b")}
+        colors={({ id }) => (id === "Income" ? "#76c7c0" : "#ff6b6b")}
         colorBy="id"
         borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
         axisBottom={{

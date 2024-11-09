@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 import { addTransactionAction } from "../../redux/actions/transactionActions";
 import styles from "./AddTransactionModal.module.css";
 
@@ -85,6 +86,11 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
       </form>
     )
   );
+};
+
+AddTransactionModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default AddTransactionModal;

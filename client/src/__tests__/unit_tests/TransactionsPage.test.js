@@ -1,15 +1,18 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import TransactionsPage from "../../pages/TransactionsPage";
-import { fetchTransactionsAction, deleteTransactionAction } from "../../redux/actions/transactionActions";
+import {
+  fetchTransactionsAction,
+  deleteTransactionAction,
+} from "../../redux/actions/transactionActions";
 
 jest.mock("../../redux/actions/transactionActions", () => ({
   fetchTransactionsAction: jest.fn(),
   deleteTransactionAction: jest.fn(),
 }));
 
-jest.mock('react-redux', () => ({
+jest.mock("react-redux", () => ({
   useSelector: jest.fn(),
   useDispatch: jest.fn(),
 }));
@@ -49,28 +52,26 @@ describe("TransactionsPage", () => {
         description: "Fuel",
       },
     ];
-    
+
     useSelector.mockImplementation((selector) =>
       selector({
         transactions: {
-          transactions:
-            mockTransactionsInDb,
-          loading:
-            false,
+          transactions: mockTransactionsInDb,
+          loading: false,
         },
         categories: {
           categories: [
             { _id: "categoryId1", name: "Clothing" },
             { _id: "categoryId2", name: "Food" },
           ],
-        }
-      })
+        },
+      }),
     );
 
     mockDispatch = jest.fn();
     useDispatch.mockReturnValue(mockDispatch);
   });
-  
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -79,11 +80,10 @@ describe("TransactionsPage", () => {
     useSelector.mockImplementation((selector) =>
       selector({
         transactions: {
-          loading:
-            true,
+          loading: true,
         },
-        categories: {}
-      })
+        categories: {},
+      }),
     );
 
     render(
@@ -122,7 +122,9 @@ describe("TransactionsPage", () => {
 
     fireEvent.click(screen.getByText(/new transaction/i));
 
-    expect(screen.getByRole("button", { name: /add transaction/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /add transaction/i }),
+    ).toBeInTheDocument();
   });
 
   it("removes a transaction successfully", async () => {
@@ -145,7 +147,7 @@ describe("TransactionsPage", () => {
 
     // Open the filter form and set filter
     fireEvent.click(screen.getByRole("button", { name: /filter/i }));
-    
+
     expect(screen.getByText(/filter by category/i)).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText(/filter by category/i), {

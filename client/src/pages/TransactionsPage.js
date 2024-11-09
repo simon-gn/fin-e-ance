@@ -59,7 +59,7 @@ const TransactionPage = () => {
   };
   const handleCloseAddTransactionModal = () => {
     setIsAddTransactionModalOpen(false);
-  };  
+  };
 
   if (loading) {
     return <p>Loading transactions...</p>;
