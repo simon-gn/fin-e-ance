@@ -33,7 +33,7 @@ export const addCategoryAction = (category) => async (dispatch) => {
     const newCategory = await addCategoryAPI(category, token);
     dispatch({ type: ADD_CATEGORY_SUCCESS, payload: newCategory.data });
   } catch (error) {
-    dispatch({ ADD_CATEGORY_FAILURE, payload: error.message });
+    dispatch({ type: ADD_CATEGORY_FAILURE, payload: error.message });
   }
 };
 
