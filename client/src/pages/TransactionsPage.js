@@ -20,7 +20,7 @@ const TransactionPage = () => {
   const [showFilterForm, setShowFilterForm] = useState(false);
 
   const dispatch = useDispatch();
-  const { transactions } = useSelector((state) => state.transactions);
+  const { transactions, loading } = useSelector((state) => state.transactions);
   const { categories } = useSelector((state) => state.categories);
 
   useEffect(() => {
@@ -59,7 +59,11 @@ const TransactionPage = () => {
   };
   const handleCloseAddTransactionModal = () => {
     setIsAddTransactionModalOpen(false);
-  };
+  };  
+
+  if (loading) {
+    return <p>Loading transactions...</p>;
+  }
 
   return (
     <div className={styles.transactionsPage}>

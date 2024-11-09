@@ -1,9 +1,9 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import LoginPage from "../../components/LoginPage";
+import LoginPage from "../../pages/LoginPage";
 import { loginUser } from "../../services/authAPI";
 
-jest.mock("../../services/api", () => ({
+jest.mock("../../services/authAPI", () => ({
   loginUser: jest.fn(),
 }));
 
