@@ -121,7 +121,11 @@ describe("getTransactions", () => {
 });
 
 describe("addTransaction", () => {
-  it("should add transaction and return 200", async () => {
+  it("should add transaction and return 201", async () => {
+    Transaction.create.mockReturnValue({ _id: "transactionId" });
+    Transaction.findById.mockReturnValue({
+      populate: jest.fn(),
+    });
     req = { user: { id: "testUser" }, body: { type: "Expense" } };
 
     await addTransaction(req, res);
