@@ -36,7 +36,7 @@ const transactionReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        transactions: [...state.transactions, action.payload],
+        transactions: [action.payload, ...state.transactions],
       };
     case DELETE_TRANSACTION_SUCCESS:
       return {
