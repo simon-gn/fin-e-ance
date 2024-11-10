@@ -5,7 +5,7 @@ describe("Index", () => {
   it("should respond to GET /", async () => {
     const response = await request(app).get("/");
     expect(response.status).toBe(200);
-    expect(response.text).toBe("Personal Finance Dashboard");
+    expect(response.text).toBe("fin(e)ance.");
   });
 
   it("should use the authRoutes", async () => {
