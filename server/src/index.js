@@ -19,7 +19,7 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/categories", categoryRoutes);
 
 app.get("/", (req, res) => {
-  res.send("fine(e)ance.");
+  res.send("fin(e)ance.");
 });
 
 module.exports = app;
