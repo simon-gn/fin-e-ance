@@ -36,7 +36,9 @@ exports.addTransaction = async (req, res) => {
       description,
     });
 
-    res.status(201).json(newTransaction);
+    const transactionPopulated = await Transaction.findById(newTransaction._id).populate("category", "name color");
+
+    res.status(201).json(transactionPopulated);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
