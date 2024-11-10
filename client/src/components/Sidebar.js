@@ -18,7 +18,7 @@ const Sidebar = () => {
   return (
     <div className={styles.sidebar}>
       <Link to="/dashboard" className={styles.sidebarHeader}>
-        fin(e)ance
+        fin(e)ance.
       </Link>
       <ul>
         <li>

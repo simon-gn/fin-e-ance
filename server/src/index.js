@@ -19,7 +19,7 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/categories", categoryRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Personal Finance Dashboard");
+  res.send("fine(e)ance.");
 });
 
 module.exports = app;
