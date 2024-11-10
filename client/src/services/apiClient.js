@@ -1,8 +1,7 @@
 import axios from "axios";
 import { handleLogout } from "../utils/authUtils";
 
-const API_URL = "http://localhost:5000";
-// const API_URL = "https://personal-finance-dashboard-x1fy.onrender.com";
+const API_URL = "https://personal-finance-dashboard-x1fy.onrender.com";
 
 export const apiClient = axios.create({ baseURL: API_URL });
 
