@@ -4,29 +4,29 @@ export const getDateRange = (range, customStartDate, customEndDate) => {
   startDate.setHours(0, 0, 0, 0);
 
   switch (range) {
-    case "Today":
+    case "today":
       break;
-    case "Yesterday":
+    case "yesterday":
       startDate.setDate(startDate.getDate() - 1);
       endDate.setDate(endDate.getDate() - 1);
       endDate.setHours(23, 59, 59, 999);
       break;
-    case "Last 7 Days":
+    case "7d":
       startDate.setDate(startDate.getDate() - 7);
       break;
-    case "Last Month":
+    case "1m":
       startDate.setMonth(startDate.getMonth() - 1);
       break;
-    case "Last 3 Month":
+    case "3m":
       startDate.setMonth(startDate.getMonth() - 3);
       break;
-    case "Last 6 Month":
+    case "6m":
       startDate.setMonth(startDate.getMonth() - 6);
       break;
-    case "Last Year":
+    case "1y":
       startDate.setFullYear(startDate.getFullYear() - 1);
       break;
-    case "Custom Range":
+    case "custom":
       if (customStartDate && customEndDate) {
         startDate = new Date(customStartDate);
         startDate.setHours(0, 0, 0, 0);
