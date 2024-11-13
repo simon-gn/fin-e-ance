@@ -53,16 +53,16 @@ const SpendingTrendChart = () => {
             },
           },
           axis: {
-              ticks: {
-                  text: {
-                      fill: "var(--text_color)",
-                  },
+            ticks: {
+              text: {
+                fill: "var(--text_color)",
               },
-              legend: {
-                  text: {
-                      fill: "var(--text_color)",
-                  },
+            },
+            legend: {
+              text: {
+                fill: "var(--text_color)",
               },
+            },
           },
         }}
       />

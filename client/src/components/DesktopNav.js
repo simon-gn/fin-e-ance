@@ -27,10 +27,8 @@ const DesktopNav = () => {
           <Link to="/categories">Categories</Link>
         </li>
       </ul>
-      
-      <button onClick={toggleAddTransactionModal}>
-        New Transaction
-      </button>
+
+      <button onClick={toggleAddTransactionModal}>New Transaction</button>
       <AddTransactionModal
         isOpen={isAddTransactionModalOpen}
         onClose={toggleAddTransactionModal}

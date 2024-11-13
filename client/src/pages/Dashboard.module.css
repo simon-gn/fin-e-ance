@@ -39,7 +39,7 @@
   .content {
     grid-template-columns: 1fr;
   }
-  
+
   .summaryColumn {
     gap: 7px;
   }

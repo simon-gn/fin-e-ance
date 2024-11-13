@@ -57,7 +57,6 @@ const TransactionPage = () => {
   return (
     <div className={styles.transactionsPage}>
       <div className={`${styles.transactionsPageBox} card`}>
-
         {/* Filter Section */}
         <div className={styles.filterButton}>
           <button onClick={() => setShowFilterForm(!showFilterForm)}>
@@ -159,7 +158,9 @@ const TransactionPage = () => {
                 <td
                   style={{
                     color:
-                      transaction.type === "Income" ? "var(--income_color)" : "var(--expense_color)",
+                      transaction.type === "Income"
+                        ? "var(--income_color)"
+                        : "var(--expense_color)",
                     fontWeight: "bold",
                   }}
                 >

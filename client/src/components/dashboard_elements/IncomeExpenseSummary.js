@@ -2,7 +2,7 @@ import React from "react";
 import { calculateMonthlyTotals } from "../../utils/transactionUtils";
 import styles from "./IncomeExpenseSummary.module.css";
 
-const IncomeExpenseSummary = ({transactions}) => {
+const IncomeExpenseSummary = ({ transactions }) => {
   const { totalIncome, totalExpenses } = calculateMonthlyTotals(transactions);
 
   return (

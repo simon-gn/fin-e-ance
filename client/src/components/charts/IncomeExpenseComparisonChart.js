@@ -29,7 +29,9 @@ const IncomeExpenseComparisonChart = () => {
         margin={{ top: 20, right: 90, bottom: 70, left: 60 }}
         padding={0.3}
         // colors={{ scheme: 'pastel2' }}
-        colors={({ id }) => (id === "Income" ? "var(--income_color)" : "var(--expense_color)")}
+        colors={({ id }) =>
+          id === "Income" ? "var(--income_color)" : "var(--expense_color)"
+        }
         colorBy="id"
         borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
         axisBottom={{
@@ -82,18 +84,18 @@ const IncomeExpenseComparisonChart = () => {
               stroke: "var(--text_color)",
             },
           },
-            axis: {
-                ticks: {
-                    text: {
-                        fill: "var(--text_color)",
-                    },
-                },
-                legend: {
-                    text: {
-                        fill: "var(--text_color)",
-                    },
-                },
+          axis: {
+            ticks: {
+              text: {
+                fill: "var(--text_color)",
+              },
             },
+            legend: {
+              text: {
+                fill: "var(--text_color)",
+              },
+            },
+          },
         }}
       />
     </div>

@@ -6,7 +6,10 @@ import styles from "./DateFilterBar.module.css";
 
 const DateFilterBar = ({ setDateRange }) => {
   const [filterOption, setFilterOption] = useState("1m");
-  const [customDateRange, setCustomDateRange] = useState({ start: null, end: null });
+  const [customDateRange, setCustomDateRange] = useState({
+    start: null,
+    end: null,
+  });
 
   const handleFilterChange = (option) => {
     setFilterOption(option);
@@ -15,7 +18,7 @@ const DateFilterBar = ({ setDateRange }) => {
       customDateRange.start,
       customDateRange.end,
     );
-    setDateRange({startDate, endDate});
+    setDateRange({ startDate, endDate });
   };
 
   const handleCustomDateChange = (start, end) => {
@@ -28,22 +31,40 @@ const DateFilterBar = ({ setDateRange }) => {
 
   return (
     <div className={styles.dateFilterBar}>
-      <div onClick={() => handleFilterChange("1m")} className={filterOption === "1m" ? styles.active : ""}>
+      <div
+        onClick={() => handleFilterChange("1m")}
+        className={filterOption === "1m" ? styles.active : ""}
+      >
         1m
       </div>
-      <div onClick={() => handleFilterChange("3m")} className={filterOption === "3m" ? styles.active : ""}>
+      <div
+        onClick={() => handleFilterChange("3m")}
+        className={filterOption === "3m" ? styles.active : ""}
+      >
         3m
       </div>
-      <div onClick={() => handleFilterChange("6m")} className={filterOption === "6m" ? styles.active : ""}>
+      <div
+        onClick={() => handleFilterChange("6m")}
+        className={filterOption === "6m" ? styles.active : ""}
+      >
         6m
       </div>
-      <div onClick={() => handleFilterChange("1y")} className={filterOption === "1y" ? styles.active : ""}>
+      <div
+        onClick={() => handleFilterChange("1y")}
+        className={filterOption === "1y" ? styles.active : ""}
+      >
         1y
       </div>
-      <div onClick={() => handleFilterChange("all")} className={filterOption === "all" ? styles.active : ""}>
+      <div
+        onClick={() => handleFilterChange("all")}
+        className={filterOption === "all" ? styles.active : ""}
+      >
         All
       </div>
-      <div onClick={() => setFilterOption("custom")} className={filterOption === "custom" ? styles.active : ""}>
+      <div
+        onClick={() => setFilterOption("custom")}
+        className={filterOption === "custom" ? styles.active : ""}
+      >
         <AiFillCalendar />
       </div>
 
@@ -52,12 +73,16 @@ const DateFilterBar = ({ setDateRange }) => {
           <input
             type="date"
             value={customDateRange.start || ""}
-            onChange={(e) => handleCustomDateChange(e.target.value, customDateRange.end)}
+            onChange={(e) =>
+              handleCustomDateChange(e.target.value, customDateRange.end)
+            }
           />
           <input
             type="date"
             value={customDateRange.end || ""}
-            onChange={(e) => handleCustomDateChange(customDateRange.start, e.target.value)}
+            onChange={(e) =>
+              handleCustomDateChange(customDateRange.start, e.target.value)
+            }
           />
         </div>
       )}

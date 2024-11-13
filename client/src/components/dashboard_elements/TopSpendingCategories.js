@@ -2,7 +2,7 @@ import React from "react";
 import { calculateExpensesByCategory } from "../../utils/transactionUtils";
 import styles from "./TopSpendingCategories.module.css";
 
-const TopSpendingCategories = ({transactions}) => {
+const TopSpendingCategories = ({ transactions }) => {
   const topCategories = calculateExpensesByCategory(transactions);
 
   const minLength = 10;

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./RecentTransactions.module.css";
 
-const RecentTransactions = ({transactions}) => {
+const RecentTransactions = ({ transactions }) => {
   const recentTransactions = transactions.slice(0, 5);
 
   return (
@@ -20,7 +20,10 @@ const RecentTransactions = ({transactions}) => {
             <span
               className={styles.transactionAmount}
               style={{
-                color: transaction.type === "Income" ? "var(--income_color)" : "var(--expense_color)",
+                color:
+                  transaction.type === "Income"
+                    ? "var(--income_color)"
+                    : "var(--expense_color)",
               }}
             >
               {transaction.type === "Expense" ? "-" : "+"}$

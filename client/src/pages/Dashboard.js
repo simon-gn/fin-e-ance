@@ -13,45 +13,49 @@ import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const [dateRange, setDateRange] = useState({startDate: null, endDate: null});
+  const [dateRange, setDateRange] = useState({
+    startDate: null,
+    endDate: null,
+  });
 
   useEffect(() => {
     dispatch(fetchTransactionsAction());
     dispatch(fetchCategoriesAction());
   }, [dispatch]);
-  
+
   const { transactions } = useSelector((state) => state.transactions);
 
-  const filteredTransactions = transactions.filter(transaction => {
+  const filteredTransactions = transactions.filter((transaction) => {
     // return all transactions
     if (dateRange.startDate === null || dateRange.endDate === null) {
       return true;
     }
 
     const transactionDate = new Date(transaction.date);
-    return transactionDate >= dateRange.startDate && transactionDate <= dateRange.endDate;
+    return (
+      transactionDate >= dateRange.startDate &&
+      transactionDate <= dateRange.endDate
+    );
   });
 
   return (
     <div className={styles.dashboard}>
       {/* Date Filter Bar */}
-      <DateFilterBar
-        setDateRange={setDateRange}
-      />
+      <DateFilterBar setDateRange={setDateRange} />
 
       <div className={styles.content}>
         {/* Summary Row */}
         <div className={styles.summaryColumn}>
           <IncomeExpenseSummary transactions={filteredTransactions} />
-          <TopSpendingCategories transactions={filteredTransactions}/>
-          <RecentTransactions transactions={transactions}/>
+          <TopSpendingCategories transactions={filteredTransactions} />
+          <RecentTransactions transactions={transactions} />
         </div>
 
         {/* Charts Grid */}
         <div className={styles.chartsColumn}>
           <div className={`${styles.chartBox} card`}>
             <h3>Category Breakdown</h3>
-            <CategoryBreakdownChart transactions={filteredTransactions}/>
+            <CategoryBreakdownChart transactions={filteredTransactions} />
           </div>
 
           <div className={`${styles.chartBox} card`}>

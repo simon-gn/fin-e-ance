@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AiFillHome, AiOutlineBarChart, AiOutlineAppstore, AiOutlinePlus, AiOutlineLogout } from "react-icons/ai";
+import {
+  AiFillHome,
+  AiOutlineBarChart,
+  AiOutlineAppstore,
+  AiOutlinePlus,
+  AiOutlineLogout,
+} from "react-icons/ai";
 import AddTransactionModal from "./modals/AddTransactionModal";
 import { handleLogout } from "../utils/authUtils";
 import styles from "./MobileNav.module.css";
@@ -23,7 +29,7 @@ const MobileNav = () => {
           <AiOutlineBarChart size={24} />
           <span>Transactions</span>
         </Link>
-        
+
         <button className={styles.addButton} onClick={toggleModal}>
           <AiOutlinePlus size={32} />
         </button>
