@@ -5,7 +5,6 @@ import {
   deleteTransactionAction,
 } from "../redux/actions/transactionActions";
 import { fetchCategoriesAction } from "../redux/actions/categoryActions";
-import AddTransactionModal from "../components/modals/AddTransactionModal";
 import { getDateRange, formatDate } from "../utils/miscUtils";
 import styles from "./TransactionsPage.module.css";
 
@@ -51,16 +50,6 @@ const TransactionPage = () => {
     dispatch(deleteTransactionAction(transactionId));
   };
 
-  // Adding new transactions
-  const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] =
-    useState(false);
-  const handleOpenAddTransactionModal = () => {
-    setIsAddTransactionModalOpen(true);
-  };
-  const handleCloseAddTransactionModal = () => {
-    setIsAddTransactionModalOpen(false);
-  };
-
   if (loading) {
     return <p>Loading transactions...</p>;
   }
@@ -68,16 +57,6 @@ const TransactionPage = () => {
   return (
     <div className={styles.transactionsPage}>
       <div className={`${styles.transactionsPageBox} card`}>
-        {/* Add Transaction Modal */}
-        {!isAddTransactionModalOpen && (
-          <button onClick={handleOpenAddTransactionModal}>
-            New Transaction
-          </button>
-        )}
-        <AddTransactionModal
-          isOpen={isAddTransactionModalOpen}
-          onClose={handleCloseAddTransactionModal}
-        />
 
         {/* Filter Section */}
         <div className={styles.filterButton}>
@@ -95,14 +74,14 @@ const TransactionPage = () => {
                 onChange={(e) => setDateRange(e.target.value)}
               >
                 <option value="">All</option>
-                <option value="Today">Today</option>
-                <option value="Yesterday">Yesterday</option>
-                <option value="Last 7 Days">Last 7 Days</option>
-                <option value="Last Month">Last Month</option>
-                <option value="Last 3 Month">Last 3 Month</option>
-                <option value="Last 6 Month">Last 6 Month</option>
-                <option value="Last Year">Last Year</option>
-                <option value="Custom Range">Custom Range</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="7d">Last 7 Days</option>
+                <option value="1m">Last Month</option>
+                <option value="3m">Last 3 Month</option>
+                <option value="6m">Last 6 Month</option>
+                <option value="1y">Last Year</option>
+                <option value="custom">Custom Range</option>
               </select>
             </div>
             <div>
@@ -135,7 +114,7 @@ const TransactionPage = () => {
               </select>
             </div>
             {/* If 'Custom Range' is selected, show date inputs */}
-            {dateRange === "Custom Range" && (
+            {dateRange === "custom" && (
               <div className={styles.dateInputsContainer}>
                 <div>
                   <label htmlFor="custom-start-date">Start Date</label>
@@ -180,7 +159,7 @@ const TransactionPage = () => {
                 <td
                   style={{
                     color:
-                      transaction.type === "Income" ? "#76c7c0" : "#ff6b6b",
+                      transaction.type === "Income" ? "var(--income_color)" : "var(--expense_color)",
                     fontWeight: "bold",
                   }}
                 >
