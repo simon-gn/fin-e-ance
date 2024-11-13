@@ -27,7 +27,7 @@ const DateFilterBar = ({ setDateRange }) => {
 
   useEffect(() => {
     handleFilterChange("1m");
-  }, []);
+  }, [handleFilterChange]);
 
   return (
     <div className={styles.dateFilterBar}>
