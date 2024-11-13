@@ -11,15 +11,18 @@ const DateFilterBar = ({ setDateRange }) => {
     end: null,
   });
 
-  const handleFilterChange = useCallback((option) => {
-    setFilterOption(option);
-    const { startDate, endDate } = getDateRange(
-      option,
-      customDateRange.start,
-      customDateRange.end,
-    );
-    setDateRange({ startDate, endDate });
-  }, [customDateRange, setDateRange]);
+  const handleFilterChange = useCallback(
+    (option) => {
+      setFilterOption(option);
+      const { startDate, endDate } = getDateRange(
+        option,
+        customDateRange.start,
+        customDateRange.end,
+      );
+      setDateRange({ startDate, endDate });
+    },
+    [customDateRange, setDateRange],
+  );
 
   const handleCustomDateChange = (start, end) => {
     setCustomDateRange({ start, end });
