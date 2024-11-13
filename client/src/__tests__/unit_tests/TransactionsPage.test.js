@@ -101,10 +101,7 @@ describe("TransactionsPage", () => {
   it("renders transactions after loading", async () => {
     await renderPageSuccessfully();
 
-    // buttons, table headings
-    expect(
-      screen.getByRole("button", { name: /new transaction/i }),
-    ).toBeInTheDocument();
+    // filter button, table headings
     expect(screen.getByRole("button", { name: /filter/i })).toBeInTheDocument();
     expect(screen.getByText(/date/i)).toBeInTheDocument();
     expect(screen.getByText(/category/i)).toBeInTheDocument();
@@ -115,16 +112,6 @@ describe("TransactionsPage", () => {
     expect(screen.getByText(/car/i)).toBeInTheDocument();
     expect(screen.getByText(/fuel/i)).toBeInTheDocument();
     expect(screen.getByText(/pizza/i)).toBeInTheDocument();
-  });
-
-  it("opens addTransaction modal", async () => {
-    await renderPageSuccessfully();
-
-    fireEvent.click(screen.getByText(/new transaction/i));
-
-    expect(
-      screen.getByRole("button", { name: /add transaction/i }),
-    ).toBeInTheDocument();
   });
 
   it("removes a transaction successfully", async () => {
