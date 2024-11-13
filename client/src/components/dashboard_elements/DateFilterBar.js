@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getDateRange } from "../../utils/miscUtils";
 import { AiFillCalendar } from "react-icons/ai";
@@ -11,7 +11,7 @@ const DateFilterBar = ({ setDateRange }) => {
     end: null,
   });
 
-  const handleFilterChange = (option) => {
+  const handleFilterChange = useCallback((option) => {
     setFilterOption(option);
     const { startDate, endDate } = getDateRange(
       option,
@@ -19,7 +19,7 @@ const DateFilterBar = ({ setDateRange }) => {
       customDateRange.end,
     );
     setDateRange({ startDate, endDate });
-  };
+  }, [customDateRange]);
 
   const handleCustomDateChange = (start, end) => {
     setCustomDateRange({ start, end });
