@@ -12,7 +12,7 @@ exports.getTransactions = async (req, res) => {
       filter.category = category;
     }
     if (startDate && endDate) {
-      filter.date = { $gte: new Date(startDate), $lte: new Date(endDate) };
+      filter.date = { $gte: startDate, $lte: endDate };
     }
 
     const transactions = await Transaction.find(filter)
