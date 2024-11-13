@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { calculateMonthlyTotals } from "../../utils/transactionUtils";
 import styles from "./IncomeExpenseSummary.module.css";
 
@@ -19,6 +20,10 @@ const IncomeExpenseSummary = ({ transactions }) => {
       </div>
     </div>
   );
+};
+
+IncomeExpenseSummary.propTypes = {
+  transactions: PropTypes.array.isRequired,
 };
 
 export default IncomeExpenseSummary;

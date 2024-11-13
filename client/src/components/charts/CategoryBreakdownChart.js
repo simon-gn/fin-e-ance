@@ -1,5 +1,6 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
+import PropTypes from "prop-types";
 import { calculateExpensesByCategory } from "../../utils/transactionUtils";
 
 const CategoryBreakdownChart = ({ transactions }) => {
@@ -56,6 +57,10 @@ const CategoryBreakdownChart = ({ transactions }) => {
       />
     </div>
   );
+};
+
+CategoryBreakdownChart.propTypes = {
+  transactions: PropTypes.array.isRequired,
 };
 
 export default CategoryBreakdownChart;

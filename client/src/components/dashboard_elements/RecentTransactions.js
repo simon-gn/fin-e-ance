@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import styles from "./RecentTransactions.module.css";
 
 const RecentTransactions = ({ transactions }) => {
@@ -37,6 +38,10 @@ const RecentTransactions = ({ transactions }) => {
       </Link>
     </div>
   );
+};
+
+RecentTransactions.propTypes = {
+  transactions: PropTypes.array.isRequired,
 };
 
 export default RecentTransactions;

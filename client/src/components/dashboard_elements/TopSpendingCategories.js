@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { calculateExpensesByCategory } from "../../utils/transactionUtils";
 import styles from "./TopSpendingCategories.module.css";
 
@@ -36,6 +37,10 @@ const TopSpendingCategories = ({ transactions }) => {
       </ul>
     </div>
   );
+};
+
+TopSpendingCategories.propTypes = {
+  transactions: PropTypes.array.isRequired,
 };
 
 export default TopSpendingCategories;
