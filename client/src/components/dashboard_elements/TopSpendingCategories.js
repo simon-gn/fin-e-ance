@@ -1,12 +1,9 @@
-// components/TopSpendingCategories.js
 import React from "react";
-import { useSelector } from "react-redux";
-import { calculateTopSpendingCategories } from "../../utils/transactionUtils";
+import { calculateExpensesByCategory } from "../../utils/transactionUtils";
 import styles from "./TopSpendingCategories.module.css";
 
-const TopSpendingCategories = () => {
-  const { transactions } = useSelector((state) => state.transactions);
-  const topCategories = calculateTopSpendingCategories(transactions);
+const TopSpendingCategories = ({transactions}) => {
+  const topCategories = calculateExpensesByCategory(transactions);
 
   const minLength = 10;
   const maxLength = 300;

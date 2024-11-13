@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import styles from "./RecentTransactions.module.css";
 
-const RecentTransactions = () => {
-  const { transactions } = useSelector((state) => state.transactions);
+const RecentTransactions = ({transactions}) => {
   const recentTransactions = transactions.slice(0, 5);
 
   return (
@@ -22,7 +20,7 @@ const RecentTransactions = () => {
             <span
               className={styles.transactionAmount}
               style={{
-                color: transaction.type === "Income" ? "#76c7c0" : "#ff6b6b",
+                color: transaction.type === "Income" ? "var(--income_color)" : "var(--expense_color)",
               }}
             >
               {transaction.type === "Expense" ? "-" : "+"}$
