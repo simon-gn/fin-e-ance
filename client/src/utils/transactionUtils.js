@@ -21,7 +21,7 @@ export const calculateMonthlyTotals = (transactions) => {
   return { totalIncome, totalExpenses };
 };
 
-export const calculateTopSpendingCategories = (transactions, limit = 5) => {
+export const calculateExpensesByCategory = (transactions, limit = 5) => {
   const categoryTotals = transactions.reduce((acc, transaction) => {
     if (transaction.type === "Expense") {
       acc[transaction.category.name] =
