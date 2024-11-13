@@ -1,0 +1,28 @@
+.dateFilterBar {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.dateFilterBar div {
+  background-color: transparent;
+  padding: 4px 8px;
+  margin: 0 6px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text_color);
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.dateFilterBar div:hover {
+  color: var(--background_color);
+  background-color: var(--text_color);
+}
+
+.dateFilterBar div.active {
+  color: var(--background_color);
+  background-color: var(--text_color);
+}
