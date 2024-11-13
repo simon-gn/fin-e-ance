@@ -2,10 +2,17 @@
   display: flex;
 }
 
-.withSidebar .content {
+.withNav .content {
   margin-left: 180px;
 }
 
 .content {
   flex-grow: 1;
+}
+
+@media (max-width: 480px) {
+  .withNav .content {
+    margin-left: 0;
+    margin-bottom: 60px;
+  }
 }

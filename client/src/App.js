@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -6,7 +5,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Sidebar from "./components/Sidebar";
+import DesktopNav from "./components/DesktopNav";
+import MobileNav from "./components/MobileNav";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
@@ -27,9 +27,12 @@ function MainContent() {
   const isAuthPage =
     location.pathname === "/" || location.pathname === "/register";
 
+  document.documentElement.setAttribute("data-theme", "dark");
+  window.isMobile = window.innerWidth <= 480;
+
   return (
-    <div className={`${styles.app} ${!isAuthPage ? styles.withSidebar : ""}`}>
-      {!isAuthPage && <Sidebar />}
+    <div className={`${styles.app} ${!isAuthPage ? styles.withNav : ""}`}>
+      {!isAuthPage && (window.isMobile ? <MobileNav /> : <DesktopNav />)}
       <div className={styles.content}>
         <Routes>
           <Route path="/" element={<LoginPage />} />
