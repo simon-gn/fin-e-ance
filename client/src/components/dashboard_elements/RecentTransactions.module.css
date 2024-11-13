@@ -14,7 +14,7 @@
   padding: 8px 0;
   border-bottom: 1px solid #ddd;
   font-size: 0.9rem;
-  color: #555;
+  color: var(--text_color);
 }
 .transactionItem:last-child {
   border-bottom: none;
@@ -43,4 +43,5 @@
 }
 .viewAllLink:hover {
   text-decoration: underline;
+  color: var(--main_color_hover);
 }

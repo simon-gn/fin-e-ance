@@ -1,6 +1,6 @@
 .topSpendingCategories {
   padding: 20px;
-  width: 320px;
+  /* width: 320px; */
 }
 
 .categoryList {
@@ -16,7 +16,7 @@
 .categoryName {
   width: 80px;
   font-weight: 500;
-  color: #555;
+  color: var(--text_color_medium);
   text-align: left;
   white-space: nowrap;
   overflow: hidden;

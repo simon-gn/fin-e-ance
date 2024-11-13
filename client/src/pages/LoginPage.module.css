@@ -12,12 +12,11 @@
 }
 .heroSection p {
   font-size: 18px;
-  color: #555;
+  color: var(--text_color_medium);
 }
 
 .loginBox {
-  max-width: 400px;
-  width: 100%;
+  padding: 30px 40px;
 }
 .loginBox h2 {
   margin-bottom: 40px;
@@ -31,8 +30,9 @@
 
 .signupText {
   margin-top: 15px;
+  margin-bottom: 0;
   font-size: 14px;
-  color: #555;
+  color: var(--text_color_medium);
 }
 .signupLink {
   color: var(--main_color);

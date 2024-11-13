@@ -1,11 +1,9 @@
 .incomeExpenseSummary {
-  padding: 20px;
   text-align: center;
 }
 
 .summaryContent {
   display: flex;
-  justify-content: space-between;
   margin-top: 20px;
 }
 
@@ -24,13 +22,13 @@
 }
 
 .income {
-  background-color: #e3f6f5;
-  color: #28a745;
+  background-color: var(--income_color_bg);
+  color: var(--income_color);
 }
 
 .expense {
-  background-color: #fde2e2;
-  color: #dc3545;
+  background-color: var(--expense_color_bg);
+  color: var(--expense_color);
 }
 
 .label {
@@ -42,4 +40,25 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-top: 5px;
+}
+
+@media (max-width: 480px) {
+  .summaryContent {
+    margin-top: 0;
+  }
+  
+  .summaryBox {
+    padding: 5px;
+  }
+
+  .label {
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .amount {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 2px;
+  }
 }

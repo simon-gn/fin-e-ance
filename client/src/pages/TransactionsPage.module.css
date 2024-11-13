@@ -5,10 +5,6 @@
   padding: 20px;
 }
 
-.transactionsPageBox {
-  width: 96%;
-}
-
 .filterButton {
   display: flex;
 }
@@ -45,4 +41,13 @@
 }
 .removeButton:hover {
   background-color: #c0392b;
+}
+
+@media (max-width: 480px) {
+  .transactionsPage {
+    padding: 1rem;
+  }
+
+  
+  
 }

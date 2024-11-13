@@ -46,6 +46,25 @@ const SpendingTrendChart = () => {
         pointBorderColor={{ from: "serieColor" }}
         pointLabelYOffset={-12}
         useMesh={true}
+        theme={{
+          grid: {
+            line: {
+              stroke: "var(--text_color)",
+            },
+          },
+          axis: {
+              ticks: {
+                  text: {
+                      fill: "var(--text_color)",
+                  },
+              },
+              legend: {
+                  text: {
+                      fill: "var(--text_color)",
+                  },
+              },
+          },
+        }}
       />
     </div>
   );

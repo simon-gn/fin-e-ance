@@ -3,9 +3,35 @@
   --main_color_hover: #337197;
   --background_color: #f6f9fa;
   --text_color: #333;
+  --text_color_medium: #555;
   --text_color_light: #666;
+  --card_color: white;
   --box_shadow_color: 0 4px 12px rgba(0, 0, 0, 0.1);
   --input_bg_color: #fff;
   --input_border_color: #ccc;
   --error_color: #e74c3c;
+  --nav_color: #333;
+  --income_color: #28a745;
+  --income_color_bg: #e3f6f5;
+  --expense_color: #dc3545;
+  --expense_color_bg: #fde2e2;
+}
+
+[data-theme="dark"] {
+  --main_color: #2fb8be;
+  --main_color_hover: #368b8f;
+  --background_color: #1f2e35;
+  --text_color: #96a7af;
+  --text_color_medium: #96a7af;
+  --text_color_light: #96a7af;
+  --card_color: #30444e;
+  --box_shadow_color: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --input_bg_color: #fff;
+  --input_border_color: #ccc;
+  --error_color: #e74c3c;
+  --nav_color: #2b3b42;
+  --income_color: #37c3c8;
+  --income_color_bg: transparent;
+  --expense_color: #ff575f;
+  --expense_color_bg: transparent;
 }
