@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { addCategoryAction } from "../../redux/actions/categoryActions";
+import { COLORS_CATEGORIES } from "../../styles/theme";
 import styles from "./AddCategoryModal.module.css";
 
 const AddCategoryModal = ({ isOpen, onClose }) => {
@@ -35,14 +36,17 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
           />
         </div>
         <div>
-          <label htmlFor="categoryColor">Color:</label>
-          <input
-            id="categoryColor"
-            name="categoryColor"
-            type="color"
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
-          />
+          <label>Color:</label>
+          <div className={styles.colorOptions}>
+            {COLORS_CATEGORIES.map((col) => (
+              <div
+                key={col}
+                className={`${styles.colorOption} ${color === col ? styles.selected : ""}`}
+                style={{ backgroundColor: col }}
+                onClick={() => setColor(col)}
+              />
+            ))}
+          </div>
         </div>
         <div className={styles.buttonLayout}>
           <button type="submit">Add Category</button>

@@ -6,12 +6,29 @@
   width: 25%;
 }
 
-input[type="color"] {
-  margin-top: 5px;
-  width: 100px;
-  height: 30px;
-  padding: 0;
+.colorOptions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.colorOption {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s ease, transform 0.3 ease;
+}
+
+.colorOption:hover {
+  border: 2px solid var(--text_color);
+  transform: scale(1.2);
+}
+
+.selected {
+  border: 2px solid var(--text_color);
+  transform: scale(1.2);
 }
 
 .buttonLayout button {
