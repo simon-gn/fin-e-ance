@@ -16,7 +16,7 @@
 }
 
 .loginBox {
-  padding: 30px 40px;
+  padding: 30px 50px !important;
 }
 .loginBox h2 {
   margin-bottom: 40px;
@@ -49,4 +49,10 @@
   font-size: 14px;
   margin-top: 0px;
   margin-bottom: 10px;
+}
+
+@media (max-width:480px) {
+  .loginBox {
+    padding: 30px 35px !important;
+  }
 }

@@ -8,8 +8,10 @@
 }
 
 .registerBox {
-  max-width: 400px;
-  width: 100%;
+  padding: 30px 50px !important;
+}
+.registerBox h2 {
+  margin-bottom: 30px;
 }
 
 .registerForm {
@@ -37,4 +39,10 @@
   color: var(--error_color);
   font-size: 14px;
   margin-bottom: 10px;
+}
+
+@media (max-width:480px) {
+  .registerBox {
+    padding: 30px 35px !important;
+  }
 }
