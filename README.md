@@ -12,9 +12,9 @@ with:
 - and much more...
 
 <div style="text-align: center;">
-  <img src="./client/images/LoginPage.jpg" alt="Dashboard preview" width="25%" style="display: inline-block; margin-right: 20px;" />
-  <img src="./client/images/Dashboard_1.jpg" alt="Dashboard preview" width="25%" style="display: inline-block; margin-right: 20px;" />
-  <img src="./client/images/Dashboard_2.jpg" alt="Dashboard preview" width="25%" style="display: inline-block;" />
+  <img src="./client/images/LoginPage_round.jpg" alt="Dashboard preview" width="25%" style="display: inline-block; margin-right: 20px;" />
+  <img src="./client/images/Dashboard_1_round.jpg" alt="Dashboard preview" width="25%" style="display: inline-block; margin-right: 20px;" />
+  <img src="./client/images/Dashboard_2_round.jpg" alt="Dashboard preview" width="25%" style="display: inline-block;" />
 </div>
   
 # Installation
