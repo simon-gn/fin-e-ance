@@ -13,9 +13,9 @@ with:
 
 <p align="center">
   <img src="./client/images/LoginPage_round.png" alt="Dashboard preview" width="25%" />
-  &nbsp; &nbsp;
+  &nbsp; &nbsp; &nbsp; &nbsp;
   <img src="./client/images/Dashboard_1_round.png" alt="Dashboard preview" width="25%" />
-  &nbsp; &nbsp;
+  &nbsp; &nbsp; &nbsp; &nbsp;
   <img src="./client/images/Dashboard_2_round.png" alt="Dashboard preview" width="25%" />
 </p>
   
