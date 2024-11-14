@@ -12,9 +12,9 @@ with:
 - and much more...
 
 <div style="display: flex; justify-content: center; gap: 20px;">
-  <img src="./client/images/LoginPage.jpg" alt="Dashboard preview" width="25%"/>
-  <img src="./client/images/Dashboard_1.jpg" alt="Dashboard preview" width="25%"/>
-  <img src="./client/images/Dashboard_2.jpg" alt="Dashboard preview" width="25%"/>
+  <img src="./client/images/LoginPage.jpg" alt="Login Page preview" width="25%" />
+  <img src="./client/images/Dashboard_1.jpg" alt="Dashboard preview" width="25%" />
+  <img src="./client/images/Dashboard_2.jpg" alt="Dashboard preview" width="25%" />
 </div>
   
 # Installation
