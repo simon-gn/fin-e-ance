@@ -11,7 +11,7 @@ with:
 - continuous deployment (CD) on Render (backend) and Vercel (frontend)
 - and much more...
 
-<div style="display: flex; justify-content: center; gap: 20px;">
+<div style="display: flex; justify-content: center; gap: 100px;">
   <img src="./client/images/LoginPage.jpg" alt="Login Page preview" width="25%" />
   <img src="./client/images/Dashboard_1.jpg" alt="Dashboard preview" width="25%" />
   <img src="./client/images/Dashboard_2.jpg" alt="Dashboard preview" width="25%" />
