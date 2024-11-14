@@ -11,10 +11,10 @@ with:
 - continuous deployment (CD) on Render (backend) and Vercel (frontend)
 - and much more...
 
-<div style="display: flex; justify-content: center">
-  <img src="./client/images/LoginPage.jpg" alt="Login Page preview" width="25%" style="margin-right: 20px;" />
-  <img src="./client/images/Dashboard_1.jpg" alt="Dashboard preview" width="25%" style="margin-right: 20px;" />
-  <img src="./client/images/Dashboard_2.jpg" alt="Dashboard preview" width="25%" />
+<div style="display: flex; justify-content: center;">
+  <div style="padding-right: 20px;"><img src="./client/images/LoginPage.jpg" alt="Dashboard preview" width="25%" /></div>
+  <div style="padding-right: 20px;"><img src="./client/images/Dashboard_1.jpg" alt="Dashboard preview" width="25%" /></div>
+  <div><img src="./client/images/Dashboard_2.jpg" alt="Dashboard preview" width="25%" /></div>
 </div>
   
 # Installation
