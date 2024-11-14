@@ -24,14 +24,19 @@ export const calculateMonthlyTotals = (transactions) => {
 export const calculateExpensesByCategory = (transactions, limit = 5) => {
   const categoryTotals = transactions.reduce((acc, transaction) => {
     if (transaction.type === "Expense") {
-      acc[transaction.category.name] =
-        (acc[transaction.category.name] || 0) + transaction.amount;
+      if (!acc[transaction.category.name]) {
+        acc[transaction.category.name] = {
+          total: 0,
+          color: transaction.category.color,
+        };
+      }
+      acc[transaction.category.name].total += transaction.amount;
     }
     return acc;
   }, {});
 
   return Object.entries(categoryTotals)
-    .map(([category, total]) => ({ category, total }))
+    .map(([category, { total, color }]) => ({ category, total, color }))
     .sort((a, b) => b.total - a.total)
     .slice(0, limit);
 };

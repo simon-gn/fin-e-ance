@@ -6,10 +6,11 @@ import { calculateExpensesByCategory } from "../../utils/transactionUtils";
 const CategoryBreakdownChart = ({ transactions }) => {
   const expensesByCategory = calculateExpensesByCategory(transactions, 15);
 
-  const data = expensesByCategory.map(({ category, total }) => ({
+  const data = expensesByCategory.map(({ category, total, color }) => ({
     id: category,
     label: category,
     value: total,
+    color: color,
   }));
 
   return (
@@ -21,7 +22,8 @@ const CategoryBreakdownChart = ({ transactions }) => {
         padAngle={0.5}
         cornerRadius={3}
         // colors={{ scheme: 'nivo' }}
-        colors={["#37c3c8", "#ffc542", "#ff575f", "#ba68c8"]}
+        // colors={["#37c3c8", "#ffc542", "#ff575f", "#ba68c8"]}
+        colors={({ data }) => data.color}
         enableArcLinkLabels={false}
         radialLabelsSkipAngle={10}
         enableSlicesLabels={false}
