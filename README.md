@@ -11,11 +11,11 @@ with:
 - continuous deployment (CD) on Render (backend) and Vercel (frontend)
 - and much more...
 
-<p style="display: flex; justify-content: center; gap: 20px;">
+<div style="display: flex; justify-content: center; gap: 20px;">
   <img src="./client/images/LoginPage.jpg" alt="Dashboard preview" width="25%"/>
   <img src="./client/images/Dashboard_1.jpg" alt="Dashboard preview" width="25%"/>
   <img src="./client/images/Dashboard_2.jpg" alt="Dashboard preview" width="25%"/>
-</p>
+</div>
   
 # Installation
 Usable on desktop and mobile, though the layout is currently more polished on mobile. Just visit: https://fin-e-ance-simon-gns-projects.vercel.app/ and sign up. You can also install the app on mobile by visiting the URL and selecting "Add to Home screen" in the browser’s "three-dot" menu. Your browser might also prompt you to install the app upon visiting the URL.
