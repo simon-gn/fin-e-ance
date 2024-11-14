@@ -1,18 +1,18 @@
 # fin(e)ance.
-A financial dashboard PWA (Progressive Web App) build on the MERN Stack:
+A financial dashboard PWA (Progressive Web App) built on the MERN Stack:
 - MongoDB
 - Express
 - React
 - Node.js
   
 with:
-- a modern CSS styling
-- continously integrated (CI) with automated testing using Github Actions
-- continously deployed (CD) on render (backend) and vercel (frontend)
+- modern CSS styling
+- continuous integration (CI) with automated testing using GitHub Actions
+- continuous deployment (CD) on Render (backend) and Vercel (frontend)
 - and much more...
-
+  
 # Installation
-Usable on desktop and mobile, although the layout currently is more polished on mobile. Just visit: https://fin-e-ance-simon-gns-projects.vercel.app/ and sign up. Also, you can install the app on mobile by visiting the url and select "Add to Home screen" in the "three dot" menu of the browser. Your browser might already ask you to install the app upon visiting the url.
+Usable on desktop and mobile, though the layout is currently more polished on mobile. Just visit: https://fin-e-ance-simon-gns-projects.vercel.app/ and sign up. You can also install the app on mobile by visiting the URL and selecting "Add to Home screen" in the browser’s "three-dot" menu. Your browser might also prompt you to install the app upon visiting the URL.
 
 # TODO:
-There are many more "nice-to-have" features I'd really like to implement and some current features definitely need improvements to some extend. But this project was intended primarily as a learning project to improve my skills as a Full Stack Developer, so those implementations and improvements have to wait. Yet, improvements to the CSS styling and layout will happen in the near future. 
+There are many more "nice-to-have" features I’d like to implement, and some current features could definitely be improved to some extent. However, this project was primarily intended as a learning project to improve my skills as a full-stack developer, so those implementations and improvements will have to wait. That said, improvements to the CSS styling and layout will be coming in the near future.
