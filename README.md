@@ -4,6 +4,7 @@ A financial dashboard PWA (Progressive Web App) build on the MERN Stack:
 - Express
 - React
 - Node.js
+  
 with a modern CSS styling, CI (Github Actions) with automated testing and CD on render (backend) and vercel (frontend) and much more.
 
 # Installation
