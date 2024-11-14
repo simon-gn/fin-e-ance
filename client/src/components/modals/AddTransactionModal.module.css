@@ -4,7 +4,7 @@
   border-radius: 8px;
   max-width: 400px;
   margin: auto;
-  box-shadow: var(--box_shadow_color)
+  box-shadow: var(--box_shadow_color);
 }
 
 .modalOverlay {
