@@ -106,7 +106,7 @@ th {
   border-bottom: none;
 }
 tr:hover {
-  background-color: #f8f9fa;
+  background-color: var(--background_color);
   cursor: pointer;
 }
 

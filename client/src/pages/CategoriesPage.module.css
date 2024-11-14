@@ -22,8 +22,7 @@
 }
 
 .categoryCard {
-  width: 200px;
-  max-width: 200px;
+  width: 34%;
   padding: 20px;
   border-radius: 7px;
   cursor: pointer;
@@ -33,11 +32,6 @@
     box-shadow 0.3s ease;
 }
 
-.categoryCard:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
 .categoryName {
   font-size: 1.2rem;
   color: white;
@@ -45,8 +39,9 @@
 
 .removeButton {
   background-color: #e74c3c;
-  margin-top: 10px;
-  margin-left: 125px;
+  width: 80%;
+  margin-top: 20%;
+  margin-left: 20%;
   padding: 5px;
 }
 
