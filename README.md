@@ -12,8 +12,8 @@ with:
 - and much more...
 
 <p align="center">
-  <img src="./client/images/Dashboard_1.jpg" alt="Dashboard preview" width="45%"/>
-  <img src="./client/images/Dashboard_2.jpg" alt="Dashboard preview" width="45%"/>
+  <img src="./client/images/Dashboard_1.jpg" alt="Dashboard preview" width="33%"/>
+  <img src="./client/images/Dashboard_2.jpg" alt="Dashboard preview" width="33%"/>
 </p>
   
 # Installation
