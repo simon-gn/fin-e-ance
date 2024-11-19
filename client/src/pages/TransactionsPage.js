@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AiOutlineFilter } from "react-icons/ai";
 import {
   fetchTransactionsAction,
   deleteTransactionAction,
@@ -58,11 +59,13 @@ const TransactionPage = () => {
     <div className={styles.transactionsPage}>
       <div className={`${styles.transactionsPageBox} card`}>
         {/* Filter Section */}
-        <div className={styles.filterButton}>
-          <button onClick={() => setShowFilterForm(!showFilterForm)}>
-            {showFilterForm ? "Cancel" : "Filter"}
-          </button>
-        </div>
+        <button
+          className={styles.filterButton}
+          onClick={() => setShowFilterForm(!showFilterForm)}
+        >
+          <AiOutlineFilter size={20} />
+          {showFilterForm ? "Cancel" : "Filter"}
+        </button>
         {showFilterForm && (
           <form className={styles.filterForm}>
             <div>
