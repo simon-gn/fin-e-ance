@@ -2,19 +2,20 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.625rem;
   width: 25%;
+  margin-bottom: 3rem;
 }
 
 .colorOptions {
   display: flex;
-  gap: 10px;
-  margin-top: 8px;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
 }
 
 .colorOption {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
   cursor: pointer;
   border: 2px solid transparent;
@@ -25,14 +26,20 @@
 
 .colorOption:hover {
   border: 2px solid var(--text_color);
-  transform: scale(1.2);
+  transform: scale(1.3);
 }
 
 .selected {
   border: 2px solid var(--text_color);
-  transform: scale(1.2);
+  transform: scale(1.3);
 }
 
 .buttonLayout button {
-  margin-right: 20px;
+  margin-right: 1.25rem;
+}
+
+@media (max-width: 480px) {
+  .addCategoryForm {
+    width: 100%;
+  }
 }

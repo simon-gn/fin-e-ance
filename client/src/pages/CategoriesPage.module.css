@@ -4,8 +4,11 @@
 
 .addCategoryButton {
   display: flex;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.addCategoryButton:hover {
+  color: white;
 }
 
 .categoriesPageBox {
@@ -22,6 +25,7 @@
 }
 
 .categoryCard {
+  display: flex;
   width: 34%;
   padding: 20px;
   border-radius: 7px;
@@ -31,6 +35,17 @@
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
+.categoryCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.categoryCardContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 
 .categoryName {
   font-size: 1.2rem;
@@ -38,13 +53,12 @@
 }
 
 .removeButton {
-  background-color: #e74c3c;
-  width: 80%;
-  margin-top: 20%;
-  margin-left: 20%;
-  padding: 5px;
+  display: flex;
+  color: white;
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 .removeButton:hover {
-  background-color: #c0392b;
+  transform: scale(1.2);
 }
