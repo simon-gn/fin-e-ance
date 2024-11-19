@@ -120,7 +120,7 @@ tr:hover {
   body {
     font-size: 0.9rem;
   }
-  
+
   h1 {
     font-size: 1.8rem;
   }
@@ -130,15 +130,16 @@ tr:hover {
   h3 {
     font-size: 1.1rem;
   }
-  
+
   table {
     font-size: 0.9rem;
   }
-  
-  th, td {
+
+  th,
+  td {
     padding: 0.5rem;
   }
-  
+
   .card {
     padding: 1.5rem;
   }
@@ -148,7 +149,7 @@ tr:hover {
   body {
     font-size: 0.9rem;
   }
-  
+
   h1 {
     font-size: 1.8rem;
   }

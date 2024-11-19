@@ -46,24 +46,24 @@ const Dashboard = () => {
       <div className={styles.content}>
         <div className={styles.column}>
           <IncomeExpenseSummary transactions={filteredTransactions} />
-          {window.isMobile &&
-          <div className={`${styles.chartBox} card`}>
-            <h3>Category Breakdown</h3>
-            <CategoryBreakdownChart transactions={filteredTransactions} />
-          </div>
-          }
+          {window.isMobile && (
+            <div className={`${styles.chartBox} card`}>
+              <h3>Category Breakdown</h3>
+              <CategoryBreakdownChart transactions={filteredTransactions} />
+            </div>
+          )}
           <RecentTransactions transactions={transactions} />
           <TopSpendingCategories transactions={filteredTransactions} />
         </div>
 
         <div className={styles.column}>
-          {!window.isMobile &&
-          <div className={`${styles.chartBox} card`}>
-            <h3>Category Breakdown</h3>
-            <CategoryBreakdownChart transactions={filteredTransactions} />
-          </div>
-          }
-          
+          {!window.isMobile && (
+            <div className={`${styles.chartBox} card`}>
+              <h3>Category Breakdown</h3>
+              <CategoryBreakdownChart transactions={filteredTransactions} />
+            </div>
+          )}
+
           <div className={`${styles.chartBox} card`}>
             <h3>Spending Trend Over Time</h3>
             <SpendingTrendChart />
