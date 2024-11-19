@@ -44,20 +44,26 @@ const Dashboard = () => {
       <DateFilterBar setDateRange={setDateRange} />
 
       <div className={styles.content}>
-        {/* Summary Row */}
-        <div className={styles.summaryColumn}>
+        <div className={styles.column}>
           <IncomeExpenseSummary transactions={filteredTransactions} />
-          <TopSpendingCategories transactions={filteredTransactions} />
-          <RecentTransactions transactions={transactions} />
-        </div>
-
-        {/* Charts Grid */}
-        <div className={styles.chartsColumn}>
+          {window.isMobile &&
           <div className={`${styles.chartBox} card`}>
             <h3>Category Breakdown</h3>
             <CategoryBreakdownChart transactions={filteredTransactions} />
           </div>
+          }
+          <RecentTransactions transactions={transactions} />
+          <TopSpendingCategories transactions={filteredTransactions} />
+        </div>
 
+        <div className={styles.column}>
+          {!window.isMobile &&
+          <div className={`${styles.chartBox} card`}>
+            <h3>Category Breakdown</h3>
+            <CategoryBreakdownChart transactions={filteredTransactions} />
+          </div>
+          }
+          
           <div className={`${styles.chartBox} card`}>
             <h3>Spending Trend Over Time</h3>
             <SpendingTrendChart />

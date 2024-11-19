@@ -1,50 +1,54 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .content {
   display: grid;
   grid-template-columns: auto auto;
-  gap: 10px;
+  gap: 0.7rem;
 }
 
-.summaryColumn {
+.column {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.7rem;
 }
 
-.chartsColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.chartBox,
-.summaryColumn > div {
+.column > div {
   transition: transform 0.3s ease;
 }
-.chartBox:hover,
-.summaryColumn > div:hover {
+.column > div:hover {
   transform: translateY(-2px);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .dashboard {
-    padding: 10px;
+    padding: 0.8rem;
   }
 
   .content {
     grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 
-  .summaryColumn {
-    gap: 7px;
+  .column {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 0.6rem;
   }
 
-  .chartsColumn {
-    gap: 7px;
+  .content {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .column {
+    gap: 0.5rem;
   }
 }
