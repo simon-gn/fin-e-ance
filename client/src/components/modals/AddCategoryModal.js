@@ -46,10 +46,25 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
                 onClick={() => setColor(col)}
               />
             ))}
+            <div>
+              <input 
+                type="color"
+                label="hiddenColorPicker"
+                id="hiddenColorPicker"
+                value={color}
+                onChange={(event) => setColor(event.target.value)}
+                className={styles.hiddenColorPicker}
+              />
+              <div
+                className={styles.colorOption}
+                style={{ backgroundColor: color }}
+                onClick={() => document.getElementById('hiddenColorPicker').click()}
+              />
+            </div>
           </div>
         </div>
         <div className={styles.buttonLayout}>
-          <button type="submit">Add Category</button>
+          <button type="submit">Add</button>
           <button type="button" onClick={() => onClose()}>
             Cancel
           </button>
