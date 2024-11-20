@@ -5,12 +5,17 @@
   padding: 1.25rem;
 }
 
+.transactionsPageBox {
+  width: 96%;
+  max-width: 96%;
+}
+
 .filterButton {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.25rem 1rem;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   font-weight: 500;
 }
 .filterButton:hover {
@@ -23,7 +28,7 @@
   gap: 1.25rem;
 }
 .filterForm div {
-  width: calc(33% - 10px);
+  width: calc(33% - 0.625rem);
 }
 .dateInputsContainer {
   display: flex;
@@ -34,22 +39,34 @@
   flex: 1;
 }
 
+tr.selected td {
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+}
+
 .actionCell {
   border-bottom: none;
   background-color: transparent;
-  width: 5%;
-  padding: 5px;
+  padding: 0;
+  width: 0;
 }
 .removeButton {
-  background-color: #e74c3c;
-  padding: 5px 10px;
+  display: flex;
+  color: white;
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 .removeButton:hover {
-  background-color: #c0392b;
+  transform: scale(1.2);
 }
 
 @media (max-width: 480px) {
   .transactionsPage {
     padding: 1rem;
+  }
+
+  tr.selected td {
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
   }
 }

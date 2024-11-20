@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AiOutlineFilter } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineFilter } from "react-icons/ai";
 import {
   fetchTransactionsAction,
   deleteTransactionAction,
@@ -61,6 +61,7 @@ const TransactionPage = () => {
         {/* Filter Section */}
         <button
           className={styles.filterButton}
+          type="button"
           onClick={() => setShowFilterForm(!showFilterForm)}
         >
           <AiOutlineFilter size={20} />
@@ -155,6 +156,7 @@ const TransactionPage = () => {
             {transactions.map((transaction) => (
               <tr
                 key={transaction._id}
+                className={selectedTransactionId === transaction._id ? styles.selected : ""}
                 onClick={() => handleTransactionClick(transaction._id)}
               >
                 <td>{formatDate(transaction.date)}</td>
@@ -174,15 +176,15 @@ const TransactionPage = () => {
                 <td>{transaction.description}</td>
                 {selectedTransactionId === transaction._id && (
                   <td className={styles.actionCell}>
-                    <button
+                    <div
                       className={styles.removeButton}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleRemoveTransaction(transaction._id);
                       }}
                     >
-                      Remove
-                    </button>
+                      <AiOutlineDelete size={24} />
+                    </div>
                   </td>
                 )}
               </tr>
