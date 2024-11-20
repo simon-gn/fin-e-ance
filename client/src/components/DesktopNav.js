@@ -34,7 +34,7 @@ const DesktopNav = () => {
         onClose={toggleAddTransactionModal}
       />
 
-      <button className={styles.logoutButton} onClick={handleLogout}>
+      <button className={styles.logoutButton} type="button" onClick={handleLogout}>
         Log Out
       </button>
     </div>
