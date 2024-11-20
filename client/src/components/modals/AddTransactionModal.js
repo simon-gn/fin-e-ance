@@ -80,7 +80,7 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-          <button type="submit">Add Transaction</button>
+          <button type="submit">Add</button>
           <button type="button" onClick={onClose}>
             Cancel
           </button>
