@@ -72,7 +72,7 @@ const CategoriesPage = () => {
               className={styles.addCategoryButton}
               onClick={handleOpenAddCategoryModal}
             >
-              <AiOutlinePlusCircle size={64} />
+              <AiOutlinePlusCircle size={42} />
             </li>
           )}
         </ul>

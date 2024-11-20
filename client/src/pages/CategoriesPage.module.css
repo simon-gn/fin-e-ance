@@ -4,6 +4,7 @@
 
 .addCategoryButton {
   display: flex;
+  align-self: center;
   cursor: pointer;
   transition: color 0.3s ease;
 }
