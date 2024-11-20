@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   AiFillHome,
-  AiOutlineBarChart,
   AiOutlineAppstore,
   AiOutlinePlus,
   AiOutlineLogout,
+  AiOutlineUnorderedList,
 } from "react-icons/ai";
 import AddTransactionModal from "./modals/AddTransactionModal";
 import { handleLogout } from "../utils/authUtils";
@@ -26,7 +26,7 @@ const MobileNav = () => {
           <span>Dashboard</span>
         </Link>
         <Link to="/transactions" className={styles.navIcon}>
-          <AiOutlineBarChart size={24} />
+          <AiOutlineUnorderedList size={24} />
           <span>Transactions</span>
         </Link>
 
