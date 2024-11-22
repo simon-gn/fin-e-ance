@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTransactionsAction } from "../redux/actions/transactionActions";
 import { fetchCategoriesAction } from "../redux/actions/categoryActions";
@@ -25,18 +25,20 @@ const Dashboard = () => {
 
   const { transactions } = useSelector((state) => state.transactions);
 
-  const filteredTransactions = transactions.filter((transaction) => {
-    // return all transactions
-    if (dateRange.startDate === null || dateRange.endDate === null) {
-      return true;
-    }
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter((transaction) => {
+      // return all transactions
+      if (dateRange.startDate === null || dateRange.endDate === null) {
+        return true;
+      }
 
-    const transactionDate = new Date(transaction.date);
-    return (
-      transactionDate >= dateRange.startDate &&
-      transactionDate <= dateRange.endDate
-    );
-  });
+      const transactionDate = new Date(transaction.date);
+      return (
+        transactionDate >= dateRange.startDate &&
+        transactionDate <= dateRange.endDate
+      );
+    });
+  }, [transactions, dateRange]);
 
   return (
     <div className={styles.dashboard}>
@@ -46,31 +48,31 @@ const Dashboard = () => {
       <div className={styles.content}>
         <div className={styles.column}>
           <IncomeExpenseSummary transactions={filteredTransactions} />
+          <RecentTransactions transactions={transactions} />
           {window.isMobile && (
-            <div className={`${styles.chartBox} card`}>
-              <h3>Category Breakdown</h3>
+            <div className="card">
+              <h3>Expenses by Category</h3>
               <CategoryBreakdownChart transactions={filteredTransactions} />
             </div>
           )}
-          <RecentTransactions transactions={transactions} />
           <TopSpendingCategories transactions={filteredTransactions} />
         </div>
 
         <div className={styles.column}>
           {!window.isMobile && (
-            <div className={`${styles.chartBox} card`}>
-              <h3>Category Breakdown</h3>
+            <div className="card">
+              <h3>Expenses by Category</h3>
               <CategoryBreakdownChart transactions={filteredTransactions} />
             </div>
           )}
 
-          <div className={`${styles.chartBox} card`}>
-            <h3>Spending Trend Over Time</h3>
+          <div className="card">
+            <h3>Spending Trend</h3>
             <SpendingTrendChart />
           </div>
 
-          <div className={`${styles.chartBox} card`}>
-            <h3>Income vs. Expense Comparison</h3>
+          <div className="card">
+            <h3>Income vs. Expense</h3>
             <IncomeExpenseComparisonChart />
           </div>
         </div>
