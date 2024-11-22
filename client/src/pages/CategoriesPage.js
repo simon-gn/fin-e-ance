@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchCategoriesAction,
-  deleteCategoryAction,
-} from "../redux/actions/categoryActions";
+import { deleteCategoryAction } from "../redux/actions/categoryActions";
 import AddCategoryModal from "../components/modals/AddCategoryModal";
 import styles from "./CategoriesPage.module.css";
 import { AiOutlineDelete, AiOutlinePlusCircle } from "react-icons/ai";
@@ -12,17 +9,13 @@ const CategoriesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
 
-  const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
-
-  useEffect(() => {
-    dispatch(fetchCategoriesAction());
-  }, [dispatch]);
-
+  
   const handleCategoryClick = (category) => {
     setSelectedCategory(category === selectedCategory ? null : category);
   };
-
+  
+  const dispatch = useDispatch();
   const handleRemoveCategory = (categoryId) => {
     dispatch(deleteCategoryAction(categoryId));
   };

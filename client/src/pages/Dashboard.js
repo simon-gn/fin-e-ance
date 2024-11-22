@@ -1,7 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchTransactionsAction } from "../redux/actions/transactionActions";
-import { fetchCategoriesAction } from "../redux/actions/categoryActions";
+import React, { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import DateFilterBar from "../components/dashboard_elements/DateFilterBar";
 import IncomeExpenseSummary from "../components/dashboard_elements/IncomeExpenseSummary";
 import TopSpendingCategories from "../components/dashboard_elements/TopSpendingCategories";
@@ -12,16 +10,10 @@ import IncomeExpenseComparisonChart from "../components/charts/IncomeExpenseComp
 import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
   const [dateRange, setDateRange] = useState({
     startDate: null,
     endDate: null,
   });
-
-  useEffect(() => {
-    dispatch(fetchTransactionsAction());
-    dispatch(fetchCategoriesAction());
-  }, [dispatch]);
 
   const { transactions } = useSelector((state) => state.transactions);
 
