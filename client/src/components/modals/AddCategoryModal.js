@@ -52,7 +52,7 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
                 label="hiddenColorPicker"
                 id="hiddenColorPicker"
                 value={color}
-                onChange={(event) => setColor(event.target.value)}
+                onChange={(e) => setColor(e.target.value)}
                 className={styles.hiddenColorPicker}
               />
               <div
