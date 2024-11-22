@@ -10,7 +10,7 @@ with:
 - continuous integration (CI) with automated testing using GitHub Actions
 - continuous deployment (CD) on Render (backend) and Vercel (frontend)
 - and much more...
-
+\
 
 <p align="center">
   <img src="./client/images/LoginPage_round.png" alt="Dashboard preview" width="25%" />
