@@ -29,64 +29,72 @@ const DateFilterBar = ({ setDateRange }) => {
   };
 
   useEffect(() => {
-    handleFilterChange("1m");
-  }, [handleFilterChange]);
+    handleFilterChange(filterOption);
+  }, [customDateRange, filterOption, handleFilterChange]);
 
   return (
-    <div className={styles.dateFilterBar}>
-      <div
-        onClick={() => handleFilterChange("1m")}
-        className={filterOption === "1m" ? styles.active : ""}
-      >
-        1m
-      </div>
-      <div
-        onClick={() => handleFilterChange("3m")}
-        className={filterOption === "3m" ? styles.active : ""}
-      >
-        3m
-      </div>
-      <div
-        onClick={() => handleFilterChange("6m")}
-        className={filterOption === "6m" ? styles.active : ""}
-      >
-        6m
-      </div>
-      <div
-        onClick={() => handleFilterChange("1y")}
-        className={filterOption === "1y" ? styles.active : ""}
-      >
-        1y
-      </div>
-      <div
-        onClick={() => handleFilterChange("all")}
-        className={filterOption === "all" ? styles.active : ""}
-      >
-        All
-      </div>
-      <div
-        onClick={() => setFilterOption("custom")}
-        className={filterOption === "custom" ? styles.active : ""}
-      >
-        <AiFillCalendar />
+    <div>
+      <div className={styles.dateFilterBarOptions}>
+        <div
+          onClick={() => handleFilterChange("1m")}
+          className={filterOption === "1m" ? styles.active : ""}
+        >
+          1m
+        </div>
+        <div
+          onClick={() => handleFilterChange("3m")}
+          className={filterOption === "3m" ? styles.active : ""}
+        >
+          3m
+        </div>
+        <div
+          onClick={() => handleFilterChange("6m")}
+          className={filterOption === "6m" ? styles.active : ""}
+        >
+          6m
+        </div>
+        <div
+          onClick={() => handleFilterChange("1y")}
+          className={filterOption === "1y" ? styles.active : ""}
+        >
+          1y
+        </div>
+        <div
+          onClick={() => handleFilterChange("all")}
+          className={filterOption === "all" ? styles.active : ""}
+        >
+          All
+        </div>
+        <div
+          onClick={() => setFilterOption("custom")}
+          className={filterOption === "custom" ? styles.active : ""}
+        >
+          <AiFillCalendar />
+        </div>
       </div>
 
       {filterOption === "custom" && (
         <div className={styles.customDateInputs}>
-          <input
-            type="date"
-            value={customDateRange.start || ""}
-            onChange={(e) =>
-              handleCustomDateChange(e.target.value, customDateRange.end)
-            }
-          />
-          <input
-            type="date"
-            value={customDateRange.end || ""}
-            onChange={(e) =>
-              handleCustomDateChange(customDateRange.start, e.target.value)
-            }
-          />
+          <div className={styles.dateInputGroup}>
+            <label htmlFor="custom-start-date">Start Date</label>
+            <input
+              type="date"
+              value={customDateRange.start || ""}
+              onChange={(e) =>
+                handleCustomDateChange(e.target.value, customDateRange.end)
+              }
+            />
+          </div>
+          <div className={styles.dateInputGroup}>
+            <label htmlFor="custom-end-date">End Date</label>
+            <input
+              type="date"
+              value={customDateRange.end || ""}
+              onChange={(e) =>
+                handleCustomDateChange(customDateRange.start, e.target.value)
+              }
+            />
+          </div>
         </div>
       )}
     </div>

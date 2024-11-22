@@ -1,15 +1,14 @@
-.dateFilterBar {
+.dateFilterBarOptions {
   display: flex;
-  justify-content: space-around;
-  padding: 10px;
+  justify-content: space-between;
+  padding: 0.625rem;
   background-color: transparent;
 }
 
-.dateFilterBar div {
+.dateFilterBarOptions div {
   background-color: transparent;
-  padding: 4px 8px;
-  margin: 0 6px;
-  border-radius: 10px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.625rem;
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text_color);
@@ -17,12 +16,23 @@
   transition: color 0.3s ease;
 }
 
-.dateFilterBar div:hover {
+@media (hover:hover) {
+  .dateFilterBarOptions div:hover {
+    color: var(--background_color);
+    background-color: var(--text_color);
+  }
+}
+
+.dateFilterBarOptions div.active {
   color: var(--background_color);
   background-color: var(--text_color);
 }
 
-.dateFilterBar div.active {
-  color: var(--background_color);
-  background-color: var(--text_color);
+.customDateInputs {
+  display: flex;
+  padding: 0.625rem;
+  gap: 1rem;
+}
+.dateInputGroup {
+  flex: 1;
 }
