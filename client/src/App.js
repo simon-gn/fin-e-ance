@@ -5,8 +5,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-import DesktopNav from "./components/DesktopNav";
-import MobileNav from "./components/MobileNav";
+import DesktopNav from "./components/navigation_bars/DesktopNav";
+import MobileNav from "./components/navigation_bars/MobileNav";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
