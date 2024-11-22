@@ -1,10 +1,5 @@
-.incomeExpenseSummary {
-  text-align: center;
-}
-
 .summaryContent {
   display: flex;
-  margin-top: 20px;
 }
 
 .summaryBox {
@@ -12,9 +7,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px;
-  margin: 0 5px;
-  border-radius: 8px;
   transition: transform 0.3s ease;
 }
 .summaryBox:hover {
@@ -43,9 +35,6 @@
 }
 
 @media (max-width: 480px) {
-  .summaryContent {
-    margin-top: 0;
-  }
 
   .summaryBox {
     padding: 5px;

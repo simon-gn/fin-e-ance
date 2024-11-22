@@ -1,7 +1,3 @@
-.recentTransactions {
-  padding: 30px;
-}
-
 .transactionList {
   padding: 0;
   margin: 0;
@@ -9,9 +5,9 @@
 
 .transactionItem {
   display: flex;
-  justify-content: space-between;
+  justify-content:center;
   align-items: center;
-  padding: 8px 0;
+  padding: 0.5rem 0;
   border-bottom: 1px solid #ddd;
   font-size: 0.9rem;
   color: var(--text_color);
@@ -21,20 +17,29 @@
 }
 .transactionDate {
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .transactionCategory {
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: center;
 }
 .transactionAmount {
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: right;
   font-weight: bold;
 }
 
 .viewAllLink {
-  display: block;
-  margin-top: 15px;
+  display: inline-block;
+  margin-top: 1rem;
   text-align: right;
   color: var(--main_color);
   text-decoration: none;

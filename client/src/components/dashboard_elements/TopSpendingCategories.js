@@ -6,8 +6,8 @@ import styles from "./TopSpendingCategories.module.css";
 const TopSpendingCategories = ({ transactions }) => {
   const topCategories = calculateExpensesByCategory(transactions);
 
-  const minLength = 10;
-  const maxLength = 300;
+  const minLength = 1.5;
+  const maxLength = 100;
 
   let sumTotals = 0;
   topCategories.forEach((category) => {
@@ -21,7 +21,7 @@ const TopSpendingCategories = ({ transactions }) => {
   };
 
   return (
-    <div className={`${styles.topSpendingCategories} card`}>
+    <div className="card">
       <h3>Top Spending Categories</h3>
       <ul className={styles.categoryList}>
         {topCategories.map(({ category, total }) => (
@@ -29,7 +29,7 @@ const TopSpendingCategories = ({ transactions }) => {
             <span className={styles.categoryName}>{category}</span>
             <span
               className={styles.categoryBar}
-              style={{ width: `${calculateBarLength(total)}px` }}
+              style={{ width: `${calculateBarLength(total)}%` }}
             />
             <span className={styles.categoryTotal}>${total.toFixed(2)}</span>
           </li>

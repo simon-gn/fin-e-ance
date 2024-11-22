@@ -7,7 +7,7 @@ const IncomeExpenseSummary = ({ transactions }) => {
   const { totalIncome, totalExpenses } = calculateMonthlyTotals(transactions);
 
   return (
-    <div className={`${styles.incomeExpenseSummary} card`}>
+    <div className="card">
       <div className={styles.summaryContent}>
         <div className={`${styles.summaryBox} ${styles.income}`}>
           <span className={styles.label}>Income</span>

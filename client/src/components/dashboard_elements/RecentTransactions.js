@@ -7,7 +7,7 @@ const RecentTransactions = ({ transactions }) => {
   const recentTransactions = transactions.slice(0, 5);
 
   return (
-    <div className={`${styles.recentTransactions} card`}>
+    <div className="card">
       <h3>Recent Transactions</h3>
       <ul className={styles.transactionList}>
         {recentTransactions.map((transaction) => (
@@ -33,9 +33,11 @@ const RecentTransactions = ({ transactions }) => {
           </li>
         ))}
       </ul>
-      <Link to="/transactions" className={styles.viewAllLink}>
-        View All
-      </Link>
+      <div style={{textAlign: "right"}}>
+        <Link to="/transactions" className={styles.viewAllLink}>
+          View All
+        </Link>
+      </div>
     </div>
   );
 };
