@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { validateTokenAPI } from "../services/authAPI";
+import { useDispatch } from "react-redux";
+import { fetchTransactionsAction } from "../redux/actions/transactionActions";
+import { fetchCategoriesAction } from "../redux/actions/categoryActions";
 import PropTypes from "prop-types";
 
 const ProtectedRoute = ({ children }) => {
@@ -24,6 +27,18 @@ const ProtectedRoute = ({ children }) => {
 
     validateToken();
   }, [token]);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isValid) {
+      try {
+        dispatch(fetchTransactionsAction());
+        dispatch(fetchCategoriesAction());
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }, [isValid, dispatch]);
 
   if (isValid === null) {
     return <div>Loading...</div>;
