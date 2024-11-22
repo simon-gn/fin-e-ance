@@ -11,6 +11,8 @@ with:
 - continuous deployment (CD) on Render (backend) and Vercel (frontend)
 - and much more...
 
+<p>&nbsp;</p>
+
 <p align="center">
   <img src="./client/images/LoginPage_round.png" alt="Dashboard preview" width="25%" />
   &nbsp; &nbsp; &nbsp; &nbsp;
