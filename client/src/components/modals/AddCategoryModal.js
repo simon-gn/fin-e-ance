@@ -47,7 +47,7 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
               />
             ))}
             <div>
-              <input 
+              <input
                 type="color"
                 label="hiddenColorPicker"
                 id="hiddenColorPicker"
@@ -58,7 +58,9 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
               <div
                 className={styles.colorOption}
                 style={{ backgroundColor: color }}
-                onClick={() => document.getElementById('hiddenColorPicker').click()}
+                onClick={() =>
+                  document.getElementById("hiddenColorPicker").click()
+                }
               />
             </div>
           </div>

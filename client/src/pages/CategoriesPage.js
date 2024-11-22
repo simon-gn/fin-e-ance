@@ -10,11 +10,11 @@ const CategoriesPage = () => {
   const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
 
   const { categories } = useSelector((state) => state.categories);
-  
+
   const handleCategoryClick = (category) => {
     setSelectedCategory(category === selectedCategory ? null : category);
   };
-  
+
   const dispatch = useDispatch();
   const handleRemoveCategory = (categoryId) => {
     dispatch(deleteCategoryAction(categoryId));

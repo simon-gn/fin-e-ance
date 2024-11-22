@@ -40,7 +40,11 @@ const TransactionPage = () => {
         return false;
       }
 
-      if (category && category !== "all" && transaction.category.name !== category) {
+      if (
+        category &&
+        category !== "all" &&
+        transaction.category.name !== category
+      ) {
         return false;
       }
 
@@ -50,7 +54,7 @@ const TransactionPage = () => {
 
   const handleFilterChange = useCallback(
     (option) => {
-      setDateFilterOption(option)
+      setDateFilterOption(option);
       const { startDate, endDate } = getDateRange(
         option,
         customDateRange.start,
@@ -68,13 +72,13 @@ const TransactionPage = () => {
   useEffect(() => {
     handleFilterChange(dateFilterOption);
   }, [customDateRange, dateFilterOption, handleFilterChange]);
-  
+
   const handleTransactionClick = (transactionId) => {
     setSelectedTransactionId(
       transactionId === selectedTransactionId ? null : transactionId,
     ); // Toggle selected transaction
   };
-  
+
   const dispatch = useDispatch();
   const handleRemoveTransaction = (transactionId) => {
     dispatch(deleteTransactionAction(transactionId));
@@ -151,7 +155,12 @@ const TransactionPage = () => {
                     type="date"
                     id="custom-start-date"
                     value={customDateRange.start || ""}
-                    onChange={(e) => handleCustomDateChange(e.target.value, customDateRange.end)}
+                    onChange={(e) =>
+                      handleCustomDateChange(
+                        e.target.value,
+                        customDateRange.end,
+                      )
+                    }
                   />
                 </div>
                 <div>
@@ -160,7 +169,12 @@ const TransactionPage = () => {
                     type="date"
                     id="custom-end-date"
                     value={customDateRange.end || ""}
-                    onChange={(e) => handleCustomDateChange(customDateRange.start, e.target.value)}
+                    onChange={(e) =>
+                      handleCustomDateChange(
+                        customDateRange.start,
+                        e.target.value,
+                      )
+                    }
                   />
                 </div>
               </div>
@@ -182,7 +196,11 @@ const TransactionPage = () => {
             {filteredTransactions.map((transaction) => (
               <tr
                 key={transaction._id}
-                className={selectedTransactionId === transaction._id ? styles.selected : ""}
+                className={
+                  selectedTransactionId === transaction._id
+                    ? styles.selected
+                    : ""
+                }
                 onClick={() => handleTransactionClick(transaction._id)}
               >
                 <td>{formatDate(transaction.date)}</td>

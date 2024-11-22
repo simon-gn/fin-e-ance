@@ -16,7 +16,7 @@
   transition: color 0.3s ease;
 }
 
-@media (hover:hover) {
+@media (hover: hover) {
   .dateFilterBarOptions div:hover {
     color: var(--background_color);
     background-color: var(--text_color);

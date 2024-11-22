@@ -33,7 +33,7 @@ const RecentTransactions = ({ transactions }) => {
           </li>
         ))}
       </ul>
-      <div style={{textAlign: "right"}}>
+      <div style={{ textAlign: "right" }}>
         <Link to="/transactions" className={styles.viewAllLink}>
           View All
         </Link>

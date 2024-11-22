@@ -2,7 +2,7 @@ import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import PropTypes from "prop-types";
 import { calculateExpensesByCategory } from "../../utils/transactionUtils";
-import styles from "./CategoryBreakdownChart.module.css"
+import styles from "./CategoryBreakdownChart.module.css";
 
 const CategoryBreakdownChart = ({ transactions }) => {
   const expensesByCategory = calculateExpensesByCategory(transactions, 15);

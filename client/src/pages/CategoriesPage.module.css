@@ -21,8 +21,8 @@
     box-shadow 0.3s ease;
 }
 .selected {
-    transform: scale(1.05);
-    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
 }
 @media (hover: hover) {
   .categoryCard:hover {
