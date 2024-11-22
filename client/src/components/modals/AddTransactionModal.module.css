@@ -1,12 +1,3 @@
-.addTransactionForm {
-  background: var(--card_color);
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 400px;
-  margin: auto;
-  box-shadow: var(--box_shadow_color);
-}
-
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -20,20 +11,52 @@
   z-index: 1000;
 }
 
+.addTransactionForm {
+  background: var(--card_color);
+  max-width: 70vw;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--box_shadow_color);
+}
+
 .addTransactionForm input,
 .addTransactionForm select {
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
 }
 
-.addTransactionForm button {
-  margin-top: 10px;
-  width: 100%;
+.dateTimeGroup {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+}
+.dateContainer {
+  flex: 1;
+}
+.timeContainer {
+  flex: 1;
 }
 
-.addTransactionForm button[type="submit"] {
-  margin-bottom: 10px;
+.categoryAmountGroup {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+}
+.categoryContainer {
+  flex: 2;
+}
+.amountContainer {
+  flex: 1;
 }
 
-.addTransactionForm button[type="button"] {
+.buttonGroup {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+.buttonGroup button {
+  flex: 1;
+}
+.buttonGroup button[type="button"] {
   background-color: #f44336;
 }

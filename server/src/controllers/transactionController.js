@@ -26,11 +26,12 @@ exports.getTransactions = async (req, res) => {
 
 exports.addTransaction = async (req, res) => {
   try {
-    const { type, category, amount, description } = req.body;
+    const { type, date, category, amount, description } = req.body;
 
     const newTransaction = await Transaction.create({
       user: req.user.id,
       type,
+      date,
       category,
       amount,
       description,

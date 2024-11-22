@@ -36,7 +36,9 @@ const transactionReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        transactions: [action.payload, ...state.transactions],
+        transactions: [...state.transactions, action.payload].sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        }),
       };
     case DELETE_TRANSACTION_SUCCESS:
       return {
