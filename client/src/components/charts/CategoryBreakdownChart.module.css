@@ -1,0 +1,33 @@
+.chartContainer {
+  display: flex;
+  align-items: center;
+}
+
+.chartWrapper {
+  flex: 2;
+  height: 200px;
+}
+
+.legendWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: -10px;
+}
+
+.legendItem {
+  align-items: center;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 7rem;
+}
+
+.legendIcon {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.5rem;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import PropTypes from "prop-types";
 import { calculateExpensesByCategory } from "../../utils/transactionUtils";
+import styles from "./CategoryBreakdownChart.module.css"
 
 const CategoryBreakdownChart = ({ transactions }) => {
   const expensesByCategory = calculateExpensesByCategory(transactions, 15);
@@ -13,50 +14,39 @@ const CategoryBreakdownChart = ({ transactions }) => {
     color: color,
   }));
 
+  const renderCustomLegend = () => (
+    <div className={styles.legendWrapper}>
+      {data.map((d) => (
+        <div key={d.id} className={styles.legendItem}>
+          <span
+            className={styles.legendIcon}
+            style={{ backgroundColor: d.color }}
+          ></span>
+          <span title={d.label}>{d.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
-    <div style={{ height: 250 }}>
-      <ResponsivePie
-        data={data}
-        margin={{ top: 30, right: 30, bottom: 30, left: -80 }}
-        innerRadius={0.7}
-        padAngle={0.5}
-        cornerRadius={3}
-        // colors={{ scheme: 'nivo' }}
-        // colors={["#37c3c8", "#ffc542", "#ff575f", "#ba68c8"]}
-        colors={({ data }) => data.color}
-        enableArcLinkLabels={false}
-        radialLabelsSkipAngle={10}
-        enableSlicesLabels={false}
-        animate={true}
-        theme={{
-          labels: { text: { fontWeight: "var(--text_color)" } },
-        }}
-        legends={[
-          {
-            anchor: "right",
-            direction: "column",
-            justify: false,
-            translateX: -40,
-            translateY: 0,
-            itemsSpacing: 18,
-            itemWidth: 0,
-            itemHeight: 18,
-            itemTextColor: "var(--text_color)",
-            itemDirection: "left-to-right",
-            itemOpacity: 1,
-            symbolSize: 14,
-            symbolShape: "circle",
-            effects: [
-              {
-                on: "hover",
-                style: {
-                  itemTextColor: "#000",
-                },
-              },
-            ],
-          },
-        ]}
-      />
+    <div className={styles.chartContainer}>
+      <div className={styles.chartWrapper}>
+        <ResponsivePie
+          data={data}
+          margin={{ right: 50, left: 10 }}
+          innerRadius={0.7}
+          padAngle={0.5}
+          cornerRadius={3}
+          colors={({ data }) => data.color}
+          enableArcLinkLabels={false}
+          arcLabelsSkipAngle={15}
+          animate={true}
+          theme={{
+            labels: { text: { fontWeight: "var(--text_color)" } },
+          }}
+        />
+      </div>
+      {renderCustomLegend()}
     </div>
   );
 };
