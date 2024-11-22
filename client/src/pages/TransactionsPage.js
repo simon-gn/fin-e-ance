@@ -2,9 +2,9 @@ import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineDelete, AiOutlineFilter } from "react-icons/ai";
 import { deleteTransactionAction } from "../redux/actions/transactionActions";
+import FilterTransactionsForm from "../components/modals_and_forms/FilterTransactionsForm";
 import { formatDate } from "../utils/miscUtils";
 import styles from "./TransactionsPage.module.css";
-import FilterTransactionModal from "../components/modals/FilterTransactionsModal";
 
 const TransactionPage = () => {
   const [dateRange, setDateRange] = useState({
@@ -15,7 +15,8 @@ const TransactionPage = () => {
   const [category, setCategory] = useState("");
 
   const [selectedTransactionId, setSelectedTransactionId] = useState(null);
-  const [showFilterForm, setShowFilterForm] = useState(false);
+  const [showFilterTransactionsForm, setShowFilterTransactionsForm] =
+    useState(false);
 
   const { transactions } = useSelector((state) => state.transactions);
 
@@ -49,7 +50,7 @@ const TransactionPage = () => {
 
   const handleTransactionClick = (transactionId) => {
     setSelectedTransactionId(
-      transactionId === selectedTransactionId ? null : transactionId,
+      transactionId === selectedTransactionId ? null : transactionId
     ); // Toggle selected transaction
   };
 
@@ -65,13 +66,15 @@ const TransactionPage = () => {
         <button
           className={styles.filterButton}
           type="button"
-          onClick={() => setShowFilterForm(!showFilterForm)}
+          onClick={() =>
+            setShowFilterTransactionsForm(!showFilterTransactionsForm)
+          }
         >
           <AiOutlineFilter size={20} />
-          {showFilterForm ? "Cancel" : "Filter"}
+          {showFilterTransactionsForm ? "Cancel" : "Filter"}
         </button>
-        {showFilterForm && (
-          <FilterTransactionModal
+        {showFilterTransactionsForm && (
+          <FilterTransactionsForm
             setDateRange={setDateRange}
             setType={setType}
             setCategory={setCategory}

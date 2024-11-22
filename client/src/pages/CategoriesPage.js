@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCategoryAction } from "../redux/actions/categoryActions";
-import AddCategoryModal from "../components/modals/AddCategoryModal";
-import styles from "./CategoriesPage.module.css";
+import AddCategoryForm from "../components/modals_and_forms/AddCategoryForm";
 import { AiOutlineDelete, AiOutlinePlusCircle } from "react-icons/ai";
+import styles from "./CategoriesPage.module.css";
 
 const CategoriesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
+  const [isAddCategoryFormOpen, setIsAddCategoryFormOpen] = useState(false);
 
   const { categories } = useSelector((state) => state.categories);
 
@@ -20,19 +20,19 @@ const CategoriesPage = () => {
     dispatch(deleteCategoryAction(categoryId));
   };
 
-  const handleOpenAddCategoryModal = () => {
-    setIsAddCategoryModalOpen(true);
+  const handleOpenAddCategoryForm = () => {
+    setIsAddCategoryFormOpen(true);
   };
 
-  const handleCloseAddCategoryModal = () => {
-    setIsAddCategoryModalOpen(false);
+  const handleCloseAddCategoryForm = () => {
+    setIsAddCategoryFormOpen(false);
   };
 
   return (
     <div className={styles.categoriesPage}>
-      <AddCategoryModal
-        isOpen={isAddCategoryModalOpen}
-        onClose={handleCloseAddCategoryModal}
+      <AddCategoryForm
+        isOpen={isAddCategoryFormOpen}
+        onClose={handleCloseAddCategoryForm}
       />
 
       <ul className={styles.categoryList}>
@@ -59,10 +59,10 @@ const CategoriesPage = () => {
             </div>
           </li>
         ))}
-        {!isAddCategoryModalOpen && (
+        {!isAddCategoryFormOpen && (
           <li
             className={styles.addCategoryButton}
-            onClick={handleOpenAddCategoryModal}
+            onClick={handleOpenAddCategoryForm}
           >
             <AiOutlinePlusCircle size={42} />
           </li>

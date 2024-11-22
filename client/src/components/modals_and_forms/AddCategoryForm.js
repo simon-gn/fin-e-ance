@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
 import { addCategoryAction } from "../../redux/actions/categoryActions";
 import { COLORS_CATEGORIES } from "../../styles/theme";
-import styles from "./AddCategoryModal.module.css";
+import PropTypes from "prop-types";
+import styles from "./AddCategoryForm.module.css";
 
-const AddCategoryModal = ({ isOpen, onClose }) => {
+const AddCategoryForm = ({ isOpen, onClose }) => {
   const [name, setName] = useState("");
   const [color, setColor] = useState("#000000");
   const dispatch = useDispatch();
@@ -76,9 +76,9 @@ const AddCategoryModal = ({ isOpen, onClose }) => {
   );
 };
 
-AddCategoryModal.propTypes = {
+AddCategoryForm.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default AddCategoryModal;
+export default AddCategoryForm;

@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { getDateRange } from "../../utils/miscUtils";
 import PropTypes from "prop-types";
-import styles from "./FilterTransactionsModal.module.css";
-import { useSelector } from "react-redux";
+import styles from "./FilterTransactionsForm.module.css";
 
-const FilterTransactionModal = ({ setDateRange, setType, setCategory }) => {
+const FilterTransactionsForm = ({ setDateRange, setType, setCategory }) => {
   const [dateFilterOption, setDateFilterOption] = useState("all");
   const [customDateRange, setCustomDateRange] = useState({
     start: null,
@@ -19,11 +19,11 @@ const FilterTransactionModal = ({ setDateRange, setType, setCategory }) => {
       const { startDate, endDate } = getDateRange(
         option,
         customDateRange.start,
-        customDateRange.end,
+        customDateRange.end
       );
       setDateRange({ startDate, endDate });
     },
-    [customDateRange, setDateRange],
+    [customDateRange, setDateRange]
   );
 
   const handleCustomDateChange = (start, end) => {
@@ -113,10 +113,10 @@ const FilterTransactionModal = ({ setDateRange, setType, setCategory }) => {
   );
 };
 
-FilterTransactionModal.propTypes = {
+FilterTransactionsForm.propTypes = {
   setDateRange: PropTypes.func.isRequired,
   setType: PropTypes.func.isRequired,
   setCategory: PropTypes.func.isRequired,
 };
 
-export default FilterTransactionModal;
+export default FilterTransactionsForm;
