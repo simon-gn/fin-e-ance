@@ -17,23 +17,6 @@
   transform: translateY(0);
 }
 
-.filterForm {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.filterForm div {
-  flex: 1;
-}
-.dateInputsContainer {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.dateInputsContainer div {
-  flex: 1;
-}
-
 tr.selected td {
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
