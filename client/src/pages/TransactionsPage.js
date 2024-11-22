@@ -1,59 +1,84 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineDelete, AiOutlineFilter } from "react-icons/ai";
-import {
-  fetchTransactionsAction,
-  deleteTransactionAction,
-} from "../redux/actions/transactionActions";
-import { fetchCategoriesAction } from "../redux/actions/categoryActions";
+import { deleteTransactionAction } from "../redux/actions/transactionActions";
 import { getDateRange, formatDate } from "../utils/miscUtils";
 import styles from "./TransactionsPage.module.css";
 
 const TransactionPage = () => {
-  const [dateRange, setDateRange] = useState("");
-  const [customStartDate, setCustomStartDate] = useState("");
-  const [customEndDate, setCustomEndDate] = useState("");
+  const [dateFilterOption, setDateFilterOption] = useState("all");
+  const [dateRange, setDateRange] = useState({
+    startDate: null,
+    endDate: null,
+  });
+  const [customDateRange, setCustomDateRange] = useState({
+    start: null,
+    end: null,
+  });
   const [type, setType] = useState("");
   const [category, setCategory] = useState("");
 
   const [selectedTransactionId, setSelectedTransactionId] = useState(null);
   const [showFilterForm, setShowFilterForm] = useState(false);
 
-  const dispatch = useDispatch();
-  const { transactions, loading } = useSelector((state) => state.transactions);
+  const { transactions } = useSelector((state) => state.transactions);
   const { categories } = useSelector((state) => state.categories);
 
-  useEffect(() => {
-    try {
+  const filteredTransactions = useMemo(() => {
+    return transactions.filter((transaction) => {
+      if (dateRange.startDate !== null && dateRange.endDate !== null) {
+        const transactionDate = new Date(transaction.date);
+        if (
+          transactionDate < dateRange.startDate ||
+          transactionDate > dateRange.endDate
+        ) {
+          return false;
+        }
+      }
+
+      if (type && type !== "all" && transaction.type !== type) {
+        return false;
+      }
+
+      if (category && category !== "all" && transaction.category.name !== category) {
+        return false;
+      }
+
+      return true;
+    });
+  }, [transactions, dateRange, type, category]);
+
+  const handleFilterChange = useCallback(
+    (option) => {
+      setDateFilterOption(option)
       const { startDate, endDate } = getDateRange(
-        dateRange,
-        customStartDate,
-        customEndDate,
+        option,
+        customDateRange.start,
+        customDateRange.end,
       );
+      setDateRange({ startDate, endDate });
+    },
+    [customDateRange, setDateRange],
+  );
 
-      dispatch(fetchTransactionsAction(type, category, startDate, endDate));
-    } catch (err) {
-      console.error(err);
-    }
-  }, [type, category, dateRange, customStartDate, customEndDate, dispatch]);
+  const handleCustomDateChange = (start, end) => {
+    setCustomDateRange({ start, end });
+  };
 
   useEffect(() => {
-    dispatch(fetchCategoriesAction());
-  }, [dispatch]);
-
+    handleFilterChange(dateFilterOption);
+  }, [customDateRange, dateFilterOption, handleFilterChange]);
+  
   const handleTransactionClick = (transactionId) => {
     setSelectedTransactionId(
       transactionId === selectedTransactionId ? null : transactionId,
     ); // Toggle selected transaction
   };
-
+  
+  const dispatch = useDispatch();
   const handleRemoveTransaction = (transactionId) => {
     dispatch(deleteTransactionAction(transactionId));
   };
-
-  if (loading) {
-    return <p>Loading transactions...</p>;
-  }
 
   return (
     <div className={styles.transactionsPage}>
@@ -74,10 +99,9 @@ const TransactionPage = () => {
                 <label htmlFor="filter-date-range">Date</label>
                 <select
                   id="filter-date-range"
-                  value={dateRange}
-                  onChange={(e) => setDateRange(e.target.value)}
+                  onChange={(e) => handleFilterChange(e.target.value)}
                 >
-                  <option value="">All</option>
+                  <option value="all">All</option>
                   <option value="today">Today</option>
                   <option value="yesterday">Yesterday</option>
                   <option value="7d">Last 7 Days</option>
@@ -96,9 +120,9 @@ const TransactionPage = () => {
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
-                  <option value="">All</option>
+                  <option value="all">All</option>
                   {categories.map((cat) => (
-                    <option key={cat._id} value={cat._id}>
+                    <option key={cat.name} value={cat.name}>
                       {cat.name}
                     </option>
                   ))}
@@ -112,22 +136,22 @@ const TransactionPage = () => {
                   value={type}
                   onChange={(e) => setType(e.target.value)}
                 >
-                  <option value="">All</option>
+                  <option value="all">All</option>
                   <option value="Income">Income</option>
                   <option value="Expense">Expense</option>
                 </select>
               </div>
             </div>
             {/* If 'Custom Range' is selected, show date inputs */}
-            {dateRange === "custom" && (
+            {dateFilterOption === "custom" && (
               <div className={styles.dateInputsContainer}>
                 <div>
                   <label htmlFor="custom-start-date">Start Date</label>
                   <input
                     type="date"
                     id="custom-start-date"
-                    value={customStartDate}
-                    onChange={(e) => setCustomStartDate(e.target.value)}
+                    value={customDateRange.start || ""}
+                    onChange={(e) => handleCustomDateChange(e.target.value, customDateRange.end)}
                   />
                 </div>
                 <div>
@@ -135,8 +159,8 @@ const TransactionPage = () => {
                   <input
                     type="date"
                     id="custom-end-date"
-                    value={customEndDate}
-                    onChange={(e) => setCustomEndDate(e.target.value)}
+                    value={customDateRange.end || ""}
+                    onChange={(e) => handleCustomDateChange(customDateRange.start, e.target.value)}
                   />
                 </div>
               </div>
@@ -155,7 +179,7 @@ const TransactionPage = () => {
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction) => (
+            {filteredTransactions.map((transaction) => (
               <tr
                 key={transaction._id}
                 className={selectedTransactionId === transaction._id ? styles.selected : ""}
