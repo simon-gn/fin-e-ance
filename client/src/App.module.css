@@ -3,7 +3,8 @@
 }
 
 .withNav .content {
-  margin-left: 180px;
+  margin-left: 11.25rem;
+  width: 100%;
 }
 
 .content {
@@ -14,5 +15,6 @@
   .withNav .content {
     margin-left: 0;
     margin-bottom: 3.75rem;
+    width: 100%;
   }
 }
