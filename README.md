@@ -22,7 +22,7 @@ with:
 </p>
   
 # Installation
-Usable on desktop and mobile, just visit: https://fin-e-ance-simon-gns-projects.vercel.app/ and sign up. You can also install the app on mobile by visiting the URL and selecting "Add to Home screen" in the browser’s "three-dot" menu. Your browser might also prompt you to install the app upon visiting the URL.
+Usable on desktop and mobile, although the layout is more polished on mobile. Just visit: https://fin-e-ance-simon-gns-projects.vercel.app/ and sign up. You can also install the app on mobile by visiting the URL and selecting "Add to Home screen" in the browser’s "three-dot" menu. Your browser might also prompt you to install the app upon visiting the URL.
 
 # To-do
 There are many more "nice-to-have" features I’d like to implement, and some current features could definitely be improved to some extent. Additionally, the test coverage needs to be expanded, especially with more integration tests and possibly some end-to-end test. However, this project was primarily intended as a learning experience to enhance my skills as a full-stack developer, so some of these features and improvements will be deferred for now. That said, updates to the CSS styling and layout, along with expanded test coverage, are planned for the near future.
