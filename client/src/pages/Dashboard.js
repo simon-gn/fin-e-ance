@@ -19,16 +19,17 @@ const Dashboard = () => {
 
   const filteredTransactions = useMemo(() => {
     return transactions.filter((transaction) => {
-      // return all transactions
-      if (dateRange.startDate === null || dateRange.endDate === null) {
-        return true;
+      if (dateRange.startDate !== null && dateRange.endDate !== null) {
+        const transactionDate = new Date(transaction.date);
+        if (
+          transactionDate < dateRange.startDate ||
+          transactionDate > dateRange.endDate
+        ) {
+          return false;
+        }
       }
 
-      const transactionDate = new Date(transaction.date);
-      return (
-        transactionDate >= dateRange.startDate &&
-        transactionDate <= dateRange.endDate
-      );
+      return true;
     });
   }, [transactions, dateRange]);
 
