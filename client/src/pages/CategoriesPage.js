@@ -42,41 +42,39 @@ const CategoriesPage = () => {
         onClose={handleCloseAddCategoryModal}
       />
 
-      <div className={styles.categoriesPageBox}>
-        <ul className={styles.categoryList}>
-          {categories.map((category) => (
-            <li
-              key={category._id}
-              className={styles.categoryCard}
-              onClick={() => handleCategoryClick(category._id)}
-              style={{ backgroundColor: category.color }}
-            >
-              <div className={styles.categoryCardContent}>
-                <div className={styles.categoryName}>{category.name}</div>
-                {selectedCategory === category._id && (
-                  <div
-                    className={styles.removeButton}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemoveCategory(category._id);
-                    }}
-                  >
-                    <AiOutlineDelete size={20} />
-                  </div>
-                )}
-              </div>
-            </li>
-          ))}
-          {!isAddCategoryModalOpen && (
-            <li
-              className={styles.addCategoryButton}
-              onClick={handleOpenAddCategoryModal}
-            >
-              <AiOutlinePlusCircle size={42} />
-            </li>
-          )}
-        </ul>
-      </div>
+      <ul className={styles.categoryList}>
+        {categories.map((category) => (
+          <li
+            key={category._id}
+            className={`${styles.categoryCard} ${selectedCategory === category._id ? styles.selected : ""}`}
+            onClick={() => handleCategoryClick(category._id)}
+            style={{ backgroundColor: category.color }}
+          >
+            <div className={styles.categoryCardContent}>
+              <div className={styles.categoryName}>{category.name}</div>
+              {selectedCategory === category._id && (
+                <div
+                  className={styles.removeButton}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemoveCategory(category._id);
+                  }}
+                >
+                  <AiOutlineDelete size={20} />
+                </div>
+              )}
+            </div>
+          </li>
+        ))}
+        {!isAddCategoryModalOpen && (
+          <li
+            className={styles.addCategoryButton}
+            onClick={handleOpenAddCategoryModal}
+          >
+            <AiOutlinePlusCircle size={42} />
+          </li>
+        )}
+      </ul>
     </div>
   );
 };

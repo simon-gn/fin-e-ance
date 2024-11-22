@@ -1,44 +1,34 @@
 .categoriesPage {
-  padding: 20px;
-}
-
-.addCategoryButton {
-  display: flex;
-  align-self: center;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-.addCategoryButton:hover {
-  color: white;
-}
-
-.categoriesPageBox {
-  display: flex;
-  flex-direction: row;
+  padding: 1.25rem;
 }
 
 .categoryList {
-  list-style-type: none;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .categoryCard {
   display: flex;
   width: 34%;
-  padding: 20px;
-  border-radius: 7px;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
   cursor: pointer;
   box-shadow: var(--box_shadow_color);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
-.categoryCard:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+.selected {
+    transform: scale(1.05);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
+}
+@media (hover: hover) {
+  .categoryCard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.3);
+  }
 }
 
 .categoryCardContent {
@@ -49,7 +39,21 @@
 }
 
 .categoryName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 1.2rem;
+  color: white;
+}
+
+.addCategoryButton {
+  display: flex;
+  align-self: center;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.addCategoryButton:hover {
   color: white;
 }
 
