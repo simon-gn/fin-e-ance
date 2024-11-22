@@ -21,7 +21,9 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
 
   const handleSave = () => {
     const date = new Date(`${transactionDate}T${time}`);
-    dispatch(addTransactionAction({ type, date, category, amount, description }));
+    dispatch(
+      addTransactionAction({ type, date, category, amount, description }),
+    );
     onClose();
   };
 
