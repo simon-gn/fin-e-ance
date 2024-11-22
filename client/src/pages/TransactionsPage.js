@@ -57,7 +57,7 @@ const TransactionPage = () => {
 
   return (
     <div className={styles.transactionsPage}>
-      <div className={`${styles.transactionsPageBox} card`}>
+      <div className="card">
         {/* Filter Section */}
         <button
           className={styles.filterButton}
@@ -68,53 +68,55 @@ const TransactionPage = () => {
           {showFilterForm ? "Cancel" : "Filter"}
         </button>
         {showFilterForm && (
-          <form className={styles.filterForm}>
-            <div>
-              <label htmlFor="filter-date-range">Filter by Date</label>
-              <select
-                id="filter-date-range"
-                value={dateRange}
-                onChange={(e) => setDateRange(e.target.value)}
-              >
-                <option value="">All</option>
-                <option value="today">Today</option>
-                <option value="yesterday">Yesterday</option>
-                <option value="7d">Last 7 Days</option>
-                <option value="1m">Last Month</option>
-                <option value="3m">Last 3 Month</option>
-                <option value="6m">Last 6 Month</option>
-                <option value="1y">Last Year</option>
-                <option value="custom">Custom Range</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="filter-category">Filter by Category</label>
-              <select
-                id="filter-category"
-                name="filterCategory"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option value="">All</option>
-                {categories.map((cat) => (
-                  <option key={cat._id} value={cat._id}>
-                    {cat.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="filter-type">Filter by Type</label>
-              <select
-                id="filter-type"
-                name="filterType"
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-              >
-                <option value="">All</option>
-                <option value="Income">Income</option>
-                <option value="Expense">Expense</option>
-              </select>
+          <form>
+            <div className={styles.filterForm}>
+              <div>
+                <label htmlFor="filter-date-range">Date</label>
+                <select
+                  id="filter-date-range"
+                  value={dateRange}
+                  onChange={(e) => setDateRange(e.target.value)}
+                >
+                  <option value="">All</option>
+                  <option value="today">Today</option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="7d">Last 7 Days</option>
+                  <option value="1m">Last Month</option>
+                  <option value="3m">Last 3 Month</option>
+                  <option value="6m">Last 6 Month</option>
+                  <option value="1y">Last Year</option>
+                  <option value="custom">Custom Range</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="filter-category">Category</label>
+                <select
+                  id="filter-category"
+                  name="filterCategory"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option value="">All</option>
+                  {categories.map((cat) => (
+                    <option key={cat._id} value={cat._id}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label htmlFor="filter-type">Type</label>
+                <select
+                  id="filter-type"
+                  name="filterType"
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <option value="">All</option>
+                  <option value="Income">Income</option>
+                  <option value="Expense">Expense</option>
+                </select>
+              </div>
             </div>
             {/* If 'Custom Range' is selected, show date inputs */}
             {dateRange === "custom" && (
@@ -173,9 +175,10 @@ const TransactionPage = () => {
                   {transaction.amount.toFixed(2)}
                 </td>
                 <td>{transaction.category.name}</td>
-                <td>{transaction.description}</td>
-                {selectedTransactionId === transaction._id && (
-                  <td className={styles.actionCell}>
+                <td>
+                  {selectedTransactionId !== transaction._id ? (
+                    transaction.description
+                  ) : (
                     <div
                       className={styles.removeButton}
                       onClick={(e) => {
@@ -185,8 +188,8 @@ const TransactionPage = () => {
                     >
                       <AiOutlineDelete size={24} />
                     </div>
-                  </td>
-                )}
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

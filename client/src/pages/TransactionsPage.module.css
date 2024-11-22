@@ -5,11 +5,6 @@
   padding: 1.25rem;
 }
 
-.transactionsPageBox {
-  width: 96%;
-  max-width: 96%;
-}
-
 .filterButton {
   display: inline-flex;
   align-items: center;
@@ -25,15 +20,15 @@
 .filterForm {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem;
+  gap: 1rem;
 }
 .filterForm div {
-  width: calc(33% - 0.625rem);
+  flex: 1;
 }
 .dateInputsContainer {
   display: flex;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 .dateInputsContainer div {
   flex: 1;
@@ -44,14 +39,7 @@ tr.selected td {
   padding-bottom: 1.2rem;
 }
 
-.actionCell {
-  border-bottom: none;
-  background-color: transparent;
-  padding: 0;
-  width: 0;
-}
 .removeButton {
-  display: flex;
   color: white;
   transition: transform 0.3s ease;
   cursor: pointer;
@@ -62,7 +50,7 @@ tr.selected td {
 
 @media (max-width: 480px) {
   .transactionsPage {
-    padding: 1rem;
+    padding: 0.8rem 0.4rem;
   }
 
   tr.selected td {
