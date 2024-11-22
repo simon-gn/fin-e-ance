@@ -2,6 +2,7 @@ export const getDateRange = (range, customStartDate, customEndDate) => {
   let startDate = new Date();
   let endDate = new Date();
   startDate.setHours(0, 0, 0, 0);
+  endDate.setHours(23, 59, 59, 999);
 
   switch (range) {
     case "today":
@@ -9,7 +10,6 @@ export const getDateRange = (range, customStartDate, customEndDate) => {
     case "yesterday":
       startDate.setDate(startDate.getDate() - 1);
       endDate.setDate(endDate.getDate() - 1);
-      endDate.setHours(23, 59, 59, 999);
       break;
     case "7d":
       startDate.setDate(startDate.getDate() - 7);
