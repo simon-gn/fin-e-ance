@@ -61,7 +61,7 @@ const TransactionPage = () => {
 
   const handleTransactionClick = (transactionId) => {
     setSelectedTransactionId(
-      transactionId === selectedTransactionId ? null : transactionId
+      transactionId === selectedTransactionId ? null : transactionId,
     ); // Toggle selected transaction
   };
 
@@ -74,18 +74,18 @@ const TransactionPage = () => {
     const buttons = [];
     const leftBoundary = Math.max(
       currentPage - Math.floor(MAX_PAGE_BUTTONS / 2),
-      1
+      1,
     );
     const rightBoundary = Math.min(
       leftBoundary + MAX_PAGE_BUTTONS - 1,
-      totalPages
+      totalPages,
     );
 
     if (leftBoundary > 1) {
       buttons.push(
         <button key={1} onClick={() => setCurrentPage(1)}>
           1
-        </button>
+        </button>,
       );
       if (leftBoundary > 2) {
         buttons.push(<span key="ellipsis-start">...</span>);
@@ -100,7 +100,7 @@ const TransactionPage = () => {
           onClick={() => setCurrentPage(i)}
         >
           {i}
-        </button>
+        </button>,
       );
     }
 
@@ -111,7 +111,7 @@ const TransactionPage = () => {
       buttons.push(
         <button key={totalPages} onClick={() => setCurrentPage(totalPages)}>
           {totalPages}
-        </button>
+        </button>,
       );
     }
 
