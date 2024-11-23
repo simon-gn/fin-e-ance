@@ -31,6 +31,36 @@ tr.selected td {
   transform: scale(1.2);
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  align-items: center;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  background: #bbb;
+}
+
+@media (hover: hover) {
+  .pagination button:hover {
+    background-color: #ccc;
+  }
+}
+
+.pagination .activePage {
+  font-weight: bold;
+  background-color: var(--main_color);
+}
+
+.pagination span {
+  padding: 0 0.5rem;
+  font-size: 1.2rem;
+  color: #888;
+}
+
 @media (max-width: 480px) {
   .transactionsPage {
     padding: 0.8rem 0.4rem;
@@ -39,5 +69,9 @@ tr.selected td {
   tr.selected td {
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
+  }
+
+  .pagination button {
+    padding: 0.25rem 0.65rem;
   }
 }

@@ -6,6 +6,9 @@ import FilterTransactionsForm from "../components/modals_and_forms/FilterTransac
 import { formatDate } from "../utils/miscUtils";
 import styles from "./TransactionsPage.module.css";
 
+const ITEMS_PER_PAGE = 15;
+const MAX_PAGE_BUTTONS = 3;
+
 const TransactionPage = () => {
   const [dateRange, setDateRange] = useState({
     startDate: null,
@@ -17,6 +20,7 @@ const TransactionPage = () => {
   const [selectedTransactionId, setSelectedTransactionId] = useState(null);
   const [showFilterTransactionsForm, setShowFilterTransactionsForm] =
     useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { transactions } = useSelector((state) => state.transactions);
 
@@ -48,6 +52,13 @@ const TransactionPage = () => {
     });
   }, [transactions, dateRange, type, category]);
 
+  const paginatedTransactions = useMemo(() => {
+    const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredTransactions.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+  }, [filteredTransactions, currentPage]);
+
+  const totalPages = Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE);
+
   const handleTransactionClick = (transactionId) => {
     setSelectedTransactionId(
       transactionId === selectedTransactionId ? null : transactionId
@@ -57,6 +68,54 @@ const TransactionPage = () => {
   const dispatch = useDispatch();
   const handleRemoveTransaction = (transactionId) => {
     dispatch(deleteTransactionAction(transactionId));
+  };
+
+  const createPaginationButtons = () => {
+    const buttons = [];
+    const leftBoundary = Math.max(
+      currentPage - Math.floor(MAX_PAGE_BUTTONS / 2),
+      1
+    );
+    const rightBoundary = Math.min(
+      leftBoundary + MAX_PAGE_BUTTONS - 1,
+      totalPages
+    );
+
+    if (leftBoundary > 1) {
+      buttons.push(
+        <button key={1} onClick={() => setCurrentPage(1)}>
+          1
+        </button>
+      );
+      if (leftBoundary > 2) {
+        buttons.push(<span key="ellipsis-start">...</span>);
+      }
+    }
+
+    for (let i = leftBoundary; i <= rightBoundary; i++) {
+      buttons.push(
+        <button
+          key={i}
+          className={currentPage === i ? styles.activePage : ""}
+          onClick={() => setCurrentPage(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (rightBoundary < totalPages) {
+      if (rightBoundary < totalPages - 1) {
+        buttons.push(<span key="ellipsis-end">...</span>);
+      }
+      buttons.push(
+        <button key={totalPages} onClick={() => setCurrentPage(totalPages)}>
+          {totalPages}
+        </button>
+      );
+    }
+
+    return buttons;
   };
 
   return (
@@ -92,7 +151,7 @@ const TransactionPage = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredTransactions.map((transaction) => (
+            {paginatedTransactions.map((transaction) => (
               <tr
                 key={transaction._id}
                 className={
@@ -135,6 +194,9 @@ const TransactionPage = () => {
             ))}
           </tbody>
         </table>
+
+        {/* Pagination */}
+        <div className={styles.pagination}>{createPaginationButtons()}</div>
       </div>
     </div>
   );
