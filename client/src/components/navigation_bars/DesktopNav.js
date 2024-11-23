@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { handleLogout } from "../../utils/authUtils";
-import AddTransactionModal from "../modals/AddTransactionModal";
+import AddTransactionModal from "../modals_and_forms/AddTransactionModal";
 import styles from "./DesktopNav.module.css";
 
 const DesktopNav = () => {

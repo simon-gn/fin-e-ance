@@ -7,7 +7,7 @@ import {
   AiOutlineLogout,
   AiOutlineUnorderedList,
 } from "react-icons/ai";
-import AddTransactionModal from "../modals/AddTransactionModal";
+import AddTransactionModal from "../modals_and_forms/AddTransactionModal";
 import { handleLogout } from "../../utils/authUtils";
 import styles from "./MobileNav.module.css";
 
