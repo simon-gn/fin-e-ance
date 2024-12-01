@@ -1,28 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { addTransactionAction } from "../../redux/actions/transactionActions";
 import styles from "./AddTransactionModal.module.css";
 
 const AddTransactionModal = ({ isOpen, onClose }) => {
-  const now = new Date();
-  const todayDate = now.toISOString().split("T")[0];
-  const currentTime = now.toTimeString().slice(0, 5);
-
   const [type, setType] = useState("Expense");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
-  const [transactionDate, setTransactionDate] = useState(todayDate);
-  const [time, setTime] = useState(currentTime);
+  const [transactionDate, setTransactionDate] = useState("");
+  const [time, setTime] = useState("");
   const [description, setDescription] = useState("");
 
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
 
+  useEffect(() => {
+    if (isOpen) {
+      const now = new Date();
+
+      setTransactionDate(now.toLocaleDateString("en-CA"));
+      setTime(now.toTimeString().slice(0, 5));
+    }
+  }, [isOpen]);
+
   const handleSave = () => {
     const date = new Date(`${transactionDate}T${time}`);
     dispatch(
-      addTransactionAction({ type, date, category, amount, description }),
+      addTransactionAction({ type, date, category, amount, description })
     );
     onClose();
   };
