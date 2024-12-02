@@ -5,11 +5,17 @@ const {
   deleteTransaction,
 } = require("../../controllers/transactionController");
 const Transaction = require("../../models/Transaction");
+const {
+  updateAccountBalance,
+} = require("../../controllers/accountBalanceController");
 
 jest.mock("../../models/Transaction", () => ({
   find: jest.fn(),
   create: jest.fn(),
   findById: jest.fn(),
+}));
+jest.mock("../../controllers/accountBalanceController", () => ({
+  updateAccountBalance: jest.fn(),
 }));
 
 let req, res;
@@ -126,6 +132,7 @@ describe("addTransaction", () => {
     Transaction.findById.mockReturnValue({
       populate: jest.fn(),
     });
+    updateAccountBalance.mockReturnValue({});
     req = { user: { id: "testUser" }, body: { type: "Expense" } };
 
     await addTransaction(req, res);
