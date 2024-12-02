@@ -1,23 +1,34 @@
 .chartContainer {
   display: flex;
-  align-items: center;
 }
 
 .chartWrapper {
   flex: 2;
-  height: 200px;
+  height: 16rem;
 }
 
-.legendWrapper {
+.headerAndLegendWrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: -10px;
+  margin-left: -4.75rem;
+}
+.headerAndLegendWrapper h3 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  flex: auto;
+}
+
+.legendWrapper {
+  flex: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .legendItem {
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -30,4 +41,15 @@
   border-radius: 50%;
   display: inline-block;
   margin-right: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .chartWrapper {
+    height: 10rem;
+  }
+  .headerAndLegendWrapper h3 {
+    font-size: 0.8rem;
+    font-weight: normal;
+    flex: auto;
+  }
 }

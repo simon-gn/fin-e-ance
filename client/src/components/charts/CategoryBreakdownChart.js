@@ -29,24 +29,29 @@ const CategoryBreakdownChart = ({ transactions }) => {
   );
 
   return (
-    <div className={styles.chartContainer}>
-      <div className={styles.chartWrapper}>
-        <ResponsivePie
-          data={data}
-          margin={{ right: 50, left: 10 }}
-          innerRadius={0.7}
-          padAngle={0.5}
-          cornerRadius={3}
-          colors={({ data }) => data.color}
-          enableArcLinkLabels={false}
-          arcLabelsSkipAngle={15}
-          animate={true}
-          theme={{
-            labels: { text: { fontWeight: "var(--text_color)" } },
-          }}
-        />
+    <div className="card">
+      <div className={styles.chartContainer}>
+        <div className={styles.chartWrapper}>
+          <ResponsivePie
+            data={data}
+            margin={{ right: 100 }}
+            innerRadius={0.7}
+            padAngle={0.5}
+            cornerRadius={3}
+            colors={({ data }) => data.color}
+            enableArcLinkLabels={false}
+            arcLabelsSkipAngle={15}
+            animate={true}
+            theme={{
+              labels: { text: { fontWeight: "var(--text_color)" } },
+            }}
+          />
+        </div>
+        <div className={styles.headerAndLegendWrapper}>
+          <h3>Expenses by Category</h3>
+          {renderCustomLegend()}
+        </div>
       </div>
-      {renderCustomLegend()}
     </div>
   );
 };
