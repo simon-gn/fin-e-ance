@@ -35,6 +35,7 @@ export default [
         "error",
         {
           endOfLine: "auto",
+          trailingComma: "none",
         },
       ],
     },
