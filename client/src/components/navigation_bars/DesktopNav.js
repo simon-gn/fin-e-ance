@@ -5,8 +5,14 @@ import AddTransactionModal from "../modals_and_forms/AddTransactionModal";
 import styles from "./DesktopNav.module.css";
 
 const DesktopNav = () => {
+  const [isTransactionsPageSelected, setIsTransactionsPageSelected] =
+    useState(false);
   const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] =
     useState(false);
+
+  const toggleTransactionsPageSelection = () => {
+    setIsTransactionsPageSelected((prev) => !prev);
+  };
   const toggleAddTransactionModal = () => {
     setIsAddTransactionModalOpen((prev) => !prev);
   };
@@ -20,19 +26,28 @@ const DesktopNav = () => {
         <li>
           <Link to="/dashboard">Dashboard</Link>
         </li>
-        <li>
+        <li onClick={toggleTransactionsPageSelection}>
           <Link to="/transactions">Transactions</Link>
+          {isTransactionsPageSelected && (
+            <li
+              className={styles.desktopNavItem}
+              onClick={toggleAddTransactionModal}
+            >
+              Add Transaction
+            </li>
+          )}
         </li>
         <li>
           <Link to="/categories">Categories</Link>
         </li>
       </ul>
 
-      <button onClick={toggleAddTransactionModal}>New Transaction</button>
-      <AddTransactionModal
-        isOpen={isAddTransactionModalOpen}
-        onClose={toggleAddTransactionModal}
-      />
+      {isAddTransactionModalOpen && (
+        <AddTransactionModal
+          isOpen={isAddTransactionModalOpen}
+          onClose={toggleAddTransactionModal}
+        />
+      )}
 
       <button
         className={styles.logoutButton}
