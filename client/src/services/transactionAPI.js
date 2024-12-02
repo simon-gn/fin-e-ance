@@ -5,7 +5,7 @@ export const fetchTransactionsAPI = async (
   category,
   startDate,
   endDate,
-  token,
+  token
 ) => {
   const response = await apiClient.get(`/api/transactions/get`, {
     params: { type, category, startDate, endDate },
@@ -20,7 +20,7 @@ export const addTransactionAPI = async (transactionData, token) => {
     transactionData,
     {
       headers: { Authorization: `Bearer ${token}` },
-    },
+    }
   );
   return response;
 };
@@ -31,7 +31,7 @@ export const deleteTransactionAPI = async (transactionId, token) => {
     { transactionId },
     {
       headers: { Authorization: `Bearer ${token}` },
-    },
+    }
   );
   return response;
 };

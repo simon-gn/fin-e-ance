@@ -29,7 +29,7 @@ describe("getDateRange", () => {
     const { startDate, endDate } = getDateRange(
       "custom",
       customStartDate,
-      customEndDate,
+      customEndDate
     );
     const mockStartDate = new Date(customStartDate);
     mockStartDate.setHours(0, 0, 0, 0);

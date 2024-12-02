@@ -43,7 +43,7 @@ const categoryReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         categories: state.categories.filter(
-          (category) => category._id !== action.payload,
+          (category) => category._id !== action.payload
         ),
       };
     case FETCH_CATEGORIES_FAILURE:

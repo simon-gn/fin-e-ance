@@ -31,13 +31,7 @@ export default [
       prettier: pluginPrettier,
     },
     rules: {
-      "prettier/prettier": [
-        "error",
-        {
-          endOfLine: "auto",
-          trailingComma: "none",
-        },
-      ],
+      "prettier/prettier": "error",
     },
   },
   {

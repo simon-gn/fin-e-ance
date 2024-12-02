@@ -28,7 +28,7 @@ const renderPage = () => {
     <MemoryRouter>
       {" "}
       <LoginPage />{" "}
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 };
 
@@ -46,7 +46,7 @@ describe("LoginPage", () => {
 
     expect(screen.getByText(/fin\(e\)ance/i)).toBeInTheDocument();
     expect(
-      screen.getByText(/track your financial transactions with ease./i),
+      screen.getByText(/track your financial transactions with ease./i)
     ).toBeInTheDocument();
     expect(screen.getByText(/login to your account/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
@@ -71,11 +71,11 @@ describe("LoginPage", () => {
     await waitFor(() => {
       expect(localStorage.setItem).toHaveBeenCalledWith(
         "accessToken",
-        "mockAccessToken",
+        "mockAccessToken"
       );
       expect(localStorage.setItem).toHaveBeenCalledWith(
         "refreshToken",
-        "mockRefreshToken",
+        "mockRefreshToken"
       );
       expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
     });
@@ -92,7 +92,7 @@ describe("LoginPage", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(/invalid email or password/i),
+        screen.getByText(/invalid email or password/i)
       ).toBeInTheDocument();
     });
   });

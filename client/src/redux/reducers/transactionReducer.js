@@ -45,7 +45,7 @@ const transactionReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         transactions: state.transactions.filter(
-          (transaction) => transaction._id !== action.payload,
+          (transaction) => transaction._id !== action.payload
         ),
       };
     case FETCH_TRANSACTIONS_FAILURE:

@@ -20,7 +20,7 @@ export const deleteCategoryAPI = async (categoryId, token) => {
     { categoryId },
     {
       headers: { Authorization: `Bearer ${token}` },
-    },
+    }
   );
   return response;
 };

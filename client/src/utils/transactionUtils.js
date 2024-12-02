@@ -50,7 +50,7 @@ export const processMonthlySpendingData = (transactions) => {
       .filter(
         (txn) =>
           txn.type === "Expense" &&
-          format(new Date(txn.date), "MMM yyyy") === month,
+          format(new Date(txn.date), "MMM yyyy") === month
       )
       .reduce((sum, txn) => sum + txn.amount, 0);
     data.push({ month, spending: monthlyTotal });

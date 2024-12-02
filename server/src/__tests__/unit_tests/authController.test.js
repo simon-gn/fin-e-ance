@@ -73,7 +73,7 @@ describe("registerUser", () => {
     expect(jwt.sign).toHaveBeenCalledWith(
       { id: "12345" },
       process.env.JWT_SECRET,
-      { expiresIn: 3600 },
+      { expiresIn: 3600 }
     );
     expect(RefreshToken.create).toHaveBeenCalledWith({
       token: "refreshToken",
@@ -139,7 +139,7 @@ describe("loginUser", () => {
     expect(jwt.sign).toHaveBeenCalledWith(
       { id: "12345" },
       process.env.JWT_SECRET,
-      { expiresIn: 3600 },
+      { expiresIn: 3600 }
     );
     expect(RefreshToken.create).toHaveBeenCalledWith({
       token: "refreshToken",
@@ -221,7 +221,7 @@ describe("refreshToken", () => {
     expect(jwt.sign).toHaveBeenCalledWith(
       { id: "existingUser" },
       process.env.JWT_SECRET,
-      { expiresIn: 3600 },
+      { expiresIn: 3600 }
     );
     expect(RefreshToken.create).toHaveBeenCalledWith({
       token: "newRefreshToken",
@@ -230,7 +230,7 @@ describe("refreshToken", () => {
     });
     expect(RefreshToken.updateOne).toHaveBeenCalledWith(
       { token: "refreshToken" },
-      { revoked: true },
+      { revoked: true }
     );
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({

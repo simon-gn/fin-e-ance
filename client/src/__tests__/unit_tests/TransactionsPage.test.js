@@ -23,11 +23,11 @@ const renderPageSuccessfully = async () => {
     <MemoryRouter>
       {" "}
       <TransactionsPage />{" "}
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 
   await waitFor(() =>
-    expect(screen.queryByText(/loading transactions/i)).not.toBeInTheDocument(),
+    expect(screen.queryByText(/loading transactions/i)).not.toBeInTheDocument()
   );
 };
 
@@ -65,7 +65,7 @@ describe("TransactionsPage", () => {
             { _id: "categoryId2", name: "Food" },
           ],
         },
-      }),
+      })
     );
 
     mockDispatch = jest.fn();
@@ -83,18 +83,18 @@ describe("TransactionsPage", () => {
           loading: true,
         },
         categories: {},
-      }),
+      })
     );
 
     render(
       <MemoryRouter>
         {" "}
         <TransactionsPage />{" "}
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     await waitFor(() =>
-      expect(screen.getByText(/loading transactions/i)).toBeInTheDocument(),
+      expect(screen.getByText(/loading transactions/i)).toBeInTheDocument()
     );
   });
 
@@ -125,7 +125,7 @@ describe("TransactionsPage", () => {
 
     // Check if the deleteTransactionAPI function was called
     await waitFor(() =>
-      expect(deleteTransactionAction).toHaveBeenCalledWith("1"),
+      expect(deleteTransactionAction).toHaveBeenCalledWith("1")
     );
   });
 
@@ -143,7 +143,7 @@ describe("TransactionsPage", () => {
 
     // Check if the second call to fetchTransactionsAction is called with second parameter set to 'categoryId2'
     await waitFor(() =>
-      expect(fetchTransactionsAction.mock.calls[1][1]).toBe("categoryId2"),
+      expect(fetchTransactionsAction.mock.calls[1][1]).toBe("categoryId2")
     );
   });
 });

@@ -61,7 +61,7 @@ describe("getTransactions", () => {
         type: "Expense",
         category: "Food",
         date: { $gte: expect.any(Date), $lte: expect.any(Date) },
-      }),
+      })
     );
     expect(Transaction.find().populate().sort).toHaveBeenCalledWith({
       date: -1,

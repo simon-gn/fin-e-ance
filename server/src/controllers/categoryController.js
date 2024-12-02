@@ -42,7 +42,7 @@ exports.deleteCategory = async (req, res) => {
     }
     await Transaction.updateMany(
       { category: categoryId },
-      { category: defaultCategory._id },
+      { category: defaultCategory._id }
     );
 
     await category.deleteOne();

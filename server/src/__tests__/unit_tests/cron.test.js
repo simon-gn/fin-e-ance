@@ -44,17 +44,17 @@ describe("startCronJob", () => {
     await startCronJob();
 
     expect(consoleLogMock).toHaveBeenCalledWith(
-      "Running daily cleanup of expired and revoked refresh tokens",
+      "Running daily cleanup of expired and revoked refresh tokens"
     );
     expect(cron.schedule).toHaveBeenCalledWith(
       "0 0 * * *",
-      expect.any(Function),
+      expect.any(Function)
     );
     expect(RefreshToken.deleteMany).toHaveBeenCalledWith({
       $or: [{ expiresAt: { $lte: mockDate } }, { revoked: true }],
     });
     expect(consoleLogMock).toHaveBeenCalledWith(
-      `Deleted ${mockDeletedCount} expired or revoked refresh tokens.`,
+      `Deleted ${mockDeletedCount} expired or revoked refresh tokens.`
     );
   });
 
@@ -67,15 +67,15 @@ describe("startCronJob", () => {
 
     expect(cron.schedule).toHaveBeenCalledWith(
       "0 0 * * *",
-      expect.any(Function),
+      expect.any(Function)
     );
     expect(consoleLogMock).toHaveBeenCalledWith(
-      "Running daily cleanup of expired and revoked refresh tokens",
+      "Running daily cleanup of expired and revoked refresh tokens"
     );
     expect(RefreshToken.deleteMany).toHaveBeenCalled();
     expect(consoleErrorMock).toHaveBeenCalledWith(
       "Error during refresh token cleanup:",
-      error,
+      error
     );
   });
 });

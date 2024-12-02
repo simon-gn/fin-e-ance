@@ -33,7 +33,7 @@ describe("AddTransactionModal", () => {
             { _id: "categoryId2", name: "Food" },
           ],
         },
-      }),
+      })
     );
 
     mockDispatch = jest.fn();
@@ -43,7 +43,7 @@ describe("AddTransactionModal", () => {
       <MemoryRouter>
         {" "}
         <AddTransactionModal isOpen={true} onClose={jest.fn()} />{" "}
-      </MemoryRouter>,
+      </MemoryRouter>
     );
   });
 

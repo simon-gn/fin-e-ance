@@ -31,7 +31,7 @@ const renderPage = () => {
     <MemoryRouter>
       {" "}
       <RegisterPage />{" "}
-    </MemoryRouter>,
+    </MemoryRouter>
   );
 };
 
@@ -52,7 +52,7 @@ describe("RegisterPage", () => {
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /sign up/i }),
+      screen.getByRole("button", { name: /sign up/i })
     ).toBeInTheDocument();
   });
 
@@ -71,11 +71,11 @@ describe("RegisterPage", () => {
     await waitFor(() => {
       expect(localStorage.setItem).toHaveBeenCalledWith(
         "accessToken",
-        "mockAccessToken",
+        "mockAccessToken"
       );
       expect(localStorage.setItem).toHaveBeenCalledWith(
         "refreshToken",
-        "mockRefreshToken",
+        "mockRefreshToken"
       );
       expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
     });

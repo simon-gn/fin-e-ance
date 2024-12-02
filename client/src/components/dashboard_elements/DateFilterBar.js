@@ -17,11 +17,11 @@ const DateFilterBar = ({ setDateRange }) => {
       const { startDate, endDate } = getDateRange(
         option,
         customDateRange.start,
-        customDateRange.end,
+        customDateRange.end
       );
       setDateRange({ startDate, endDate });
     },
-    [customDateRange, setDateRange],
+    [customDateRange, setDateRange]
   );
 
   const handleCustomDateChange = (start, end) => {

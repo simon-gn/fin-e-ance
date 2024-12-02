@@ -13,7 +13,7 @@ exports.startCronJob = async () => {
       });
 
       console.log(
-        `Deleted ${result.deletedCount} expired or revoked refresh tokens.`,
+        `Deleted ${result.deletedCount} expired or revoked refresh tokens.`
       );
     } catch (error) {
       console.error("Error during refresh token cleanup:", error);
