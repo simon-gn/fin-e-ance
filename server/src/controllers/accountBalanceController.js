@@ -26,20 +26,16 @@ exports.setAccountBalance = async (req, res) => {
 };
 
 exports.updateAccountBalance = async (userId, amount) => {
-  try {
-    const latestAccountBalance = await AccountBalance.findOne({
-      user: userId,
-    }).sort({
-      date: -1,
-    });
+  const latestAccountBalance = await AccountBalance.findOne({
+    user: userId,
+  }).sort({
+    date: -1,
+  });
 
-    const newAccountBalance = await AccountBalance.create({
-      user: userId,
-      amount: latestAccountBalance.amount + Number(amount),
-    });
+  const newAccountBalance = await AccountBalance.create({
+    user: userId,
+    amount: latestAccountBalance.amount + Number(amount),
+  });
 
-    return newAccountBalance;
-  } catch (err) {
-    throw err;
-  }
+  return newAccountBalance;
 };
