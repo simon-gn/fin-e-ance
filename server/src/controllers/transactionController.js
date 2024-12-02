@@ -1,4 +1,5 @@
 const Transaction = require("../models/Transaction");
+const { updateAccountBalance } = require("./accountBalanceController");
 
 exports.getTransactions = async (req, res) => {
   try {
@@ -38,10 +39,17 @@ exports.addTransaction = async (req, res) => {
     });
 
     const transactionPopulated = await Transaction.findById(
-      newTransaction._id,
+      newTransaction._id
     ).populate("category", "name color");
 
-    res.status(201).json(transactionPopulated);
+    const newAccountBalance = await updateAccountBalance(
+      req.user.id,
+      type === "Expense" ? -amount : amount
+    );
+
+    res
+      .status(201)
+      .json({ newTransaction: transactionPopulated, newAccountBalance });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

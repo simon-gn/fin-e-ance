@@ -21,7 +21,7 @@ const RegisterPage = () => {
       } else {
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
-        navigate("/dashboard");
+        navigate("/setAccountBalance");
       }
     } catch (err) {
       setError("Registration failed");

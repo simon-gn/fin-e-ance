@@ -1,0 +1,25 @@
+.accountBalance {
+  display: flex;
+  flex-direction: column;
+}
+
+.accountBalance h3 {
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+
+.amount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .accountBalance h3 {
+    font-size: 0.8rem;
+  }
+  .amount {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+}

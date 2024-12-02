@@ -6,7 +6,7 @@
 
 .content {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 25% 1fr;
   gap: 0.7rem;
 }
 
@@ -15,6 +15,12 @@
   flex-direction: column;
   gap: 0.7rem;
   overflow-x: hidden;
+}
+
+.balanceAndIncomeExpenseContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
 }
 
 @media (hover: hover) {
@@ -53,5 +59,13 @@
 
   .column {
     gap: 0.5rem;
+  }
+
+  .balanceAndIncomeExpenseContainer {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  .balanceAndIncomeExpenseContainer > div {
+    flex: 1;
   }
 }

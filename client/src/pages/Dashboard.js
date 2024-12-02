@@ -7,6 +7,7 @@ import RecentTransactions from "../components/dashboard_elements/RecentTransacti
 import CategoryBreakdownChart from "../components/charts/CategoryBreakdownChart";
 import SpendingTrendChart from "../components/charts/SpendingTrendChart";
 import IncomeExpenseComparisonChart from "../components/charts/IncomeExpenseComparisonChart";
+import AccountBalance from "../components/dashboard_elements/AccountBalance";
 import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
@@ -35,39 +36,27 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboard}>
-      {/* Date Filter Bar */}
       <DateFilterBar setDateRange={setDateRange} />
 
       <div className={styles.content}>
         <div className={styles.column}>
-          <IncomeExpenseSummary transactions={filteredTransactions} />
-          <RecentTransactions transactions={transactions} />
+          <div className={styles.balanceAndIncomeExpenseContainer}>
+            <AccountBalance />
+            <IncomeExpenseSummary transactions={filteredTransactions} />
+          </div>
           {window.isMobile && (
-            <div className="card">
-              <h3>Expenses by Category</h3>
-              <CategoryBreakdownChart transactions={filteredTransactions} />
-            </div>
+            <CategoryBreakdownChart transactions={filteredTransactions} />
           )}
+          <RecentTransactions transactions={transactions} />
           <TopSpendingCategories transactions={filteredTransactions} />
         </div>
 
         <div className={styles.column}>
           {!window.isMobile && (
-            <div className="card">
-              <h3>Expenses by Category</h3>
-              <CategoryBreakdownChart transactions={filteredTransactions} />
-            </div>
+            <CategoryBreakdownChart transactions={filteredTransactions} />
           )}
-
-          <div className="card">
-            <h3>Spending Trend</h3>
-            <SpendingTrendChart />
-          </div>
-
-          <div className="card">
-            <h3>Income vs. Expense</h3>
-            <IncomeExpenseComparisonChart />
-          </div>
+          <SpendingTrendChart />
+          <IncomeExpenseComparisonChart />
         </div>
       </div>
     </div>

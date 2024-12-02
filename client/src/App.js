@@ -9,6 +9,7 @@ import DesktopNav from "./components/navigation_bars/DesktopNav";
 import MobileNav from "./components/navigation_bars/MobileNav";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import SetAccountBalanceModal from "./components/modals_and_forms/SetAccountBalanceModal";
 import Dashboard from "./pages/Dashboard";
 import TransactionsPage from "./pages/TransactionsPage";
 import CategoriesPage from "./pages/CategoriesPage";
@@ -37,6 +38,14 @@ function MainContent() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/setAccountBalance"
+            element={
+              <ProtectedRoute>
+                <SetAccountBalanceModal />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/dashboard"
             element={
