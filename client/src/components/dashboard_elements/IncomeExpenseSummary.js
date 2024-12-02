@@ -7,17 +7,41 @@ const IncomeExpenseSummary = ({ transactions }) => {
   const { totalIncome, totalExpenses } = calculateMonthlyTotals(transactions);
 
   return (
-    <div className="card">
-      <div className={styles.summaryContent}>
-        <div className={`${styles.summaryBox} ${styles.income}`}>
-          <span className={styles.label}>Income</span>
-          <span className={styles.amount}>${totalIncome.toFixed(2)}</span>
+    <div>
+      {!window.isMobile && (
+        <div className="card">
+          <div className={styles.summaryContent}>
+            <div className={`${styles.summaryBox} ${styles.income}`}>
+              <span className={styles.label}>Income</span>
+              <span className={styles.amount}>${totalIncome.toFixed(2)}</span>
+            </div>
+            <div className={`${styles.summaryBox} ${styles.expense}`}>
+              <span className={styles.label}>Expenses</span>
+              <span className={styles.amount}>
+                -${totalExpenses.toFixed(2)}
+              </span>
+            </div>
+          </div>
         </div>
-        <div className={`${styles.summaryBox} ${styles.expense}`}>
-          <span className={styles.label}>Expenses</span>
-          <span className={styles.amount}>-${totalExpenses.toFixed(2)}</span>
+      )}
+      {window.isMobile && (
+        <div className={styles.summaryContent}>
+          <div className="card">
+            <div className={`${styles.summaryBox} ${styles.income}`}>
+              <span className={styles.label}>Income</span>
+              <span className={styles.amount}>${totalIncome.toFixed(2)}</span>
+            </div>
+          </div>
+          <div className="card">
+            <div className={`${styles.summaryBox} ${styles.expense}`}>
+              <span className={styles.label}>Expenses</span>
+              <span className={styles.amount}>
+                -${totalExpenses.toFixed(2)}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

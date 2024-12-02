@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.25rem;
   transition: transform 0.3s ease;
 }
 .summaryBox:hover {
@@ -35,8 +36,13 @@
 }
 
 @media (max-width: 480px) {
+  .summaryContent {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
   .summaryBox {
-    padding: 5px;
+    padding: 0.22rem;
   }
 
   .label {
@@ -47,6 +53,6 @@
   .amount {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-top: 2px;
+    margin-top: 0;
   }
 }
