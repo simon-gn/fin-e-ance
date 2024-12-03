@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import AddTransactionModal from "../../components/modals/AddTransactionModal";
+import AddTransactionModal from "../../components/modals_and_forms/AddTransactionModal";
 import { addTransactionAction } from "../../redux/actions/transactionActions";
 
 jest.mock("../../redux/actions/transactionActions", () => ({
@@ -76,7 +76,7 @@ describe("AddTransactionModal", () => {
       target: { value: mockTransactionToAdd.description },
     });
 
-    fireEvent.click(screen.getByRole("button", { name: /add transaction/i }));
+    fireEvent.click(screen.getByRole("button", { name: /add/i }));
 
     expect(mockDispatch).toHaveBeenCalledWith({
       type: "ADD_TRANSACTION",

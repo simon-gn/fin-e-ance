@@ -6,6 +6,7 @@ describe("getDateRange", () => {
     const mockStartDate = new Date();
     mockStartDate.setHours(0, 0, 0, 0);
     const mockEndDate = new Date();
+    mockEndDate.setHours(23, 59, 59, 999);
 
     expect(startDate).toEqual(mockStartDate);
     expect(endDate).toEqual(mockEndDate);

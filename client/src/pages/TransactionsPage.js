@@ -181,6 +181,8 @@ const TransactionPage = () => {
                   ) : (
                     <div
                       className={styles.removeButton}
+                      role="button"
+                      aria-label="removeButton"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleRemoveTransaction(transaction._id);

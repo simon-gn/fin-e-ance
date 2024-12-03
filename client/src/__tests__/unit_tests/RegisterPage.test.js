@@ -56,7 +56,7 @@ describe("RegisterPage", () => {
     ).toBeInTheDocument();
   });
 
-  it("saves tokens to localStorage and redirects to dashboard on successful registration", async () => {
+  it("saves tokens to localStorage and redirects to setAccountBalanceModal on successful registration", async () => {
     registerUser.mockResolvedValueOnce({
       status: 200,
       data: {
@@ -77,7 +77,7 @@ describe("RegisterPage", () => {
         "refreshToken",
         "mockRefreshToken"
       );
-      expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
+      expect(mockNavigate).toHaveBeenCalledWith("/setAccountBalance");
     });
   });
 

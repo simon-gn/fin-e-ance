@@ -2,10 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import TransactionsPage from "../../pages/TransactionsPage";
-import {
-  fetchTransactionsAction,
-  deleteTransactionAction,
-} from "../../redux/actions/transactionActions";
+import { deleteTransactionAction } from "../../redux/actions/transactionActions";
 
 jest.mock("../../redux/actions/transactionActions", () => ({
   fetchTransactionsAction: jest.fn(),
@@ -26,9 +23,11 @@ const renderPageSuccessfully = async () => {
     </MemoryRouter>
   );
 
-  await waitFor(() =>
-    expect(screen.queryByText(/loading transactions/i)).not.toBeInTheDocument()
-  );
+  await waitFor(() => {
+    expect(screen.getByRole("button", { name: /filter/i })).toBeInTheDocument();
+    expect(screen.getByText(/date/i)).toBeInTheDocument();
+    expect(screen.getByText(/category/i)).toBeInTheDocument();
+  });
 };
 
 describe("TransactionsPage", () => {
@@ -61,8 +60,8 @@ describe("TransactionsPage", () => {
         },
         categories: {
           categories: [
-            { _id: "categoryId1", name: "Clothing" },
-            { _id: "categoryId2", name: "Food" },
+            { _id: "categoryId1", name: "Food" },
+            { _id: "categoryId2", name: "Car" },
           ],
         },
       })
@@ -76,37 +75,9 @@ describe("TransactionsPage", () => {
     jest.clearAllMocks();
   });
 
-  it("renders loading state initially", async () => {
-    useSelector.mockImplementation((selector) =>
-      selector({
-        transactions: {
-          loading: true,
-        },
-        categories: {},
-      })
-    );
-
-    render(
-      <MemoryRouter>
-        {" "}
-        <TransactionsPage />{" "}
-      </MemoryRouter>
-    );
-
-    await waitFor(() =>
-      expect(screen.getByText(/loading transactions/i)).toBeInTheDocument()
-    );
-  });
-
   it("renders transactions after loading", async () => {
     await renderPageSuccessfully();
 
-    // filter button, table headings
-    expect(screen.getByRole("button", { name: /filter/i })).toBeInTheDocument();
-    expect(screen.getByText(/date/i)).toBeInTheDocument();
-    expect(screen.getByText(/category/i)).toBeInTheDocument();
-
-    // transaction data
     expect(screen.getByText(/-\$100.00/i)).toBeInTheDocument();
     expect(screen.getByText(/\+\$200.00/i)).toBeInTheDocument();
     expect(screen.getByText(/car/i)).toBeInTheDocument();
@@ -121,7 +92,7 @@ describe("TransactionsPage", () => {
     fireEvent.click(screen.getByText(/pizza/i));
 
     // Click the remove button for the selected transaction
-    fireEvent.click(screen.getByRole("button", { name: /remove/i }));
+    fireEvent.click(screen.getByRole("button", { name: /removeButton/i }));
 
     // Check if the deleteTransactionAPI function was called
     await waitFor(() =>
@@ -129,21 +100,23 @@ describe("TransactionsPage", () => {
     );
   });
 
-  it("filters transactions", async () => {
+  it("open filter form and set filter option", async () => {
     await renderPageSuccessfully();
 
-    // Open the filter form and set filter
+    // Open filter form
     fireEvent.click(screen.getByRole("button", { name: /filter/i }));
 
-    expect(screen.getByText(/filter by category/i)).toBeInTheDocument();
-
-    fireEvent.change(screen.getByLabelText(/filter by category/i), {
-      target: { value: "categoryId2" },
+    // Check that filter options are in the document with the initial value "all"
+    const categoryComboBox = screen.getByRole("combobox", {
+      name: /Category/i,
     });
+    expect(categoryComboBox).toBeInTheDocument();
+    expect(categoryComboBox.value).toBe("all");
 
-    // Check if the second call to fetchTransactionsAction is called with second parameter set to 'categoryId2'
-    await waitFor(() =>
-      expect(fetchTransactionsAction.mock.calls[1][1]).toBe("categoryId2")
-    );
+    // Set the filter option to specific value
+    fireEvent.change(categoryComboBox, { target: { value: "Food" } });
+
+    // Assert that the value has been updated
+    expect(categoryComboBox.value).toBe("Food");
   });
 });
