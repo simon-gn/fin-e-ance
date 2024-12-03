@@ -22,7 +22,8 @@ with:
 </p>
   
 # Installation
-Usable on desktop and mobile, although the layout currently is more polished on mobile. Just visit: https://fin-e-ance-simon-gns-projects.vercel.app/ and sign up. You can also install the app on mobile by visiting the URL and selecting "Add to Home screen" in the browser’s "three-dot" menu. Your browser might also prompt you to install the app upon visiting the URL. #### Known Issue: 
+Usable on desktop and mobile, although the layout currently is more polished on mobile. Just visit: https://fin-e-ance-simon-gns-projects.vercel.app/ and sign up. You can also install the app on mobile by visiting the URL and selecting "Add to Home screen" in the browser’s "three-dot" menu. Your browser might also prompt you to install the app upon visiting the URL. 
+#### Known Issue: 
 Since the server is deployed on a free instance, it goes idle after periods of inactivity. When accessed for the first time after being idle, the server needs to "wake up," which can delay requests by 50 seconds or more.
 
 # To-do
