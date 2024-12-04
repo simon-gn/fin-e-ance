@@ -44,7 +44,8 @@ exports.addTransaction = async (req, res) => {
 
     const newAccountBalance = await updateAccountBalance(
       req.user.id,
-      type === "Expense" ? -amount : amount
+      type === "Expense" ? -amount : amount,
+      date
     );
 
     res

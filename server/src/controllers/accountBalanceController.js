@@ -25,17 +25,33 @@ exports.setAccountBalance = async (req, res) => {
   }
 };
 
-exports.updateAccountBalance = async (userId, amount) => {
-  const latestAccountBalance = await AccountBalance.findOne({
+exports.updateAccountBalance = async (userId, amount, date) => {
+  const latestBeforeDate = await AccountBalance.findOne({
     user: userId,
-  }).sort({
-    date: -1,
-  });
+    date: { $lt: date },
+  }).sort({ date: -1 });
+
+  const newAmount = latestBeforeDate
+    ? latestBeforeDate.amount + Number(amount)
+    : Number(amount);
 
   const newAccountBalance = await AccountBalance.create({
     user: userId,
-    amount: latestAccountBalance.amount + Number(amount),
+    amount: newAmount,
+    date,
   });
+
+  const subsequentAccountBalances = await AccountBalance.find({
+    user: userId,
+    date: { $gt: date },
+  }).sort({ date: 1 });
+
+  for (const balance of subsequentAccountBalances) {
+    await AccountBalance.updateOne(
+      { _id: balance._id },
+      { amount: balance.amount + Number(amount) }
+    );
+  }
 
   return newAccountBalance;
 };

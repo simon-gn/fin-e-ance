@@ -28,16 +28,38 @@ const accountBalanceReducer = (state = initialState, action) => {
         loading: false,
         accountBalances: action.payload,
       };
-    case SET_ACCOUNTBALANCE_SUCCESS:
+    case SET_ACCOUNTBALANCE_SUCCESS: {
+      const updatedBalances = [...state.accountBalances, action.payload].sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+
+      const newEntryIndex = updatedBalances.findIndex(
+        (balance) => balance._id === action.payload._id
+      );
+
+      let amountDiff = updatedBalances[newEntryIndex + 1]
+        ? action.payload.amount - updatedBalances[newEntryIndex + 1].amount
+        : action.payload.amount;
+
+      const recalculatedBalances = updatedBalances.map((balance, index) => {
+        if (index >= newEntryIndex) {
+          return balance;
+        }
+
+        const updatedBalance = {
+          ...balance,
+          amount: Number(balance.amount) + amountDiff,
+        };
+
+        return updatedBalance;
+      });
+
       return {
         ...state,
         loading: false,
-        accountBalances: [...state.accountBalances, action.payload].sort(
-          (a, b) => {
-            return new Date(b.date) - new Date(a.date);
-          }
-        ),
+        accountBalances: recalculatedBalances,
       };
+    }
     case FETCH_ACCOUNTBALANCES_FAILURE:
     case SET_ACCOUNTBALANCE_FAILURE:
       return {
