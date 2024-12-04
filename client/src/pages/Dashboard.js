@@ -1,5 +1,7 @@
-import React, { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAccountBalancesAction } from "../redux/actions/accountBalanceActions";
+import { filterByDate } from "../utils/miscUtils";
 import DateFilterBar from "../components/dashboard_elements/DateFilterBar";
 import IncomeExpenseSummary from "../components/dashboard_elements/IncomeExpenseSummary";
 import TopSpendingCategories from "../components/dashboard_elements/TopSpendingCategories";
@@ -17,22 +19,22 @@ const Dashboard = () => {
   });
 
   const { transactions } = useSelector((state) => state.transactions);
+  const { accountBalances } = useSelector((state) => state.accountBalances);
 
-  const filteredTransactions = useMemo(() => {
-    return transactions.filter((transaction) => {
-      if (dateRange.startDate !== null && dateRange.endDate !== null) {
-        const transactionDate = new Date(transaction.date);
-        if (
-          transactionDate < dateRange.startDate ||
-          transactionDate > dateRange.endDate
-        ) {
-          return false;
-        }
-      }
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAccountBalancesAction());
+  }, [dispatch]);
 
-      return true;
-    });
-  }, [transactions, dateRange]);
+  const filteredTransactions = useMemo(
+    () => filterByDate(transactions, dateRange),
+    [transactions, dateRange]
+  );
+
+  const filteredAccountBalances = useMemo(
+    () => filterByDate(accountBalances, dateRange),
+    [accountBalances, dateRange]
+  );
 
   return (
     <div className={styles.dashboard}>
@@ -41,7 +43,7 @@ const Dashboard = () => {
       <div className={styles.content}>
         <div className={styles.column}>
           <div className={styles.balanceAndIncomeExpenseContainer}>
-            <AccountBalance />
+            <AccountBalance accountBalances={filteredAccountBalances} />
             <IncomeExpenseSummary transactions={filteredTransactions} />
           </div>
           {window.isMobile && (

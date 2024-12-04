@@ -1,17 +1,8 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAccountBalancesAction } from "../../redux/actions/accountBalanceActions";
+import PropTypes from "prop-types";
 import { ResponsiveLine } from "@nivo/line";
 import styles from "./AccountBalance.module.css";
 
-const AccountBalance = () => {
-  const { accountBalances } = useSelector((state) => state.accountBalances);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchAccountBalancesAction());
-  }, [dispatch]);
-
+const AccountBalance = ({ accountBalances }) => {
   const chartData = [
     {
       id: "AccountBalance",
@@ -57,6 +48,10 @@ const AccountBalance = () => {
       </div>
     </div>
   );
+};
+
+AccountBalance.propTypes = {
+  accountBalances: PropTypes.array.isRequired,
 };
 
 export default AccountBalance;
