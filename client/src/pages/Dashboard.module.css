@@ -6,7 +6,7 @@
 
 .content {
   display: grid;
-  grid-template-columns: 25% 1fr;
+  grid-template-columns: 28% 1fr;
   gap: 0.7rem;
 }
 

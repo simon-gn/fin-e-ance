@@ -29,12 +29,12 @@ const DesktopNav = () => {
         <li onClick={toggleTransactionsPageSelection}>
           <Link to="/transactions">Transactions</Link>
           {isTransactionsPageSelected && (
-            <li
+            <div
               className={styles.desktopNavItem}
               onClick={toggleAddTransactionModal}
             >
               Add Transaction
-            </li>
+            </div>
           )}
         </li>
         <li>
