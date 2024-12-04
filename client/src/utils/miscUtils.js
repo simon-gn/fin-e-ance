@@ -67,3 +67,16 @@ export const formatDate = (date) => {
     minute: "2-digit",
   })}`;
 };
+
+export const filterByDate = (objectToFilter, dateRange) => {
+  return objectToFilter.filter((entry) => {
+    if (dateRange.startDate !== null && dateRange.endDate !== null) {
+      const entryDate = new Date(entry.date);
+      if (entryDate < dateRange.startDate || entryDate > dateRange.endDate) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+};
