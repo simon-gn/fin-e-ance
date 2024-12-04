@@ -9,10 +9,13 @@ const AccountBalance = ({ accountBalances }) => {
     ? [
         {
           id: "AccountBalance",
-          data: accountBalances.map((balance) => ({
-            x: balance.date,
-            y: balance.amount,
-          })),
+          data: accountBalances
+            .slice()
+            .reverse()
+            .map((balance) => ({
+              x: balance.date,
+              y: balance.amount,
+            })),
         },
       ]
     : [];
