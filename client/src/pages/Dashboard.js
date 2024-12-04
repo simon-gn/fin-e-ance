@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAccountBalancesAction } from "../redux/actions/accountBalanceActions";
+import React, { useMemo, useState } from "react";
+import { useSelector } from "react-redux";
 import { filterByDate } from "../utils/miscUtils";
 import DateFilterBar from "../components/dashboard_elements/DateFilterBar";
 import IncomeExpenseSummary from "../components/dashboard_elements/IncomeExpenseSummary";
@@ -20,11 +19,6 @@ const Dashboard = () => {
 
   const { transactions } = useSelector((state) => state.transactions);
   const { accountBalances } = useSelector((state) => state.accountBalances);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchAccountBalancesAction());
-  }, [dispatch]);
 
   const filteredTransactions = useMemo(
     () => filterByDate(transactions, dateRange),
