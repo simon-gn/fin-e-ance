@@ -41,14 +41,14 @@ export const addTransactionAction = (transaction) => async (dispatch) => {
   dispatch({ type: ADD_TRANSACTION_REQUEST });
   try {
     const token = localStorage.getItem("accessToken");
-    const { newTransaction, newAccountBalance } = await addTransactionAPI(
-      transaction,
-      token
-    );
-    dispatch({ type: ADD_TRANSACTION_SUCCESS, payload: newTransaction.data });
+    const response = await addTransactionAPI(transaction, token);
+    dispatch({
+      type: ADD_TRANSACTION_SUCCESS,
+      payload: response.data.newTransaction,
+    });
     dispatch({
       type: SET_ACCOUNTBALANCE_SUCCESS,
-      payload: newAccountBalance.data,
+      payload: response.data.newAccountBalance,
     });
   } catch (error) {
     dispatch({ type: ADD_TRANSACTION_FAILURE, payload: error.message });
