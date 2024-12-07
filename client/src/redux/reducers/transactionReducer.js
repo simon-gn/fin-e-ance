@@ -37,7 +37,11 @@ const transactionReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         transactions: [...state.transactions, action.payload].sort((a, b) => {
-          return new Date(b.date) - new Date(a.date);
+          const dateDiff = new Date(b.date) - new Date(a.date);
+          if (dateDiff !== 0) {
+            return dateDiff;
+          }
+          return new Date(b.createdAt) - new Date(a.createdAt);
         }),
       };
     case DELETE_TRANSACTION_SUCCESS:
