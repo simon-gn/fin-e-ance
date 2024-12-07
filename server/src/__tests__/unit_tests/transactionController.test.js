@@ -6,7 +6,8 @@ const {
 } = require("../../controllers/transactionController");
 const Transaction = require("../../models/Transaction");
 const {
-  updateAccountBalance,
+  addAccountBalance,
+  deleteAccountBalance,
 } = require("../../controllers/accountBalanceController");
 
 jest.mock("../../models/Transaction", () => ({
@@ -15,7 +16,8 @@ jest.mock("../../models/Transaction", () => ({
   findById: jest.fn(),
 }));
 jest.mock("../../controllers/accountBalanceController", () => ({
-  updateAccountBalance: jest.fn(),
+  addAccountBalance: jest.fn(),
+  deleteAccountBalance: jest.fn(),
 }));
 
 let req, res;
@@ -71,6 +73,7 @@ describe("getTransactions", () => {
     );
     expect(Transaction.find().populate().sort).toHaveBeenCalledWith({
       date: -1,
+      createdAt: -1,
     });
   });
 
@@ -105,6 +108,7 @@ describe("getTransactions", () => {
     expect(Transaction.find).toHaveBeenCalledWith(expect.objectContaining({}));
     expect(Transaction.find().populate().sort).toHaveBeenCalledWith({
       date: -1,
+      createdAt: -1,
     });
   });
 
@@ -132,7 +136,7 @@ describe("addTransaction", () => {
     Transaction.findById.mockReturnValue({
       populate: jest.fn(),
     });
-    updateAccountBalance.mockReturnValue({});
+    addAccountBalance.mockReturnValue({});
     req = { user: { id: "testUser" }, body: { type: "Expense" } };
 
     await addTransaction(req, res);
@@ -156,6 +160,7 @@ describe("deleteTransaction", () => {
     const mockTransaction = { user: mockUserId, deleteOne: jest.fn() };
 
     Transaction.findById.mockReturnValue(mockTransaction);
+    deleteAccountBalance.mockReturnValue({});
 
     const req = { user: { id: mockUserId.toString() }, body: "transactionId" };
 
