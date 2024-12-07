@@ -12,8 +12,8 @@ const AccountBalance = ({ accountBalances }) => {
           data: accountBalances
             .slice()
             .reverse()
-            .map((balance) => ({
-              x: balance.date,
+            .map((balance, index) => ({
+              x: index,
               y: balance.amount,
             })),
         },
