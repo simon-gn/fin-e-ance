@@ -9,7 +9,10 @@ import {
   DELETE_TRANSACTION_SUCCESS,
   DELETE_TRANSACTION_FAILURE,
 } from "./transactionActionTypes";
-import { SET_ACCOUNTBALANCE_SUCCESS } from "./accountBalanceActionTypes";
+import {
+  ADD_ACCOUNTBALANCE_SUCCESS,
+  DELETE_ACCOUNTBALANCE_SUCCESS,
+} from "./accountBalanceActionTypes";
 import {
   fetchTransactionsAPI,
   addTransactionAPI,
@@ -47,7 +50,7 @@ export const addTransactionAction = (transaction) => async (dispatch) => {
       payload: response.data.newTransaction,
     });
     dispatch({
-      type: SET_ACCOUNTBALANCE_SUCCESS,
+      type: ADD_ACCOUNTBALANCE_SUCCESS,
       payload: response.data.newAccountBalance,
     });
   } catch (error) {
@@ -61,6 +64,7 @@ export const deleteTransactionAction = (transactionId) => async (dispatch) => {
     const token = localStorage.getItem("accessToken");
     await deleteTransactionAPI(transactionId, token);
     dispatch({ type: DELETE_TRANSACTION_SUCCESS, payload: transactionId });
+    dispatch({ type: DELETE_ACCOUNTBALANCE_SUCCESS, payload: transactionId });
   } catch (error) {
     dispatch({ type: DELETE_TRANSACTION_FAILURE, payload: error.message });
   }

@@ -4,7 +4,7 @@ exports.getAccountBalances = async (req, res) => {
   try {
     const accountBalances = await AccountBalance.find({
       user: req.user.id,
-    }).sort({ date: -1 });
+    }).sort({ date: -1, createdAt: -1 });
 
     res.status(200).json(accountBalances);
   } catch (error) {
@@ -25,11 +25,11 @@ exports.setAccountBalance = async (req, res) => {
   }
 };
 
-exports.updateAccountBalance = async (userId, amount, date) => {
+exports.addAccountBalance = async (userId, transactionId, amount, date) => {
   const latestBeforeDate = await AccountBalance.findOne({
     user: userId,
-    date: { $lt: date },
-  }).sort({ date: -1 });
+    date: { $lte: date },
+  }).sort({ date: -1, createdAt: -1 });
 
   const newAmount = latestBeforeDate
     ? latestBeforeDate.amount + Number(amount)
@@ -37,14 +37,26 @@ exports.updateAccountBalance = async (userId, amount, date) => {
 
   const newAccountBalance = await AccountBalance.create({
     user: userId,
+    transaction: transactionId,
     amount: newAmount,
     date,
   });
 
+  updateSubsequentAccountBalances(userId, amount, date);
+
+  return newAccountBalance;
+};
+
+exports.deleteAccountBalance = async (userId, transactionId, amount, date) => {
+  await AccountBalance.deleteOne({ user: userId, transaction: transactionId });
+  await updateSubsequentAccountBalances(userId, amount, date);
+};
+
+const updateSubsequentAccountBalances = async (userId, amount, date) => {
   const subsequentAccountBalances = await AccountBalance.find({
     user: userId,
     date: { $gt: date },
-  }).sort({ date: 1 });
+  }).sort({ date: 1, createdAt: 1 });
 
   for (const balance of subsequentAccountBalances) {
     await AccountBalance.updateOne(
@@ -52,6 +64,4 @@ exports.updateAccountBalance = async (userId, amount, date) => {
       { amount: balance.amount + Number(amount) }
     );
   }
-
-  return newAccountBalance;
 };

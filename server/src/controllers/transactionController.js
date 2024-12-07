@@ -1,5 +1,8 @@
 const Transaction = require("../models/Transaction");
-const { updateAccountBalance } = require("./accountBalanceController");
+const {
+  addAccountBalance,
+  deleteAccountBalance,
+} = require("./accountBalanceController");
 
 exports.getTransactions = async (req, res) => {
   try {
@@ -18,7 +21,7 @@ exports.getTransactions = async (req, res) => {
 
     const transactions = await Transaction.find(filter)
       .populate("category", "name color")
-      .sort({ date: -1 });
+      .sort({ date: -1, createdAt: -1 });
     res.status(200).json(transactions);
   } catch (error) {
     res.status(500).json({ message: "Error fetching transactions", error });
@@ -42,8 +45,9 @@ exports.addTransaction = async (req, res) => {
       newTransaction._id
     ).populate("category", "name color");
 
-    const newAccountBalance = await updateAccountBalance(
+    const newAccountBalance = await addAccountBalance(
       req.user.id,
+      newTransaction._id,
       type === "Expense" ? -amount : amount,
       date
     );
@@ -69,6 +73,11 @@ exports.deleteTransaction = async (req, res) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
+    await deleteAccountBalance(
+      req.user.id,
+      transactionId,
+      transaction.type === "Expense" ? transaction.amount : -transaction.amount
+    );
     await transaction.deleteOne();
     res.status(200).json({ message: "Transaction removed" });
   } catch (err) {
