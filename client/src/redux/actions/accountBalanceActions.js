@@ -1,7 +1,7 @@
 import {
-  SET_ACCOUNTBALANCE_FAILURE,
-  SET_ACCOUNTBALANCE_REQUEST,
-  SET_ACCOUNTBALANCE_SUCCESS,
+  ADD_ACCOUNTBALANCE_FAILURE,
+  ADD_ACCOUNTBALANCE_REQUEST,
+  ADD_ACCOUNTBALANCE_SUCCESS,
   FETCH_ACCOUNTBALANCES_FAILURE,
   FETCH_ACCOUNTBALANCES_REQUEST,
   FETCH_ACCOUNTBALANCES_SUCCESS,
@@ -26,15 +26,15 @@ export const fetchAccountBalancesAction = () => async (dispatch) => {
 };
 
 export const setAccountBalanceAction = (amount) => async (dispatch) => {
-  dispatch({ type: SET_ACCOUNTBALANCE_REQUEST });
+  dispatch({ type: ADD_ACCOUNTBALANCE_REQUEST });
   try {
     const token = localStorage.getItem("accessToken");
     const { accountBalance } = await setAccountBalanceAPI(amount, token);
     dispatch({
-      type: SET_ACCOUNTBALANCE_SUCCESS,
+      type: ADD_ACCOUNTBALANCE_SUCCESS,
       payload: accountBalance.data,
     });
   } catch (error) {
-    dispatch({ type: SET_ACCOUNTBALANCE_FAILURE, payload: error.message });
+    dispatch({ type: ADD_ACCOUNTBALANCE_FAILURE, payload: error.message });
   }
 };
