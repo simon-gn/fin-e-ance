@@ -9,10 +9,12 @@ if (process.env.NODE_ENV !== "production") {
 
 // MongoDB connection
 if (process.env.NODE_ENV !== "test") {
-  mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB connected"))
-    .catch((err) => console.log(err));
+  if (!mongoose.connection.readyState) {
+    mongoose
+      .connect(process.env.MONGO_URI)
+      .then(() => console.log("MongoDB connected"))
+      .catch((err) => console.log(err));
+  }
 }
 
 // Ensure default Category exists
