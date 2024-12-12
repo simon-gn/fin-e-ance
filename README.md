@@ -8,7 +8,7 @@ A financial dashboard PWA (Progressive Web App) built on the MERN Stack:
 with:
 - modern CSS styling
 - continuous integration (CI) with automated testing using GitHub Actions
-- continuous deployment (CD) on Render (backend) and Vercel (frontend)
+- continuous deployment (CD) on Vercel
 - and much more...
 
 <p>&nbsp;</p>
