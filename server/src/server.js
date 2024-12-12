@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const app = require("./index");
 const Category = require("./models/Category");
 const { startCronJob } = require("./cron");
-require("dotenv").config();
+
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 // MongoDB connection
 if (process.env.NODE_ENV !== "test") {
