@@ -1,8 +1,8 @@
 const cron = require("node-cron");
-const RefreshToken = require("./models/RefreshToken");
+const RefreshToken = require("../models/RefreshToken");
 const moment = require("moment");
 
-exports.startCronJob = async () => {
+exports.startDailyCleanUpCronJob = async () => {
   cron.schedule("0 0 * * *", async () => {
     console.log("Running daily cleanup of expired and revoked refresh tokens");
     try {
