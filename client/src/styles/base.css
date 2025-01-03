@@ -42,10 +42,6 @@ button {
   transition: all 0.3s ease;
   box-shadow: var(--box_shadow_color);
 }
-button:focus {
-  outline: none;
-  background-color: var(--main_color);
-}
 button:active {
   background-color: var(--main_color_hover);
 }
