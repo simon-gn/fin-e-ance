@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import { validateTokenAPI } from "../services/authAPI";
 import { useDispatch } from "react-redux";
 import { fetchTransactionsAction } from "../redux/actions/transactionActions";
+import { fetchRepeatingTransactionsAction } from "../redux/actions/repeatingTransactionActions";
 import { fetchAccountBalancesAction } from "../redux/actions/accountBalanceActions";
 import { fetchCategoriesAction } from "../redux/actions/categoryActions";
 import PropTypes from "prop-types";
@@ -34,6 +35,7 @@ const ProtectedRoute = ({ children }) => {
     if (isValid) {
       try {
         dispatch(fetchTransactionsAction());
+        dispatch(fetchRepeatingTransactionsAction());
         dispatch(fetchAccountBalancesAction());
         dispatch(fetchCategoriesAction());
       } catch (err) {

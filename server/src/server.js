@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 const app = require("./index");
 const Category = require("./models/Category");
-const { startCronJob } = require("./cron");
+const { startDailyCleanUpCronJob } = require("./cron_jobs/dailyCleanUpCronJob");
+const {
+  startRepeatingTransactionsCronJob,
+} = require("./cron_jobs/repeatingTransactionsCronJob");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -27,9 +30,10 @@ const ensureDefaultCategory = async () => {
 };
 ensureDefaultCategory();
 
-// Start cron job to delete old tokens
+// Start cron jobs
 if (process.env.NODE_ENV !== "test") {
-  startCronJob();
+  startDailyCleanUpCronJob();
+  startRepeatingTransactionsCronJob();
 }
 
 module.exports = app;

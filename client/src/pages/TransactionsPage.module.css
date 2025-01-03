@@ -5,6 +5,20 @@
   padding: 1.25rem;
 }
 
+.tabContainer {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+.tab {
+  flex: 1;
+  background-color: var(--background_color);
+  font-size: 14px;
+  padding: 0.15rem;
+}
+.activeTab {
+  background-color: var(--main_color_hover);
+}
+
 .filterButton {
   display: inline-flex;
   align-items: center;

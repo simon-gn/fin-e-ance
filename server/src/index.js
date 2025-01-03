@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
+const repeatingTransactionRoutes = require("./routes/repeatingTransactionRoutes");
 const accountBalanceRoutes = require("./routes/accountBalanceRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const app = express();
@@ -17,6 +18,7 @@ app.use(
 
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/api/repeatingTransactions", repeatingTransactionRoutes);
 app.use("/api/accountBalances", accountBalanceRoutes);
 app.use("/api/categories", categoryRoutes);
 

@@ -13,44 +13,64 @@
 
 .addTransactionForm {
   background: var(--card_color);
-  max-width: 70vw;
+  max-width: 78vw;
   padding: 1.25rem;
   border-radius: 0.5rem;
   box-shadow: var(--box_shadow_color);
 }
 
+.tabContainer {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+.tab {
+  flex: 1;
+  background-color: var(--background_color);
+  font-size: 14px;
+  padding: 0.15rem;
+}
+.activeTab {
+  background-color: var(--main_color_hover);
+}
+
 .addTransactionForm input,
 .addTransactionForm select {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .dateTimeGroup {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
   margin: 0;
 }
-.dateContainer {
-  flex: 1;
-}
-.timeContainer {
+.dateTimeGroup div {
   flex: 1;
 }
 
 .categoryAmountGroup {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
   margin: 0;
 }
 .categoryContainer {
-  flex: 2;
+  flex: 0.6;
 }
 .amountContainer {
+  flex: 0.4;
+}
+
+.typeFrequencyGroup {
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+}
+.typeFrequencyGroup div {
   flex: 1;
 }
 
 .buttonGroup {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   margin-top: 1.5rem;
   margin-bottom: 0.25rem;
 }
