@@ -1,6 +1,8 @@
 const cron = require("node-cron");
 const RefreshToken = require("../../models/RefreshToken");
-const { startCronJob } = require("../../cron");
+const {
+  startDailyCleanUpCronJob,
+} = require("../../cron_jobs/dailyCleanUpCronJob");
 const moment = require("moment");
 
 jest.mock("node-cron", () => ({
@@ -11,7 +13,7 @@ jest.mock("../../models/RefreshToken", () => ({
 }));
 jest.mock("moment");
 
-describe("startCronJob", () => {
+describe("startDailyCleanUpCronJob", () => {
   let consoleErrorMock, consoleLogMock, mockDate;
 
   beforeEach(() => {
@@ -41,7 +43,7 @@ describe("startCronJob", () => {
       deletedCount: mockDeletedCount,
     });
 
-    await startCronJob();
+    await startDailyCleanUpCronJob();
 
     expect(consoleLogMock).toHaveBeenCalledWith(
       "Running daily cleanup of expired and revoked refresh tokens"
@@ -63,7 +65,7 @@ describe("startCronJob", () => {
 
     RefreshToken.deleteMany.mockRejectedValue(error);
 
-    await startCronJob();
+    await startDailyCleanUpCronJob();
 
     expect(cron.schedule).toHaveBeenCalledWith(
       "0 0 * * *",
