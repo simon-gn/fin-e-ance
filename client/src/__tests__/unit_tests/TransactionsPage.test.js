@@ -8,6 +8,10 @@ jest.mock("../../redux/actions/transactionActions", () => ({
   fetchTransactionsAction: jest.fn(),
   deleteTransactionAction: jest.fn(),
 }));
+jest.mock("../../redux/actions/repeatingTransactionActions", () => ({
+  fetchRepeatingTransactionsAction: jest.fn(),
+  deleteRepeatingTransactionAction: jest.fn(),
+}));
 
 jest.mock("react-redux", () => ({
   useSelector: jest.fn(),
@@ -58,6 +62,7 @@ describe("TransactionsPage", () => {
           transactions: mockTransactionsInDb,
           loading: false,
         },
+        repeatingTransactions: {},
         categories: {
           categories: [
             { _id: "categoryId1", name: "Food" },
